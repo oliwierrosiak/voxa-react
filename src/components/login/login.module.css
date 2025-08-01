@@ -23,6 +23,18 @@
     border: .3rem solid #891FA6;
     border-radius: 1.5rem;
     width: 40vw;
+    position: relative;
+    overflow: hidden;
+}
+.form
+{
+    width:100%;
+    height: 100%;
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap:.5rem;
 }
 .logo
 {
@@ -118,6 +130,14 @@
     transition: background .3s ease;
     cursor: pointer;
     margin: 1.2rem 0 .6rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnLoading
+{
+        background: #891FA6 !important;
+        cursor: default;
 }
 .submit:hover
 {
@@ -131,17 +151,21 @@
     color: white;
     font-weight: 700;
     outline: none;
-    background: rgb(84, 84, 84);
-    border: .3rem solid grey;
+    background: rgb(113, 113, 113);
+    border: .3rem solid rgb(141, 141, 141);
     border-radius: .8rem;
     font-family: "Merriweather Sans", sans-serif;
     cursor: pointer;
     transition: background .3s ease;
     margin: .6rem 0 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:.3rem;
 }
 .googleLogin:hover
 {
-    background:grey;
+    background:rgb(141, 141, 141);
 }
 .haveNotAnAccount
 {
@@ -174,4 +198,196 @@
     font-size: .8rem;
     text-align: center;
     height: .9rem;
+}
+.googleIcon
+{
+    width:1.5rem;
+    height: 1.5rem;
+}
+.back
+{
+    position: absolute;
+    top:2rem;
+    left: 2rem;
+    width:2.5rem;
+    height: 2.5rem;
+    fill: #891FA6;
+    cursor: pointer;
+    transition: fill .3s ease;
+}
+.back:hover
+{
+    fill: #C935F2;
+}
+.registerBtns
+{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    gap:1rem;
+    align-items: center;
+}
+.registerBtn
+{
+    font-size: 1.2rem;
+    letter-spacing: .05rem;
+    width: 100%;
+    outline: none;
+    padding: .3rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    background: #891FA6;
+    border:.25rem solid #C935F2; 
+    color: white;
+    transition: background .3s ease;
+    font-family: "Archivo Black", sans-serif;
+}
+.registerBtn:hover
+{
+    background: #C935F2;
+    
+}
+.cardSpinner
+{
+    width:100%;
+    overflow: hidden;
+    position: relative;
+    height: 12rem;
+}
+.card
+{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    transition: left .5s linear;
+}
+.cardPosition2
+{
+    left: 0;
+}
+.cardPosition1
+{
+    left: -150%;
+}
+.cardPosition0
+{
+    left:-300%
+}
+.cardPosition3
+{
+    left: 150%;
+}
+.cardPosition4
+{
+    left:300%
+}
+.btnDisabled
+{
+    background: grey !important;
+    border: .25rem solid rgb(84, 84, 84) !important;
+    cursor: default;
+}
+.loadingContainer
+{
+    width:2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fileContainer
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:.5rem;
+    position: relative;
+    width:6rem;
+    height: 6rem;
+    border:.3rem solid #891FA6;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: border .3s ease;
+    margin-bottom: .5rem;
+}
+.fileContainer:hover
+{
+    border:.3rem solid #C935F2;
+}
+.fileContainer:hover>.imgTheme
+{
+    opacity: 1;
+}
+.userImg
+{
+    width:100%;
+    height: 100%;
+}
+.imgTheme
+{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .3s ease;
+}
+.file
+{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+}
+.progressBar
+{
+    position: absolute;
+    left:0;
+    right: 0;
+    bottom: 0;
+    height: .5rem;
+    background-color: grey;
+}
+.progress
+{
+    width:0%;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left:0;
+    border-radius: 10px;
+    background-color: red;
+    transition: width .5s linear;
+}
+.progressPos1
+{
+    width: 25%;
+}
+.progressPos2
+{
+    width: 50%;
+}
+.progressPos3
+{
+    width: 75%;
+}
+.progressPos4
+{
+    width: 100%;
 }

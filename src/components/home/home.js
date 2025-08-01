@@ -11,6 +11,11 @@ function Home(props)
         setShowLoginState('')
     }
 
+    const setLoginAction = (action) =>
+    {
+        setShowLoginState(action)
+    }
+
     return(
         <main className={styles.main}>
             <header className={styles.header}>
@@ -29,7 +34,7 @@ function Home(props)
                     <button className={`${styles.btn} ${styles.registerBtn}`} onClick={e=>setShowLoginState("register")}>Zarejestruj się</button>
                 </div>
 
-                {showLoginState?<ShowLogin action={showLoginState} cancelLoginForm={cancelLoginForm}/>:null}
+                {showLoginState?<ShowLogin action={showLoginState} cancelLoginForm={cancelLoginForm} setLoginAction={setLoginAction}/>:null}
 
             </header>
         </main>
