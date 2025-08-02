@@ -14,6 +14,8 @@ function ShowLogin(props)
     const [registerCard,setRegisterCard] = useState(0)
     const [registerValidation,setRegisterValidation] = useState(false)
 
+    const nextBtn = useRef()
+
     const hideLoginForm = (e) =>{
         if(e.target.classList.contains(styles.loginContainer) && !loading)
         {
@@ -39,12 +41,13 @@ function ShowLogin(props)
         setRegisterCard(val)
     }
 
-    useEffect(()=>{
-        if(registerValidation)
+    const keyPressed = (e) =>
+    {
+        if(e.key === "Enter")
         {
-            // setLoading(true)
+            nextBtn.current.click()
         }
-    },[registerValidation])
+    }
 
     return(
         <div className={styles.loginContainer} onClick={hideLoginForm}>
@@ -54,11 +57,11 @@ function ShowLogin(props)
                     <Back/>
                 </div>
                 {props.action === "login"?<LoginForm setLoginAction={props.setLoginAction} loading={loading} setLoading={setLoading}/>:null}
-                {props.action === "register"?<RegisterForm loading={loading} setLoading={setLoading} registerCard={registerCard} registerValidation={registerValidation} setRegisterValidation={setRegisterValidation} setCard={setCard}/>:null}
+                {props.action === "register"?<RegisterForm keyPressed={keyPressed} loading={loading} setLoading={setLoading} registerCard={registerCard} registerValidation={registerValidation} setRegisterValidation={setRegisterValidation} setCard={setCard}/>:null}
 
                 {props.action === "register" && !loading?<div className={styles.registerBtns}>
                     <button disabled={registerCard === 0} className={`${styles.registerBtn} ${registerCard === 0 ? styles.btnDisabled : null}`} onClick={e=>registerCard > 0 ? changeRegisterCard("desc"):null}>Wstecz</button>
-                    <button className={styles.registerBtn} onClick={e=>registerCard != 2?changeRegisterCard("asc"):setRegisterValidation(true)}>Dalej</button>
+                    <button ref={nextBtn} className={styles.registerBtn} onClick={e=>registerCard != 2?changeRegisterCard("asc"):setRegisterValidation(true)}>Dalej</button>
                 </div>:null}
 
                 {props.action === "register" && loading ?<div className={styles.loadingContainer}><Loading /></div>:null}

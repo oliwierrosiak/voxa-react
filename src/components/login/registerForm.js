@@ -138,6 +138,13 @@ function RegisterForm(props)
         }
     },[props.registerValidation])
 
+    useEffect(()=>{
+        window.addEventListener("keydown",props.keyPressed)
+        return ()=>{
+            window.removeEventListener("keydown",props.keyPressed)
+        }
+    },[])
+
     return(
         <div className={styles.cardSpinner}>
         <div className={`${styles.card} ${props.registerCard === 0?styles.cardPosition2 :( props.registerCard === 1 ? styles.cardPosition1: styles.cardPosition0)}`}>

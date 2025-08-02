@@ -362,7 +362,6 @@
     right: 0;
     bottom: 0;
     height: .5rem;
-    background-color: grey;
 }
 .progress
 {
@@ -372,7 +371,7 @@
     bottom: 0;
     left:0;
     border-radius: 10px;
-    background-color: red;
+    background-color: #C935F2;
     transition: width .5s linear;
 }
 .progressPos1
