@@ -5,7 +5,8 @@ import Eye from '../../assets/svg/eye'
 import EyeOff from '../../assets/svg/EyeOff'
 import userImg from '../../assets/img/user.png'
 import Camera from '../../assets/svg/camera'
-
+import axios from 'axios'
+import ApiAddress from '../../ApiAddress'
 
 
 function RegisterForm(props)
@@ -20,8 +21,7 @@ function RegisterForm(props)
         repeatPassword:'',
         username:''
     })
-
-    const file = useRef()
+    const [file,setFile] = useState(null)
 
     const reducer = (state,action) => {
 
@@ -38,12 +38,55 @@ function RegisterForm(props)
         username:''
     })
 
+    const sendData = async()=>{
+        try
+        {
+            const formData = new FormData()
+            formData.append('image',file)
+            formData.append('name',values.name)
+            formData.append('email',values.email)
+            formData.append('password',values.password)
+            formData.append('username',values.username)
+            await axios.post(`${ApiAddress}/register`,formData,{
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }})
+            console.log("utworzono")
+        }
+        catch(ex)
+        {
+            const err = {...errors}
+            if(ex.status === 400)
+            {
+                err.name = ex.response.data.errors.name
+                err.email = ex.response.data.errors.email
+                err.password = ex.response.data.errors.password
+                err.username = ex.response.data.errors.username
+                err.repeatPassword = ``
+                
+            }
+            else
+            {
+                err.username = "Wystąpił błąd serwera"
+                err.name = ``
+                err.email = ``
+                err.password = ``
+                err.repeatPassword = ``
+            }
+            setErrors(err)
+            props.setRegisterValidation(false)
+            props.setLoading(false)
+           
+        }
+    }
+
     const fileChanged = (e) =>
     {
         if(e.target.files[0].type.includes("image"))
         {
             const imgURL = URL.createObjectURL(e.target.files[0])
             setPreviewImg(imgURL)
+            setFile(e.target.files[0])
         }
     }
 
@@ -59,8 +102,23 @@ function RegisterForm(props)
         return regex.test(passwd)
     }
 
+    useEffect(()=>{
+        if(errors.img || errors.username)
+        {
+            props.setCard(2)
+        }
+        if(errors.password || errors.repeatPassword)
+        {
+            props.setCard(1)
+        }
+        if(errors.name || errors.email)
+        {
+            props.setCard(0)
+        }
+        
+    },[errors])
+
     const validateData = () => {
-        console.log("dfsdf")
         const errors = {
             name:'',
             email:'',
@@ -103,14 +161,7 @@ function RegisterForm(props)
         }
        
         setErrors(errors)
-        if(errors.password || errors.repeatPassword)
-        {
-            props.setCard(1)
-        }
-        if(errors.name || errors.email)
-        {
-            props.setCard(0)
-        }
+        
         let validateComplete = true
         for(const key in errors)
         {
@@ -122,7 +173,7 @@ function RegisterForm(props)
         if(validateComplete)
         {
             props.setLoading(true)
-            console.log("send")
+            sendData()
         }
         else
         {
