@@ -322,6 +322,7 @@
 .fileContainer:hover>.imgTheme
 {
     opacity: 1;
+    border-radius: 50%;
 }
 .userImg
 {

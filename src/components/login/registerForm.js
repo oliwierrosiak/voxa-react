@@ -1,17 +1,19 @@
 import styles from './login.module.css'
 import { inputBlur, inputFocus } from './inputActions'
-import { useEffect, useReducer, useState, useRef } from 'react'
+import { useEffect, useReducer, useState, useRef, useContext } from 'react'
 import Eye from '../../assets/svg/eye'
 import EyeOff from '../../assets/svg/EyeOff'
 import userImg from '../../assets/img/user.png'
 import Camera from '../../assets/svg/camera'
 import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
-
+import LoginContext from '../context/loginContext'
+import loggedUser from '../context/loggedUserContext'
 
 function RegisterForm(props)
 {
-
+    const loggedUserContext = useContext(loggedUser)
+    const loggedContext = useContext(LoginContext)
     const [showPassword,setShowPassword] = useState(false)
     const[previewImg,setPreviewImg] = useState(userImg)
     const [errors,setErrors] = useState({
@@ -51,7 +53,12 @@ function RegisterForm(props)
             headers:{
                 "Content-Type":"multipart/form-data"
             }})
-            console.log("utworzono")
+            const response = await axios.post(`${ApiAddress}/login`,{email:values.email,password:values.password})
+            sessionStorage.setItem("token",response.data.token)
+            sessionStorage.setItem("refreshToken",response.data.refreshToken)
+            const response2 = await axios.get(`${ApiAddress}/get-user-data`,{headers:{"Authorization":`Bearer ${response.data.token}`}})
+            loggedUserContext.setLoggedUser({name:response2.data.name,username:response2.data.username,email:response2.data.email})
+            loggedContext.setLogged(true)
         }
         catch(ex)
         {

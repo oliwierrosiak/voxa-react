@@ -1,14 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import styles from './login.module.css'
 import Eye from '../../assets/svg/eye'
 import EyeOff from '../../assets/svg/EyeOff'
 import googleLogo from '../../assets/img/google-icon.png'
 import Loading from '../../assets/svg/loading1'
 import { inputBlur,inputFocus } from './inputActions'
+import axios from 'axios'
+import ApiAddress from '../../ApiAddress.js'
+import LoginContext from '../context/loginContext.js'
+import loggedUser from '../context/loggedUserContext.js'
 
 function LoginForm(props)
 {
-
+    const loggedUserContext = useContext(loggedUser)
+    const loggedContext = useContext(LoginContext)
     const [emailValue,setEmailValue] = useState('')
     const [passwordValue,setPasswordValue] = useState('')
     const [showPassword,setShowPassword] = useState(false)
@@ -17,6 +22,31 @@ function LoginForm(props)
         password:''
     })
 
+    const sendData = async()=>
+    {
+        try
+        {
+            const response = await axios.post(`${ApiAddress}/login`,{email:emailValue,password:passwordValue})
+            sessionStorage.setItem("token",response.data.token)
+            sessionStorage.setItem("refreshToken",response.data.refreshToken)
+            loggedContext.setLogged(true)
+            loggedUserContext.setLoggedUser(response.data)
+        }
+        catch(ex)
+        {
+            const errors = {...formError}
+            if(ex?.response?.data?.status === 401)
+            {
+                errors.password = "Nieprawidłowe dane"
+            }
+            else
+            {
+                errors.password = "Błąd połączenia z serwerem"
+            }
+            props.setLoading(false)
+            setFormError(errors)
+        }
+    }
 
     const validateData = (e) =>
     {
@@ -49,7 +79,7 @@ function LoginForm(props)
                     password:errors.password
                 })
                 props.setLoading(true)
-                console.log("send")
+                sendData()
             }
         }
     }
