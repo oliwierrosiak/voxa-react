@@ -149,7 +149,6 @@
 }
 .profileContainer
 {
-    background-color: yellow;
     position: relative;
 }
 .profileContainer:hover>.listContainer

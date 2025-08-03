@@ -15,11 +15,14 @@ import ProfileIcon from '../../assets/svg/profile'
 import InvitationsIcon from '../../assets/svg/invitations'
 import ChatIcon from '../../assets/svg/chat'
 import LoginContext from '../context/loginContext'
+import { useNavigate } from 'react-router-dom'
 
 function TopBar()
 {
     const loggedUserContext = useContext(loggedUser)
     const loggedContext = useContext(LoginContext)
+
+    const navigate = useNavigate()
 
     const borderBottomFill = useRef()
     const input = useRef()
@@ -137,9 +140,9 @@ function TopBar()
                             </div>
                             <h2 className={styles.username}>{loggedUserContext.loggedUser.username}</h2>
                             <ul>
-                                <li><ProfileIcon/>Profil</li>
-                                <li><InvitationsIcon />Zaproszenia</li>
-                                <li><ChatIcon />Czaty</li>
+                                <li onClick={e=>navigate('/profile')}><ProfileIcon/>Profil</li>
+                                <li onClick={e=>navigate('/invitations')}><InvitationsIcon />Zaproszenia</li>
+                                <li onClick={e=>navigate('/chats')}><ChatIcon />Czaty</li>
                                 <li className={styles.liLogout} onClick={logout}><Logout />Wyloguj się</li>
                             </ul>
                         </div>

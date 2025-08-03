@@ -49,7 +49,7 @@ function App() {
     setLoggedUserState({name:data.name,username:data.username,email:data.email})
   }
 
-  useLayoutEffect(()=>{
+  useEffect(()=>{
     checkLogin()
   },[])
 
