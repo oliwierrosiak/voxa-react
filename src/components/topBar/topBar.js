@@ -10,10 +10,16 @@ import ApiAddress from '../../ApiAddress'
 import refreshToken from '../helpers/refreshToken'
 import defaultImg from '../../assets/img/default.jpg'
 import loggedUser from '../context/loggedUserContext'
+import Logout from '../../assets/svg/logout'
+import ProfileIcon from '../../assets/svg/profile'
+import InvitationsIcon from '../../assets/svg/invitations'
+import ChatIcon from '../../assets/svg/chat'
+import LoginContext from '../context/loginContext'
 
 function TopBar()
 {
     const loggedUserContext = useContext(loggedUser)
+    const loggedContext = useContext(LoginContext)
 
     const borderBottomFill = useRef()
     const input = useRef()
@@ -74,6 +80,22 @@ function TopBar()
         getUserImg()
     },[])
 
+    const logout = async() =>
+    {
+        try
+        {
+            axios.post(`${ApiAddress}/logout`,{token:sessionStorage.getItem("refreshToken")})
+        }
+        catch(ex)
+        {
+
+        }
+        sessionStorage.removeItem('token')
+        sessionStorage.removeItem('refreshToken')
+        loggedUserContext.setLoggedUser({})
+        loggedContext.setLogged(false)
+    }
+
     return(
         <nav className={styles.topBar}>
             <img src={voxaLogo} className={styles.logo}/>
@@ -115,10 +137,10 @@ function TopBar()
                             </div>
                             <h2 className={styles.username}>{loggedUserContext.loggedUser.username}</h2>
                             <ul>
-                                <li>Profil</li>
-                                <li>Zaproszenia</li>
-                                <li>Czaty</li>
-                                <li>Wyloguj się</li>
+                                <li><ProfileIcon/>Profil</li>
+                                <li><InvitationsIcon />Zaproszenia</li>
+                                <li><ChatIcon />Czaty</li>
+                                <li className={styles.liLogout} onClick={logout}><Logout />Wyloguj się</li>
                             </ul>
                         </div>
                     </div>

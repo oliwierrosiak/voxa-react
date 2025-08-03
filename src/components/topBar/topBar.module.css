@@ -192,6 +192,7 @@
     justify-content: center;
     align-items: center;
     padding-top: .8rem;
+    width: 20vw;
 }
 .profileListContainer
 {
@@ -204,7 +205,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap:.8rem;
+    gap:.5rem;
+    width: 100%;
 }
 .userImage
 {
@@ -224,6 +226,10 @@
     font-weight: 700;
     width:100%;
     text-align: center;
+    font-size: 1.5rem;
+     font-family: "Archivo Black", sans-serif;
+     letter-spacing: .05rem;
+    margin-bottom: .5rem;
 }
 .profileListContainer>ul
 {
@@ -231,7 +237,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap:.8rem;
+    gap:1rem;
     display: flex;
 }
 .profileListContainer>ul>li
@@ -241,10 +247,24 @@
     color: rgb(162, 162, 162);
     transition: color .3s ease;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:.5rem;
+    margin: .1rem 0;
+    text-align: center;
 }
 .profileListContainer>ul>li:hover
 {
      color: rgb(255, 255, 255);
+}
+.profileListContainer>ul>li>svg
+{
+    transition: fill .3s ease;
+}
+.profileListContainer>ul>li:hover>svg
+{
+    fill:white;
 }
 .triangle
 {
@@ -256,4 +276,23 @@
     border-left: .6rem solid transparent;
     border-right: .6rem solid transparent;
     border-bottom: .8rem solid #891FA6;
+}
+.liLogout
+{
+   
+    width:100%;
+    padding:.2rem .5rem;
+    border-radius: 1rem;
+    border:.25rem solid rgb(197, 0, 0);
+    background: rgb(89, 0, 0);
+    color: white !important;
+    transition: background .3s ease !important;
+}
+.liLogout:hover
+{
+    background: rgb(137, 0, 0);
+}
+.liLogout>svg
+{
+    fill: none !important;
 }
