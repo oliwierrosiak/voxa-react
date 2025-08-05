@@ -1,6 +1,162 @@
 .main
 {
     width:100%;
-    height: 200vh;
-    background:linear-gradient(45deg,#891FA6,#010B40)
+    height: 92vh;
+    background:linear-gradient(45deg,#891FA6,#010B40);
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    gap:1rem;
+    padding: 1rem 1rem;
+}
+.article
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+    height: 100%;
+    width:100%;
+}
+.articleHeader
+{
+    width:100%;
+    text-align: center;
+    font-size: 1.8rem;
+    font-family: "Archivo Black", sans-serif;
+}
+.people
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap:1rem;
+    align-items: center;
+}
+.loadingItem
+{
+    grid-column: 4/5;
+    width:4rem;
+    height: 4rem;
+}
+.friendsItem
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    height: 100%;
+    gap:.8rem;
+    cursor: pointer;
+}
+.friendsItem:hover>.imageContainer
+{
+    border:.3rem solid #C935F2;
+}
+.friendsItem:hover>.userHeader
+{
+    color: white;
+}
+.imageContainer
+{
+    width:7rem;
+    height: 7rem;
+    border:.3rem solid #891FA6;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border .3s ease;    
+    position: relative;
+}
+.userHeader
+{
+    font-size: 2rem;
+    width:100%;
+    text-align: center;
+    color: rgb(188, 188, 188);
+    transition: color .3s ease;
+}
+.imageContainer>img
+{
+    width:100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.loadingSVG
+{
+    width:70%;
+    height: 70%;
+}
+.arrow
+{
+    width:3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.arrow>svg
+{
+    transition: fill .3s ease;
+}
+.arrow:hover>svg
+{
+    fill: #C935F2;
+}
+.arrowLeftSVG
+{
+    width:3rem;
+    height: 3rem;
+    fill: rgb(255, 255, 255);
+}
+.arrowRightSVG
+{
+    width: 3rem;
+    height: 3rem;
+    fill: white;
+    rotate: 180deg;
+}
+.arrowDisabled
+{
+    fill: grey !important;
+}
+.plus
+{
+    position: absolute;
+    right: 0rem;
+    bottom: 0rem;
+    width:2rem;
+    height: 2rem;
+    background-color: #010B40;
+    border-radius: 50%;
+    border: .2rem solid #C935F2;
+    opacity: 0;
+    transition: opacity .3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.plusDisplay
+{
+    opacity: 1;
+}
+.noneUsers
+{
+    grid-column: 1/8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:1.5rem;
+}
+.noneUsers>h2
+{
+    font-size: 1.5rem;
+    color: grey;
 }

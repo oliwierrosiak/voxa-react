@@ -1,0 +1,58 @@
+import styles from './homeLogged.module.css'
+import UserImg from './userImg'
+import PlusIcon from '../../assets/svg/plus'
+import { useRef, useState } from 'react'
+import Loading2 from '../../assets/svg/loading2'
+import refreshToken from '../helpers/refreshToken'
+import axios from 'axios'
+import ApiAddress from '../../ApiAddress'
+import OkIcon from '../../assets/svg/ok'
+
+function FriendItem(props)
+{
+
+    const [loading,setLoading] = useState(false)
+    const [invited,setInvited] = useState(false)
+
+    const plus = useRef()
+
+    const sendInvitation = async(id) =>{
+        if(!loading && !invited)
+        {
+            setLoading(true)
+            try
+            {
+                await refreshToken()
+                const response = await axios.post(`${ApiAddress}/invitation`,{id:id},{headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`}})
+                setInvited(true)
+                setLoading(false)
+            }
+            catch(ex)
+            {
+                setLoading(false)
+                console.log(ex)
+            }
+        }
+       
+    }
+
+    return(
+        <div className={`${styles.friendsItem}`} onClick={e=>sendInvitation(props.item._id)} onMouseOver={e=>plus.current.classList.add(styles.plusDisplay)} onMouseOut={e=>!invited &&!loading && plus.current.classList.remove(styles.plusDisplay)}>
+            <div className={styles.imageContainer}>
+
+                <UserImg img={props.item?.img} />
+
+                <div className={`${styles.plus} ${loading||invited?styles.plusDisplay:''}`} ref={plus}>
+                    {loading?<Loading2 class={styles.loadingSVG} />:invited?<OkIcon />:<PlusIcon />}
+                    
+                </div>
+
+            </div>
+
+            <h2 className={styles.userHeader}>{props.item?.username}</h2>
+                                
+        </div>
+    )
+}
+
+export default FriendItem

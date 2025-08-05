@@ -30,6 +30,8 @@ function App() {
           const response2 = await axios.get(`${ApiAddress}/get-user-data`,{headers:{"Authorization":`Bearer ${response.data.token}`}})
           setLoggedUserState({name:response2.data.name,username:response2.data.username,email:response2.data.email})
           sessionStorage.setItem("token",response.data.token)
+          console.log(response)
+          console.log(response2)
           setLogged(true)
         }
         catch(ex)
