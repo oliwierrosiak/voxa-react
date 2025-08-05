@@ -1,16 +1,17 @@
 import styles from './homeLogged.module.css'
 import UserImg from './userImg'
 import PlusIcon from '../../assets/svg/plus'
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import Loading2 from '../../assets/svg/loading2'
 import refreshToken from '../helpers/refreshToken'
 import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
 import OkIcon from '../../assets/svg/ok'
+import messageContext from '../context/messageContext'
 
 function FriendItem(props)
 {
-
+    const message = useContext(messageContext)
     const [loading,setLoading] = useState(false)
     const [invited,setInvited] = useState(false)
 
@@ -23,14 +24,15 @@ function FriendItem(props)
             try
             {
                 await refreshToken()
-                const response = await axios.post(`${ApiAddress}/invitation`,{id:id},{headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`}})
+                // const response = await axios.post(`${ApiAddress}/invitation`,{id:id},{headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`}})
                 setInvited(true)
                 setLoading(false)
+                message.setContent("Nie udało sie zaprosić użytkownika. Wystąpił bład serwera.","error")
             }
             catch(ex)
             {
+                message.setContent("Nie udało sie zaprosić użytkownika. Wystąpił bład serwera.","error")
                 setLoading(false)
-                console.log(ex)
             }
         }
        

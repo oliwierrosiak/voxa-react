@@ -6,6 +6,8 @@ import axios from 'axios';
 import ApiAddress from './ApiAddress';
 import HomeLogged from './components/homeLogged/homeLogged';
 import loggedUser from './components/context/loggedUserContext';
+import messageContext from './components/context/messageContext';
+import Message from './components/message/message';
 
 function App() {
 
@@ -14,6 +16,10 @@ function App() {
     name:'',
     username:'',
     email:''
+  })
+  const [message,setMessage] = useState({
+    message:'',
+    type:'',
   })
 
   useEffect(()=>{
@@ -30,8 +36,6 @@ function App() {
           const response2 = await axios.get(`${ApiAddress}/get-user-data`,{headers:{"Authorization":`Bearer ${response.data.token}`}})
           setLoggedUserState({name:response2.data.name,username:response2.data.username,email:response2.data.email})
           sessionStorage.setItem("token",response.data.token)
-          console.log(response)
-          console.log(response2)
           setLogged(true)
         }
         catch(ex)
@@ -51,6 +55,21 @@ function App() {
     setLoggedUserState({name:data.name,username:data.username,email:data.email})
   }
 
+  const setMessageContent = (value,type) =>
+  {
+    setMessage({
+      message:'',
+      type:''
+    })
+    setTimeout(() => {
+      setMessage({
+        message:value,
+        type:type
+      })
+      
+    }, 200);
+  }
+
   useEffect(()=>{
     checkLogin()
   },[])
@@ -59,11 +78,17 @@ function App() {
 
     <LoginContext.Provider value={{logged,setLogged}}>
     <loggedUser.Provider value={{loggedUser:loggedUserState,setLoggedUser:setLoggedUserStateHandler}}>
+    <messageContext.Provider value={{content:message,setContent:setMessageContent}}>
+
     <Router>
       <Routes>
           <Route path='/' element={logged?<HomeLogged />:<Home />}/>
       </Routes>
     </Router>
+
+    {message.message?<Message value={message}/>:null}
+
+    </messageContext.Provider>
     </loggedUser.Provider>
     </LoginContext.Provider>
 
