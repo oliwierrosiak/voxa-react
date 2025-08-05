@@ -111,6 +111,15 @@ function HomeLogged()
         getData()
     },[])
 
+    const userItemClicked = (id) =>
+    {
+        const users = [...displayFriends]
+        const userIndex = users.findIndex(x=>x._id == id)
+        users[userIndex].invited = true
+        console.log(users)
+        setDisplayFriends(users)
+    }
+
     return(<>
         <TopBar />
 
@@ -122,7 +131,7 @@ function HomeLogged()
                     <div className={styles.arrow} onClick={e=>changeUserListCounter('down')}>
                         <Back  class={`${styles.arrowLeftSVG} ${userListCounter.start === 0?styles.arrowDisabled:''}`}/>
                     </div>
-                    {displayFriends.map(x=><FriendItem item={x}/>)}
+                    {displayFriends.map(x=><FriendItem item={x} userItemClicked={userItemClicked}/>)}
                     <div className={styles.arrow} onClick={e=>changeUserListCounter('up')}>
                         <Back  class={`${styles.arrowRightSVG} ${userListCounter.end === suggestedFriends.length?styles.arrowDisabled:''}`}/>
                     </div>

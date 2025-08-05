@@ -8,6 +8,7 @@ import HomeLogged from './components/homeLogged/homeLogged';
 import loggedUser from './components/context/loggedUserContext';
 import messageContext from './components/context/messageContext';
 import Message from './components/message/message';
+import Invitations from './components/invitations/invitations';
 
 function App() {
 
@@ -83,6 +84,7 @@ function App() {
     <Router>
       <Routes>
           <Route path='/' element={logged?<HomeLogged />:<Home />}/>
+          <Route path='/invitations' element={<Invitations />} />
       </Routes>
     </Router>
 

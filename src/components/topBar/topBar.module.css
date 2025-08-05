@@ -11,6 +11,7 @@
     align-items: center;
     padding: .5rem .5rem;
     height: 8vh;
+    z-index: 3;
 }
 .logo
 {
@@ -151,6 +152,7 @@
 .profileContainer
 {
     position: relative;
+
 }
 .profileContainer:hover>.listContainer
 {
@@ -193,6 +195,7 @@
     align-items: center;
     padding-top: .8rem;
     width: 20vw;
+
 }
 .profileListContainer
 {
@@ -207,6 +210,7 @@
     justify-content: center;
     gap:.5rem;
     width: 100%;
+
 }
 .userImage
 {
