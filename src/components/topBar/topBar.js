@@ -101,7 +101,7 @@ function TopBar()
 
     return(
         <nav className={styles.topBar}>
-            <img src={voxaLogo} className={styles.logo}/>
+            <img src={voxaLogo} className={styles.logo} onClick={e=>navigate('/')}/>
 
             <search className={styles.search}>
                 <form>
