@@ -24,8 +24,22 @@ function FriendItem(props)
             {
                 await refreshToken()
                 const response = await axios.post(`${ApiAddress}/invitation`,{id:id},{headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`}})
-                setLoading(false)
-                props.userItemClicked(props.item._id)
+                if(response?.data?.info === "user already invited me")
+                {
+                    message.setContent('Ten użytkownik już cię zaprosił! Sprawdz zaproszenia.',"error")
+                    setLoading(false)
+                }
+                else if(response?.data?.info === "user already invited")
+                {
+                    message.setContent('Już zaprosiłes tego użytkownika',"error")
+                    setLoading(false)
+                }
+                else
+                {
+                    setLoading(false)
+                    props.userItemClicked(props.item._id)
+                    
+                }
             }
             catch(ex)
             {
@@ -38,13 +52,13 @@ function FriendItem(props)
     }
 
     return(
-        <div className={`${styles.friendsItem}`} onClick={e=>sendInvitation(props.item._id)} onMouseOver={e=>plus.current.classList.add(styles.plusDisplay)} onMouseOut={e=>!props.item?.invited &&!loading && plus.current.classList.remove(styles.plusDisplay)}>
+        <div className={`${styles.friendsItem}`} onClick={e=>sendInvitation(props.item._id)} onMouseOver={e=>plus.current.classList.add(styles.plusDisplay)} onMouseOut={e=>!props.item?.invitedLocal &&!loading && plus.current.classList.remove(styles.plusDisplay)}>
             <div className={styles.imageContainer}>
 
                 <UserImg img={props.item?.img} />
 
-                <div className={`${styles.plus} ${loading||props.item?.invited?styles.plusDisplay:''}`} ref={plus}>
-                    {loading?<Loading2 class={styles.loadingSVG} />:props.item?.invited?<OkIcon />:<PlusIcon />}
+                <div className={`${styles.plus} ${loading||props.item?.invitedLocal?styles.plusDisplay:''}`} ref={plus}>
+                    {loading?<Loading2 class={styles.loadingSVG} />:props.item?.invitedLocal?<OkIcon />:<PlusIcon />}
                     
                 </div>
 

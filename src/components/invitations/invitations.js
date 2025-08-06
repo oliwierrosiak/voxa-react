@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './invitations.module.css'
 import PageAuthorization from '../helpers/pageAuthorization'
 import TopBar from '../topBar/topBar'
@@ -8,6 +8,8 @@ import ApiAddress from '../../ApiAddress'
 import Loading2 from '../../assets/svg/loading2'
 import UserImg from '../homeLogged/userImg'
 import EmptyIcon from '../../assets/svg/empty'
+import logoutContext from '../context/logoutContext'
+import messageContext from '../context/messageContext'
 
 
 function Invitations(props)
@@ -16,6 +18,9 @@ function Invitations(props)
     const [loading,setLoading] = useState(true)
     const [error,setError] = useState(0)
     const [users,setUsers] = useState([])
+
+    const logoutContextHandler = useContext(logoutContext)
+    const message = useContext(messageContext)
 
     const getMyInvitations = async () =>
     {
@@ -28,8 +33,18 @@ function Invitations(props)
         }
         catch(ex)
         {
-            setError(ex.status)
-            setLoading(false)
+            if(ex.status === 404)
+            {
+                setError(ex.status)
+                setLoading(false)
+
+            }
+            else
+            {
+
+                message.setContent('Wystapił bład serwera podczas pobierania zaproszeń',"error")
+                logoutContextHandler.logout()
+            }
         }
     }
 
@@ -61,7 +76,7 @@ function Invitations(props)
                                 <EmptyIcon />
                             </div>
                             <h2 className={styles.error404Header}>Nie masz jak na razie żadnych zaproszeń</h2>
-                        </div>:<div>500</div>)}
+                        </div>:null)}
                     </div></>
                 }
             </main>

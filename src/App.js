@@ -9,6 +9,7 @@ import loggedUser from './components/context/loggedUserContext';
 import messageContext from './components/context/messageContext';
 import Message from './components/message/message';
 import Invitations from './components/invitations/invitations';
+import logoutContext from './components/context/logoutContext';
 
 function App() {
 
@@ -22,10 +23,6 @@ function App() {
     message:'',
     type:'',
   })
-
-  useEffect(()=>{
-    console.log(logged)
-  },[logged])
 
   const checkLogin = async()=>{
       const refreshToken = sessionStorage.getItem('refreshToken')
@@ -71,6 +68,21 @@ function App() {
     }, 200);
   }
 
+  const logout = () =>{
+     try
+        {
+            axios.post(`${ApiAddress}/logout`,{token:sessionStorage.getItem("refreshToken")})
+        }
+        catch(ex)
+        {
+
+        }
+        sessionStorage.removeItem('token')
+        sessionStorage.removeItem('refreshToken')
+        setLoggedUserState(false)
+        setLogged(false)
+  }
+
   useEffect(()=>{
     checkLogin()
   },[])
@@ -79,6 +91,7 @@ function App() {
 
     <LoginContext.Provider value={{logged,setLogged}}>
     <loggedUser.Provider value={{loggedUser:loggedUserState,setLoggedUser:setLoggedUserStateHandler}}>
+    <logoutContext.Provider value={{logout}}>
     <messageContext.Provider value={{content:message,setContent:setMessageContent}}>
 
     <Router>
@@ -91,6 +104,7 @@ function App() {
     {message.message?<Message value={message}/>:null}
 
     </messageContext.Provider>
+    </logoutContext.Provider>
     </loggedUser.Provider>
     </LoginContext.Provider>
 

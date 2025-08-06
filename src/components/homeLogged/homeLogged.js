@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import TopBar from '../topBar/topBar'
 import styles from './homeLogged.module.css'
 import Loading2 from '../../assets/svg/loading2'
 import refreshToken from '../helpers/refreshToken'
 import ApiAddress from '../../ApiAddress'
 import axios from 'axios'
-import UserImg from './userImg'
 import Back from '../../assets/svg/back'
-import PlusIcon from '../../assets/svg/plus'
 import FriendItem from './friendItem'
 import NoneUsers from '../../assets/svg/noneUsers'
+import logoutContext from '../context/logoutContext'
+import messageContext from '../context/messageContext'
 
 function HomeLogged()
 {
@@ -21,6 +21,10 @@ function HomeLogged()
         end:5,
     })
     const [noneUsers,setNoneUsers] = useState(false)
+
+    const message = useContext(messageContext)
+    const logoutContextHandler = useContext(logoutContext)
+
 
     const changeDisplayFriends = () =>
     {
@@ -72,6 +76,11 @@ function HomeLogged()
                 setNoneUsers(true)
                 setSuggestedFriendLoading(false)
             }
+            else
+            {
+                message.setContent('Wystąpił bład serwera',"error")
+                logoutContextHandler.logout()
+            }
         }
     }
 
@@ -105,8 +114,6 @@ function HomeLogged()
         }
     },[userListCounter])
 
-
-
     useEffect(()=>{
         getData()
     },[])
@@ -115,7 +122,7 @@ function HomeLogged()
     {
         const users = [...displayFriends]
         const userIndex = users.findIndex(x=>x._id == id)
-        users[userIndex].invited = true
+        users[userIndex].invitedLocal = true
         console.log(users)
         setDisplayFriends(users)
     }

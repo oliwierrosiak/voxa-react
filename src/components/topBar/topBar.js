@@ -14,13 +14,13 @@ import Logout from '../../assets/svg/logout'
 import ProfileIcon from '../../assets/svg/profile'
 import InvitationsIcon from '../../assets/svg/invitations'
 import ChatIcon from '../../assets/svg/chat'
-import LoginContext from '../context/loginContext'
 import { useNavigate } from 'react-router-dom'
+import logoutContext from '../context/logoutContext'
 
 function TopBar()
 {
     const loggedUserContext = useContext(loggedUser)
-    const loggedContext = useContext(LoginContext)
+    const logoutContextFunc = useContext(logoutContext)
 
     const navigate = useNavigate()
 
@@ -85,18 +85,7 @@ function TopBar()
 
     const logout = async() =>
     {
-        try
-        {
-            axios.post(`${ApiAddress}/logout`,{token:sessionStorage.getItem("refreshToken")})
-        }
-        catch(ex)
-        {
-
-        }
-        sessionStorage.removeItem('token')
-        sessionStorage.removeItem('refreshToken')
-        loggedUserContext.setLoggedUser({})
-        loggedContext.setLogged(false)
+        logoutContextFunc.logout()
     }
 
     return(
