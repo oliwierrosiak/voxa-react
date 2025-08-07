@@ -10,8 +10,9 @@ import NotificationDate from './notificationData'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { socket } from '../../App'
+import NotificationItem from './notificationItem'
 
-function Notifications()
+function Notifications(props)
 {
 
     const [notifications,setNotifications] = useState([])
@@ -59,8 +60,25 @@ function Notifications()
     }
 
     useEffect(()=>{
+        notifications.forEach(x=>{
+            if(x.seen === false)
+            {
+                props.setNewNotify(true)
+            }
+            else
+            {
+                props.setNewNotify(false)
+            }
+        })
+    },[notifications])
+
+    useEffect(()=>{
         getNotifications()
         socket.on('notify',()=>{
+            getNotifications()
+        })
+        socket.on('notifySeenUpdate',()=>{
+            console.log("update")
             getNotifications()
         })
     },[])
@@ -70,15 +88,7 @@ function Notifications()
             <span className={styles.triangle2}></span>
             <div className={styles.notificationsContent}>
                 {loading?<div className={styles.notificationLoadingContainer}><Loading2 class={styles.notificationLoading}/></div>:(notifications.length>0?
-                notifications.map(x=><div className={styles.notificationItem} onClick={e=>redirect(x.type,x.date)}>
-                    <div className={styles.userImgContainer}>
-                    <div className={styles.userImg}>
-                        <UserImg img={x.img}/>
-                    </div>
-                    </div>
-                    <h2 className={styles.notificationContent}>{x.content}</h2>
-                    <p className={styles.date}><NotificationDate date={x.date}/></p>
-                </div>)
+                notifications.map(x=><NotificationItem redirect={redirect} x={x}/>)
                 :<div className={styles.noneNotification}>
                 <NoneUsers class={styles.noneUsersSVG} />
                 <h2 className={styles.noneNotificationHeader}>Nie masz żadnych powiadomień</h2>

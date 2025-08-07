@@ -10,6 +10,7 @@ import UserImg from '../homeLogged/userImg'
 import EmptyIcon from '../../assets/svg/empty'
 import logoutContext from '../context/logoutContext'
 import messageContext from '../context/messageContext'
+import { socket } from '../../App'
 
 
 function Invitations(props)
@@ -24,6 +25,8 @@ function Invitations(props)
 
     const getMyInvitations = async () =>
     {
+        setLoading(true)
+        setError(0)
         try
         {
             await refreshToken()
@@ -102,6 +105,9 @@ function Invitations(props)
 
     useEffect(()=>{
         getMyInvitations()
+        socket.on('notify',()=>{
+            getMyInvitations()  
+        })
     },[])
 
     return(

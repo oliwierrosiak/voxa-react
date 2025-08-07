@@ -90,11 +90,7 @@ function TopBar()
             if(val === "add")
             {
                 const sound = new Audio(notifySound)
-                if(sound)
-                {
-                    sound.play()
-
-                }
+                sound.play()
                 setNewNotify(true)
             }
         })
@@ -129,10 +125,10 @@ function TopBar()
             </search>
 
             <div className={styles.rightMenu}>
-                <div className={styles.bellContainer} onMouseOver={e=>{notificationContainer.current.classList.add(styles.notificationsContainerDisplay);setNewNotify(false)}} onMouseOut={e=>notificationContainer.current.classList.remove(styles.notificationsContainerDisplay)}>
+                <div className={styles.bellContainer} onMouseOver={e=>notificationContainer.current.classList.add(styles.notificationsContainerDisplay)} onMouseOut={e=>notificationContainer.current.classList.remove(styles.notificationsContainerDisplay)}>
                     <Bell />
                     <div className={styles.notificationsContainer} ref={notificationContainer}>
-                        <Notifications />
+                        <Notifications setNewNotify={setNewNotify}/>
                     </div>
                     {newNotify?<div className={styles.newNotify}></div>:null}
                 </div>
