@@ -3,6 +3,7 @@ import Cancel from '../../assets/svg/cancel'
 import ErrorIcon from '../../assets/svg/error'
 import styles from './message.module.css'
 import messageContext from '../context/messageContext'
+import InfoIcon from '../../assets/svg/info'
 
 function Message(props)
 {
@@ -41,7 +42,7 @@ function Message(props)
 
     return(
         <div className={`${styles.messageContainer} ${display?styles.messageContainerDisplay:''}`}>
-            {props.value.type === "error"?<ErrorIcon />:null}
+            {props.value.type === "error"?<ErrorIcon />:props.value.type === "info"?<InfoIcon />:null}
             <h2>{props.value.message}</h2>
             <div className={styles.cancel} onClick={closeMessage}>
                 <Cancel />

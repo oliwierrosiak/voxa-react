@@ -16,6 +16,9 @@ import InvitationsIcon from '../../assets/svg/invitations'
 import ChatIcon from '../../assets/svg/chat'
 import { useNavigate } from 'react-router-dom'
 import logoutContext from '../context/logoutContext'
+import Notifications from './notifications'
+import { socket } from '../../App'
+import notifySound from '../../assets/sound/notifySound.mp3'
 
 function TopBar()
 {
@@ -26,10 +29,12 @@ function TopBar()
 
     const borderBottomFill = useRef()
     const input = useRef()
+    const notificationContainer = useRef()
 
     const [imgLoading,setImgLoading] = useState(true)
     const [searchValue,setSearchValue] = useState('')
     const [img,setImg] = useState('')
+    const [newNotify,setNewNotify] = useState(false)
 
     const searchFocused = (e)=>
     {
@@ -81,6 +86,18 @@ function TopBar()
 
     useEffect(()=>{
         getUserImg()
+        socket.on('notify',(val)=>{
+            if(val === "add")
+            {
+                const sound = new Audio(notifySound)
+                if(sound)
+                {
+                    sound.play()
+
+                }
+                setNewNotify(true)
+            }
+        })
     },[])
 
     const logout = async() =>
@@ -112,8 +129,12 @@ function TopBar()
             </search>
 
             <div className={styles.rightMenu}>
-                <div className={styles.bellContainer}>
+                <div className={styles.bellContainer} onMouseOver={e=>{notificationContainer.current.classList.add(styles.notificationsContainerDisplay);setNewNotify(false)}} onMouseOut={e=>notificationContainer.current.classList.remove(styles.notificationsContainerDisplay)}>
                     <Bell />
+                    <div className={styles.notificationsContainer} ref={notificationContainer}>
+                        <Notifications />
+                    </div>
+                    {newNotify?<div className={styles.newNotify}></div>:null}
                 </div>
                 <div className={styles.profileContainer}>
                     <div className={styles.profileImg}>

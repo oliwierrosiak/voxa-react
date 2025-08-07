@@ -10,6 +10,9 @@ import messageContext from './components/context/messageContext';
 import Message from './components/message/message';
 import Invitations from './components/invitations/invitations';
 import logoutContext from './components/context/logoutContext';
+import io from 'socket.io-client'
+
+export const socket = io(ApiAddress)
 
 function App() {
 
@@ -23,6 +26,8 @@ function App() {
     message:'',
     type:'',
   })
+
+
 
   const checkLogin = async()=>{
       const refreshToken = sessionStorage.getItem('refreshToken')
@@ -86,6 +91,13 @@ function App() {
   useEffect(()=>{
     checkLogin()
   },[])
+
+  useEffect(()=>{
+    if(logged && loggedUserState.email)
+    {
+      socket.emit('login',loggedUserState.email)
+    }
+  },[logged,loggedUserState])
 
   return (
 

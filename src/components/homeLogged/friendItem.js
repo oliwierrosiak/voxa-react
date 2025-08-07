@@ -26,12 +26,12 @@ function FriendItem(props)
                 const response = await axios.post(`${ApiAddress}/invitation`,{id:id},{headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`}})
                 if(response?.data?.info === "user already invited me")
                 {
-                    message.setContent('Ten użytkownik już cię zaprosił! Sprawdz zaproszenia.',"error")
+                    message.setContent('Ten użytkownik już cię zaprosił! Sprawdz zaproszenia.',"info")
                     setLoading(false)
                 }
                 else if(response?.data?.info === "user already invited")
                 {
-                    message.setContent('Już zaprosiłes tego użytkownika',"error")
+                    message.setContent('Już zaprosiłeś tego użytkownika',"info")
                     setLoading(false)
                 }
                 else

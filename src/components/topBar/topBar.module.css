@@ -146,6 +146,7 @@
     width:1.5rem;
     height: 1.5rem;
     cursor: pointer;
+    position: relative;
 }
 .bellContainer>svg
 {
@@ -287,6 +288,17 @@
     border-right: .6rem solid transparent;
     border-bottom: .8rem solid #891FA6;
 }
+.triangle2
+{
+    position: absolute;
+    top:-.9rem;
+    right:2.9rem;
+    width: 0; 
+    height: 0; 
+    border-left: .6rem solid transparent;
+    border-right: .6rem solid transparent;
+    border-bottom: .8rem solid #891FA6;
+}
 .liLogout
 {
    
@@ -305,4 +317,169 @@
 .liLogout>svg
 {
     fill: none !important;
+}
+.notificationsContainer
+{
+    position: absolute;
+    top:1.5rem;
+    right: -3rem;
+    width: 15rem;
+    height: 20rem;
+    display: none;
+}
+.notificationsContainerDisplay
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: .8rem;
+    cursor: default;
+}
+.notifications
+{
+    background:#010B40;
+    border:.27rem solid #891FA6;
+    padding: 1rem 0;
+    border-radius: 1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.notificationLoadingContainer
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notificationLoading
+{
+    width:3rem;
+    height: 3rem;
+}
+.noneNotification
+{
+    width:100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:.8rem;
+    flex-direction: column;
+}
+.noneUsersSVG
+{
+    width:3rem !important;
+    height: 3rem !important;
+}
+.noneNotificationHeader
+{
+    font-size: 1rem;
+    color: grey;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+}
+.notificationsContent
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+.notificationsContent::-webkit-scrollbar
+{
+    width: .2rem;
+    height: 0;
+}
+.notificationsContent::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: #C935F2;
+}
+.notificationsContent::-webkit-scrollbar-button
+{
+    height: .5rem;
+}
+.notificationItem
+{
+    width:100%;
+    display: grid;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    grid-template-columns: 3rem 1fr 2rem;
+    gap:.5rem .3rem;
+    padding: .6rem .5rem;
+    cursor: pointer;
+}
+.notificationItem:hover
+{
+    background-color: #111e5c;
+
+}
+.userImgContainer
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.userImg
+{
+   
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border:.2rem solid #891FA6;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.userImg>img
+{
+    width: 100%;
+    height: 100%;
+}
+.notificationContent
+{
+    font-size: .6rem;
+    color: grey;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.date
+{
+    font-size: .5rem;
+    color: grey;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.newNotify
+{
+    position: absolute;
+    bottom: .1rem;
+    right: 0rem;
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    background-color: red;
 }

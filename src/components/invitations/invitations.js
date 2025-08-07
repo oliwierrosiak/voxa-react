@@ -48,6 +48,58 @@ function Invitations(props)
         }
     }
 
+    const clearUserNotifications = async(data,user) =>{
+    try
+    {
+        const invitationNotify = [...data]
+        const index = invitationNotify.findIndex(x=>x.userId === user._id)
+        await refreshToken()
+        const response2 = await axios.patch(`${ApiAddress}/update-notifications`,{time:invitationNotify[index].date},{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+    }
+    catch(ex)
+    {
+
+    }
+    }
+
+
+    const cancelUser = async(user) =>
+    {
+        try
+        {
+            await refreshToken()
+            const response = await axios.get(`${ApiAddress}/get-my-notifications`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            const response3 = await axios.patch(`${ApiAddress}/modify-user-invitation`,{userId:user._id,type:'delete'},{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            setLoading(true)
+            getMyInvitations()
+            clearUserNotifications(response.data,user)
+        }
+        catch(ex)
+        {
+            message.setContent('Nie udało się usunąć zaproszenia użytkownika',"error")
+        }
+    }
+
+
+
+    const acceptUser = async(user) =>
+    {
+        try
+        {
+            await refreshToken()
+            const response = await axios.get(`${ApiAddress}/get-my-notifications`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            const response3 = await axios.patch(`${ApiAddress}/modify-user-invitation`,{userId:user._id,type:'add'},{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            message.setContent(`Dodano użytkownika ${user.username} do znajomych`,"info")
+            setLoading(true)
+            getMyInvitations()
+            clearUserNotifications(response.data,user)
+        }
+        catch(ex)
+        {
+            message.setContent('Nie udało się dodać użytkownika do znajomych',"error")
+        }
+    }
+
     useEffect(()=>{
         getMyInvitations()
     },[])
@@ -67,8 +119,8 @@ function Invitations(props)
                                 </div>   
                                 <h2 className={styles.username}>{x.username}</h2>
                                 <div className={styles.btnContainer}>
-                                    <button className={`${styles.btn} ${styles.cancel}`}>Odrzuć</button>
-                                    <button className={`${styles.btn} ${styles.accept}`}>Akceptuj</button>
+                                    <button className={`${styles.btn} ${styles.cancel}`} onClick={e=>cancelUser(x)}>Odrzuć</button>
+                                    <button className={`${styles.btn} ${styles.accept}`} onClick={e=>acceptUser(x)}>Akceptuj</button>
                                 </div>
                             </div>}))
                         :(error === 404?<div className={styles.emptyContainer}>
