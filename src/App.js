@@ -11,6 +11,7 @@ import Message from './components/message/message';
 import Invitations from './components/invitations/invitations';
 import logoutContext from './components/context/logoutContext';
 import io from 'socket.io-client'
+import Chat from './components/chat/chat';
 
 export const socket = io(ApiAddress)
 
@@ -110,6 +111,8 @@ function App() {
       <Routes>
           <Route path='/' element={logged?<HomeLogged />:<Home />}/>
           <Route path='/invitations' element={<Invitations />} />
+          <Route path='/chats' element={<Chat />} />
+          <Route path='/chats/:id' element={<Chat />}/>
       </Routes>
     </Router>
 
