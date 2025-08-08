@@ -15,7 +15,8 @@ function NotificationItem(props)
             if(!seen)
             {
                 await refreshToken()
-                const response = await axios.patch(`${ApiAddress}/modify-user-invitation`,{userId:props.x.userId,type:'seen'},{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+                console.log(props.x)
+                const response = await axios.patch(`${ApiAddress}/modify-user-invitation`,{userId:props.x.userId,type:'seen',time:props.x.date},{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
                 setSeen(true)
             }
         }

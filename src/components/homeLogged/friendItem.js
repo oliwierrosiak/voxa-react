@@ -34,6 +34,11 @@ function FriendItem(props)
                     message.setContent('Już zaprosiłeś tego użytkownika',"info")
                     setLoading(false)
                 }
+                else if(response?.data?.info === "user is my friend")
+                {
+                    message.setContent('Ten użytkownik już jest twoim znajomym',"info")
+                    setLoading(false)
+                }
                 else
                 {
                     setLoading(false)

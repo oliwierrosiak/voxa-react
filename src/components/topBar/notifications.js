@@ -52,9 +52,15 @@ function Notifications(props)
     }
 
     const redirect = (destination,time) => {
+        console.log(destination)
         if(destination === "invitation" && location.pathname != '/invitations')
         {
             navigate('/invitations')
+            clearNotification(time)
+        }
+        else if(destination === "chat" && location.pathname != '/invitations')
+        {
+            navigate('/chat')
             clearNotification(time)
         }
     }
