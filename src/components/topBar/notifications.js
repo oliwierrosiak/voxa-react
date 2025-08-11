@@ -58,9 +58,9 @@ function Notifications(props)
             navigate('/invitations')
             clearNotification(time)
         }
-        else if(destination === "chat" && location.pathname != '/invitations')
+        else if(destination.includes('chats/') && location.pathname != `/${destination}`)
         {
-            navigate('/chat')
+            navigate(`/${destination}`)
             clearNotification(time)
         }
     }

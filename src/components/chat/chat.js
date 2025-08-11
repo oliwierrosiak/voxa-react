@@ -1,11 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TopBar from '../topBar/topBar'
 import styles from './chat.module.css'
 import Aside from './aside'
+import setDisplayAsideInChats from '../helpers/setDisplayAsideInChats'
 
 function Chat()
 {
-    const [displayAside,setDisplayAside] = useState(true)
+   
+
+    const [displayAside,setDisplayAside] = useState(setDisplayAsideInChats())
+
+    useEffect(()=>{
+        sessionStorage.setItem('displayAside',JSON.stringify(displayAside))
+    },[displayAside])
 
     return(
         <>

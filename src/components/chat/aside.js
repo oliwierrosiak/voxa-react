@@ -6,21 +6,35 @@ import refreshToken from '../helpers/refreshToken'
 import logoutContext from '../context/logoutContext'
 import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import AsideChatItem from './asideChatItem'
+import messageContext from '../context/messageContext'
+import UserImg from '../homeLogged/userImg'
+import { socket } from '../../App'
 function Aside(props)
 {
+    const message = useContext(messageContext)
     const [loading,setLoading] = useState(true)
     const [myChats,setMyChats] = useState([])
     const navigate = useNavigate()
+    const params = useParams()
     const logout = useContext(logoutContext)
     const getMyChats = async()=>{
         try
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-my-chats`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            setMyChats(response.data)
+            setLoading(false)
         }
         catch(ex)
         {
+            console.log(ex)
+            if(ex.status === 404)
+            {
+                navigate('/')
+                message.setContent('Nie masz żadnych czatów',"error")
+            }
             if(ex.status === 403)
             {
                 logout.logout()
@@ -30,7 +44,22 @@ function Aside(props)
     }
 
     useEffect(()=>{
+        if(!params.id && myChats[0]?.conversationId)
+        {
+            navigate(`/chats/${myChats[0].conversationId}`)
+        }
+    },[myChats,params.id])
+
+    const redirect = (dest) =>{
+        navigate(`/chats/${dest}`)
+    }
+
+    useEffect(()=>{
         getMyChats()
+        socket.on('notify',(val)=>{
+            if(val === "add")
+            getMyChats()
+        })
     },[])
     
     return(
@@ -42,13 +71,20 @@ function Aside(props)
                     </div>
                     <h1>Twoje Czaty</h1>
                 </header>
-                {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:myChats.map(x=>{
-
-                })}
+                {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:myChats.map(x=>
+                    <AsideChatItem redirect={redirect} {...x} />
+                )}
                 </>:<>
-                    <div className={styles.menuIcon} onClick={e=>props.setDisplayAside(!props.displayAside)}>
+                    <div className={`${styles.menuIcon} ${styles.menuIcon2}`} onClick={e=>props.setDisplayAside(!props.displayAside)}>
                         <ArrowIcon class={styles.arrowSVG2} />
                     </div>
+                    {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:myChats.map(x=>
+                        <div className={`${styles.smallAsideItem} ${params.id === x.conversationId?styles.currentChat:''}`} onClick={e=>redirect(x.conversationId)}>
+                            <div className={styles.imgContainer2}>
+                                <UserImg img={x.img} />
+                            </div>
+                        </div>
+                    )}
                 </>}
         </aside>
     )
