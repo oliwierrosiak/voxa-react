@@ -38,7 +38,7 @@ function Aside(props)
             if(ex.status === 403)
             {
                 logout.logout()
-                // navigate('/')
+                navigate('/')
             }
         }
     }

@@ -3,6 +3,7 @@ import TopBar from '../topBar/topBar'
 import styles from './chat.module.css'
 import Aside from './aside'
 import setDisplayAsideInChats from '../helpers/setDisplayAsideInChats'
+import ChatContent from './chatContent'
 
 function Chat()
 {
@@ -20,7 +21,8 @@ function Chat()
         
         <main className={styles.main}>
             <Aside displayAside={displayAside} setDisplayAside={setDisplayAside} />
-            <article className={`${styles.chat} ${displayAside?styles.chatReduced:''}`}></article>
+            <ChatContent displayAside={displayAside}/>
+            
         </main>
 
         </>
