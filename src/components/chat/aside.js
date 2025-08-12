@@ -58,6 +58,11 @@ function Aside(props)
         getMyChats()
         socket.on('notify',(val)=>{
             if(val === "add")
+            {
+                getMyChats()
+            }
+        })
+        socket.on('chatUpdate',()=>{
             getMyChats()
         })
     },[])

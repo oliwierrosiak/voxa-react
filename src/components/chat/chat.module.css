@@ -149,6 +149,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     height: 100%;
+    color: rgb(255, 255, 255);
+}
+.userMessageSeen
+{
     color: grey;
 }
 .currentChat
