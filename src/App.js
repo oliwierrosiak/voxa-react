@@ -21,7 +21,8 @@ function App() {
   const [loggedUserState,setLoggedUserState] = useState({
     name:'',
     username:'',
-    email:''
+    email:'',
+    id:''
   })
   const [message,setMessage] = useState({
     message:'',
@@ -38,7 +39,7 @@ function App() {
         {
           const response = await axios.post(`${ApiAddress}/refresh-token`,{token:refreshToken})
           const response2 = await axios.get(`${ApiAddress}/get-user-data`,{headers:{"Authorization":`Bearer ${response.data.token}`}})
-          setLoggedUserState({name:response2.data.name,username:response2.data.username,email:response2.data.email})
+          setLoggedUserState({name:response2.data.name,username:response2.data.username,email:response2.data.email,id:response2.data.id})
           sessionStorage.setItem("token",response.data.token)
           setLogged(true)
         }
@@ -56,7 +57,7 @@ function App() {
 
   const setLoggedUserStateHandler = (data) =>
   {
-    setLoggedUserState({name:data.name,username:data.username,email:data.email})
+    setLoggedUserState({name:data.name,username:data.username,email:data.email,id:data.id})
   }
 
   const setMessageContent = (value,type) =>
