@@ -9,10 +9,6 @@ function AsideChatItem(props)
 
     const params = useParams()
 
-    useEffect(()=>{
-        console.log(props)
-    },[])
-
     return(
         <div className={`${styles.chatItem} ${params.id === props.conversationId?styles.currentChat:''}`} onClick={e=>props.redirect(props.conversationId)}>
             <div className={styles.imgContainer}>

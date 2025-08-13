@@ -62,7 +62,7 @@ function Aside(props)
                 getMyChats()
             }
         })
-        socket.on('chatUpdate',()=>{
+        socket.on('chatUpdate',(arg)=>{
             getMyChats()
         })
     },[])

@@ -39,6 +39,7 @@ function ChatContent(props)
     const message = useContext(messageContext)
     const logged = useContext(loggedUser)
 
+    const chatElement = useRef()
     const emoji = useRef()
 
     const getChat = async() =>{
@@ -67,7 +68,7 @@ function ChatContent(props)
     }
 
     const sentMessage = async()=>{
-        if(!messageLoading)
+        if(!messageLoading && inputValue.trim() != '')
         {
             setDisplayEmoji(false)
             try
@@ -152,6 +153,13 @@ function ChatContent(props)
     }
 
     useEffect(()=>{
+        if(chatElement.current)
+        {
+            chatElement.current.scrollTo(0,chatElement.current.scrollHeight)
+        }
+    },[chat])
+
+    useEffect(()=>{
         window.addEventListener('keyup',keyPressed)
         if(emoji.current)
         {
@@ -209,7 +217,7 @@ function ChatContent(props)
                 chatError?<div className={styles.chatError}>
                     <ErrorIcon />
                     <h2>Wystąpił błąd podczas pobierania czatu. Spróbuj ponownie później</h2>
-                </div>:<div className={styles.chatContent}>
+                </div>:<div className={styles.chatContent} ref={chatElement}>
                     <header className={styles.chatContentHeader}>
                         <div className={styles.chatHeaderImg}>
                             <UserImg img={user.img} />
