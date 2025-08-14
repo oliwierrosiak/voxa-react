@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import ArrowIcon from '../../assets/svg/arrow'
 import styles from './chat.module.css'
 import Loading2 from '../../assets/svg/loading2'
@@ -19,6 +19,8 @@ function Aside(props)
     const navigate = useNavigate()
     const params = useParams()
     const logout = useContext(logoutContext)
+    const asideChatsContainer = useRef()
+
     const getMyChats = async()=>{
         try
         {
@@ -59,14 +61,16 @@ function Aside(props)
         socket.on('notify',(val)=>{
             if(val === "add")
             {
+                asideChatsContainer?.current?.scrollTo(0,asideChatsContainer.scrollHeight)
                 getMyChats()
             }
         })
         socket.on('chatUpdate',(arg)=>{
+            asideChatsContainer?.current?.scrollTo(0,asideChatsContainer.scrollHeight)
             getMyChats()
         })
     },[])
-    
+
     return(
         <aside className={`${styles.aside} ${props.displayAside?styles.displayAside:''}`}>
                 {props.displayAside?<>
@@ -76,9 +80,11 @@ function Aside(props)
                     </div>
                     <h1>Twoje Czaty</h1>
                 </header>
+                <div className={styles.asideChatsContainer} ref={asideChatsContainer}>
                 {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:myChats.map(x=>
                     <AsideChatItem redirect={redirect} {...x} />
                 )}
+                </div>
                 </>:<>
                     <div className={`${styles.menuIcon} ${styles.menuIcon2}`} onClick={e=>props.setDisplayAside(!props.displayAside)}>
                         <ArrowIcon class={styles.arrowSVG2} />
@@ -87,6 +93,7 @@ function Aside(props)
                         <div className={`${styles.smallAsideItem} ${params.id === x.conversationId?styles.currentChat:''}`} onClick={e=>redirect(x.conversationId)}>
                             <div className={styles.imgContainer2}>
                                 <UserImg img={x.img} />
+                                {x.seen !== "seen" && <div className={styles.hiddenAsideNewMessageAtChat}></div>}
                             </div>
                         </div>
                     )}

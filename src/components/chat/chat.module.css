@@ -16,6 +16,23 @@
     flex-direction: column;
     align-items: center;
 }
+.asideChatsContainer
+{
+    width:100%;
+    overflow: scroll;
+    max-height: 83vh;
+}
+.asideChatsContainer::-webkit-scrollbar
+{
+    width:.3rem;
+    height: 0;
+}
+.asideChatsContainer::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: #891FA6;
+    cursor: pointer;
+}
 .chat
 {
     width:95vw;
@@ -29,11 +46,11 @@
 }
 .displayAside
 {
-    width: 20vw;
+    width: 22vw;
 }
 .chatReduced
 {
-    width: 80vw;
+    width: 78vw;
 }
 .asideHeader
 {
@@ -47,6 +64,8 @@
     margin-bottom: 1rem;
     overflow: hidden;
     white-space: nowrap;
+    position: sticky;
+    top:0;
 }
 .asideHeader>h1
 {
@@ -98,13 +117,36 @@
 {
     width:100%;
     display: grid;
-    grid-template-columns: 2.5rem 1fr;
+    grid-template-columns: 2.5rem 1fr 2.5rem;
     grid-template-rows: 1.5rem 1.5rem;
     justify-items: center;
     align-items: center;
     gap:.2rem .5rem;
     padding: .5rem .5rem;
     cursor: pointer;
+}
+.asideItemDate
+{
+    grid-column: 3/4;
+    grid-row: 1/3;
+    font-size: .6rem;
+    text-align: center;
+    font-weight: 700;
+    color: grey;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: pre-line;
+    line-height: 1.3;
+}
+.newMessageAtChat
+{
+    width:.7rem;
+    height: .7rem;
+    background:radial-gradient(#C935F2,#891FA6);
+    border-radius: 50%;
 }
 .chatItem:hover
 {
@@ -182,15 +224,26 @@
     height: 2.5rem;
     border-radius: 50%;
     border: .2rem solid #891FA6;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .imgContainer2>img
 {
     width:100%;
     height: 100%;
+    border-radius: 50%;
+}
+.hiddenAsideNewMessageAtChat
+{
+    position: absolute;
+    bottom: -.15rem;
+    right: -.15rem;
+    width:.7rem;
+    height: .7rem;
+    background-color: #05C7F2;
+    border-radius: 50%;
 }
 .contentLoading
 {
@@ -216,7 +269,6 @@
     text-align: center;
     font-size: 1rem;
 }
-
 .menu
 {
     position: absolute;
@@ -353,6 +405,50 @@
     gap:1rem;
     padding: 2rem 0;
 }
+.scrollHeader
+{
+    position: sticky;
+    top:0;
+    width: 100%;
+    padding: .5rem 0;
+    background-color: #010B40;
+    display: none;
+    transform: translate(0,-100%);
+    transition: all .5s ease;
+    opacity: 0;
+    justify-content: center;
+    gap:.5rem;
+    align-items: center;
+}
+.scrollHeaderDisplay
+{
+   display: flex;
+}
+.scrollHeaderTransition
+{
+    opacity: 1;
+    transform: translate(0,0%);
+}
+.scrollHeaderImgContainer
+{
+    width:1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border:.15rem solid #891FA6;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.scrollHeaderImgContainer>img
+{
+    width:100%;
+    height: 100%;
+}
+.scrollHeaderUsername
+{
+    font-size: 1rem;
+}
 .chatHeaderImg
 {
     display: flex;
@@ -407,9 +503,9 @@
     top:0;
     left:0;
     right: 0;
-    bottom: 4rem;
+    bottom: 6rem;
     overflow: scroll;
-    padding: 0 5rem;
+    padding: 0 0rem;
     display: flex;
     flex-direction: column;
     gap:.8rem;
@@ -418,6 +514,7 @@
 {
     width:.5rem;
     height: 0;
+    background:linear-gradient(180deg,#010B40,#3A0F5B,#6E1A8D)
 }
 .chatContent::-webkit-scrollbar-thumb
 {
@@ -428,11 +525,29 @@
 .messageContainer
 {
     display: grid;
-    grid-template-columns: 1fr 10rem;
+    grid-template-columns:1.5rem 1fr 10rem;
     max-width: 60vw;
     align-self: flex-start;
     gap:.5rem;
-
+    align-items: center;
+    justify-items: center;
+    padding-left: 5rem;
+}
+.friendImgContainer
+{
+    width:1.5rem;
+    height: 1.5rem;
+    overflow: hidden;
+    border-radius: 50%;
+    border:.2rem solid #891FA6;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.friendImgContainer>img
+{
+    width:100%;
+    height: 100%;
 }
 .date
 {
@@ -455,6 +570,8 @@
 .myMessageContainer
 {
     align-self: flex-end;
+    padding-left: 0;
+    padding-right: 5rem;
     grid-template-columns: 10rem 1fr 1.5rem;
 }
 .myMessage
@@ -487,7 +604,7 @@
 {
     width:1.5rem;
     height: 1.5rem;
-    border: .1rem solid #891FA6;
+    border: .15rem solid #891FA6;
     border-radius: 50%;
     overflow: hidden;
     display: flex;

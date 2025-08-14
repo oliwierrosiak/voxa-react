@@ -8,7 +8,7 @@ function getMessageDate(time)
     }
     else if(date.getFullYear() === today.getFullYear())
     {
-        return `${date.getDate()+1 < 10?'0':''}${date.getDate()+1}.${date.getMonth()+1 < 10?'0':''}${date.getMonth()+1} ${date.getHours()}:${date.getMinutes() < 10?'0':''}${date.getMinutes()}`
+        return `${date.getDate()+1 < 10?'0':''}${date.getDate()+1}.${date.getMonth()+1 < 10?'0':''}${date.getMonth()+1}\n ${date.getHours()}:${date.getMinutes() < 10?'0':''}${date.getMinutes()}`
     }
     else
     {

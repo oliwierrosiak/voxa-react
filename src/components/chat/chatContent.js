@@ -32,6 +32,7 @@ function ChatContent(props)
     const [displayEmoji,setDisplayEmoji] = useState(false)
     const [messageLoading,setMessageLoading] = useState(false)
     const [inputFocus,setInputFocus] = useState(false)
+    const [scrollHeaderDisplay,setScrollHeaderDisplay] = useState(false)
 
     const navigate = useNavigate()
     const logout = useContext(logoutContext)
@@ -41,6 +42,8 @@ function ChatContent(props)
 
     const chatElement = useRef()
     const emoji = useRef()
+    const header = useRef()
+    const scrollHeader = useRef()
 
     const getChat = async() =>{
         try
@@ -209,6 +212,27 @@ function ChatContent(props)
         return empty
     }
 
+    const chatScroll = () =>{
+        setScrollHeaderDisplay(header?.current?.getBoundingClientRect().top + header?.current?.clientHeight * 0.8 < 0)
+    }
+
+    useEffect(()=>{
+        if(scrollHeaderDisplay)
+        {
+            setTimeout(() => {
+                scrollHeader?.current?.classList.add(styles.scrollHeaderTransition)
+            }, 50);
+        }
+        else
+        {
+            scrollHeader?.current?.classList.remove(styles.scrollHeaderTransition)
+        }
+    },[scrollHeaderDisplay])
+
+    useEffect(()=>{
+        chatScroll()
+    },[])
+
     return(
         <article className={`${styles.chat} ${props.displayAside?styles.chatReduced:''}`}>
             {loading?<div className={styles.contentLoading}>
@@ -217,26 +241,34 @@ function ChatContent(props)
                 chatError?<div className={styles.chatError}>
                     <ErrorIcon />
                     <h2>Wystąpił błąd podczas pobierania czatu. Spróbuj ponownie później</h2>
-                </div>:<div className={styles.chatContent} ref={chatElement}>
-                    <header className={styles.chatContentHeader}>
+                </div>:<div className={styles.chatContent} ref={chatElement} onScroll={chatScroll}>
+                    <header className={styles.chatContentHeader} ref={header}>
                         <div className={styles.chatHeaderImg}>
                             <UserImg img={user.img} />
                         </div>
                         <h1>{user.username}</h1>
                         <p>To jest początek twojej konwersacji z tym użytkownikiem</p>
                     </header>
+                    <header className={`${styles.scrollHeader} ${scrollHeaderDisplay?styles.scrollHeaderDisplay:''}`} ref={scrollHeader}>
+                        <div className={styles.scrollHeaderImgContainer}>
+                            <UserImg img={user.img} />
+                        </div>
+                        <h1 className={styles.scrollHeaderUsername}>{user.username}</h1>
+                    </header>
                     {chat.map((x,idx)=><div className={`${styles.messageContainer} ${logged.loggedUser.id === x.sender?styles.myMessageContainer:null}`}>
                         {logged.loggedUser.id === x.sender?<div className={styles.messageStatusContainer}>
                             {x.status === "sent"?<SentArrowIcon class={styles.messageStatusSent} />:(checkSeenElement(idx)?<div className={styles.seenUserContainer}>
                                 <UserImg img={user.img} />
                             </div>:null)}
-                        </div>:null}
+                        </div>:<div className={styles.friendImgContainer}>
+                            <UserImg img={user.img} />
+                            </div>}
                         <div className={`${styles.message} ${logged.loggedUser.id === x.sender?styles.myMessage:null}`}>
                             {x.message}
                         </div>
                         <div className={`${styles.date} ${logged.loggedUser.id === x.sender?styles.myMessageDate:null}`}>
                             {getMessageDate(x.time)}
-                            </div>
+                        </div>
                     </div>)}
                 </div>
             )}
