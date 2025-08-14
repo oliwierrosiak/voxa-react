@@ -10,6 +10,9 @@ import FriendItem from './friendItem'
 import NoneUsers from '../../assets/svg/noneUsers'
 import logoutContext from '../context/logoutContext'
 import messageContext from '../context/messageContext'
+import ChatElement from './chatElement'
+import { socket } from '../../App'
+import sound from '../../assets/sound/message.mp3'
 
 function HomeLogged()
 {
@@ -21,6 +24,9 @@ function HomeLogged()
         end:5,
     })
     const [noneUsers,setNoneUsers] = useState(false)
+    const [myChats,setMyChats] = useState([])
+    const [myChatsLoading,setMyChatsLoading] = useState(true)
+    const [myChatsError,setMyChatsError] = useState(false)
 
     const message = useContext(messageContext)
     const logoutContextHandler = useContext(logoutContext)
@@ -99,6 +105,42 @@ function HomeLogged()
         }
     }
 
+    const getMyChats = async()=>{
+         try
+        {
+            await refreshToken()
+            const response = await axios.get(`${ApiAddress}/get-my-chats`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            const chats = []
+            for(let i =0;i<3;i++)
+            {
+                if(response.data[i])
+                {
+                    chats.push(response.data[i])
+                }
+                else
+                {
+                    continue
+                }
+            }
+            setMyChats(chats)
+            setMyChatsLoading(false)
+        }
+        catch(ex)
+        {
+            if(ex.status === 404)
+            {
+                setMyChatsError(true)
+                setMyChatsLoading(false)
+
+            }
+            else
+            {
+                message.setContent('Wystąpił bład serwera',"error")
+                logoutContextHandler.logout()
+            }
+        }
+    }
+
     useEffect(()=>{
         if(suggestedFriends.length)
         {
@@ -114,8 +156,23 @@ function HomeLogged()
         }
     },[userListCounter])
 
+     const socketUpdate = (res) =>{
+
+        const notify = new Audio(sound)
+        if(res.type === "new")
+        {
+            notify.play()
+            getMyChats()
+        }
+    }
+
     useEffect(()=>{
         getData()
+        getMyChats()
+        socket.on('chatUpdate',socketUpdate)
+        return ()=>{
+            socket.off('chatUpdate',socketUpdate)
+        }
     },[])
 
     const userItemClicked = (id) =>
@@ -147,10 +204,21 @@ function HomeLogged()
             </article>
             <article className={styles.article}>
                 <h1 className={styles.articleHeader}>Twoje Czaty</h1>
-                <div className={styles.people}></div>
+                <div className={styles.chats}>
+                    {myChatsLoading?<div className={styles.myChatsLoading}>
+                        <Loading2 class={styles.myChatsLoadingSVG}/>
+                    </div>:(myChatsError?<div className={styles.noneUsers}>
+                        <NoneUsers />
+                        <h2>Nie masz żadnych czatów</h2>
+                    </div>:<>{myChats.map(x=><ChatElement {...x} />
+                    )}
+                    <a href='/chats' className={styles.showAllChats}>Zobacz wszystkie czaty</a>
+                    </>)}
+                </div>
             </article>
         </main>
     </>)
 }
+
 
 export default HomeLogged

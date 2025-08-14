@@ -89,14 +89,14 @@ function Aside(props)
                     <div className={`${styles.menuIcon} ${styles.menuIcon2}`} onClick={e=>props.setDisplayAside(!props.displayAside)}>
                         <ArrowIcon class={styles.arrowSVG2} />
                     </div>
-                    {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:myChats.map(x=>
+                    {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:<div className={styles.smallAsideChatsContainer}>{myChats.map(x=>
                         <div className={`${styles.smallAsideItem} ${params.id === x.conversationId?styles.currentChat:''}`} onClick={e=>redirect(x.conversationId)}>
                             <div className={styles.imgContainer2}>
                                 <UserImg img={x.img} />
                                 {x.seen !== "seen" && <div className={styles.hiddenAsideNewMessageAtChat}></div>}
                             </div>
                         </div>
-                    )}
+                    )}</div>}
                 </>}
         </aside>
     )
