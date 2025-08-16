@@ -21,6 +21,10 @@ import loggedUser from '../context/loggedUserContext'
 import getMessageDate from '../helpers/getMessageDate'
 import SentArrowIcon from '../../assets/svg/sentArrow'
 import sound2 from '../../assets/sound/seen.mp3'
+import BinIcon from '../../assets/svg/bin'
+import VoiceMessageIcon from '../../assets/svg/voiceMessage'
+import VoiceMessage from './voiceMessage'
+import MessageTime from './messageTime'
 
 function ChatContent(props)
 {
@@ -33,6 +37,12 @@ function ChatContent(props)
     const [messageLoading,setMessageLoading] = useState(false)
     const [inputFocus,setInputFocus] = useState(false)
     const [scrollHeaderDisplay,setScrollHeaderDisplay] = useState(false)
+    const [recording,setRecording] = useState(false)
+
+
+    const recorderRef = useRef(null);
+    const chunksRef = useRef([]);
+    const recordingIcon = useRef()
 
     const navigate = useNavigate()
     const logout = useContext(logoutContext)
@@ -134,6 +144,63 @@ function ChatContent(props)
                 
 
     }
+
+    const stopRecording = () =>{
+        setRecording(false)
+    if (recorderRef.current) {
+      recorderRef.current.stop();
+      setRecording(false)
+    }
+    }
+
+    const recordVoice = async() =>{
+        setRecording(!recording)
+        // if(!recording)
+        // {
+        //     try
+        //     {
+        //         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        //         const recorder = new MediaRecorder(stream);
+        //         recorder.ondataavailable = (e) => {
+        //         if (e.data.size > 0) {
+        //         chunksRef.current.push(e.data);
+        //         }
+        //         };
+        
+        //         recorder.onstop = () => {
+        //             const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+        //             chunksRef.current = [];
+        //             setRecording(false)
+        //         };
+        //         recorder.start();
+        //         setRecording(true)
+        //         recorderRef.current = recorder;
+        //     }
+        //     catch(ex)
+        //     {
+        //         message.setContent("Wystąpił bład nagrywania","error")
+        //         setRecording(false)
+        //     }   
+        // }
+        // else
+        // {
+        //     stopRecording()
+        // }
+    }
+
+    useEffect(()=>{
+        let interval
+        if(recording && recordingIcon.current)
+        {
+            interval = setInterval(()=>{
+                recordingIcon.current.classList.toggle(styles.recordingIconAnimation)
+            },700)
+        }
+
+        return () => {
+            clearInterval(interval)
+        }
+    },[recording])
 
     useEffect(()=>{
         if(params.id)
@@ -274,11 +341,24 @@ function ChatContent(props)
             )}
             {loading || chatError?null:
             <div className={styles.menu}>
+                <div className={`${styles.recording} ${recording?styles.recordingShow:''}`}>
+                    <div className={styles.recordingIconContainer}>
+                        <div className={styles.recordingIcon} ref={recordingIcon}></div>
+                    </div>
+                    <div className={styles.messageTime}>
+                        <MessageTime recording={recording}/>
+                    </div>
+                    <VoiceMessage />
+                    <div className={styles.cancelVoiceMessage} onClick={stopRecording}>
+                        <BinIcon />
+                    </div>
+                </div>
                 <div className={styles.bottomMenuIcon} onClick={e=>setDisplayEmoji(false)}>
                     <FileIcon class={styles.bottomMenuSVG}/>
                 </div>
-                <div className={styles.bottomMenuIcon} onClick={e=>setDisplayEmoji(false)}>
+                <div className={`${styles.bottomMenuIcon} ${styles.microphone}`} onClick={e=>{setDisplayEmoji(false);recordVoice()}}>
                     <MicrophoneIcon class={styles.bottomMenuSVG}/>
+                    
                 </div>
                 <div className={styles.bottomMenuIcon} onClick={e=>setDisplayEmoji(false)}>
                     <PhotoIcon class={styles.bottomMenuSVG}/>
