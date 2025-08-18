@@ -541,6 +541,7 @@
     justify-content: center;
     gap:.5rem;
     align-items: center;
+    z-index: 2;
 }
 .scrollHeaderDisplay
 {
@@ -664,7 +665,8 @@
     border:.2rem solid #891FA6;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
+    align-self: flex-end;  
 }
 .friendImgContainer>img
 {
@@ -737,4 +739,85 @@
 {
     width:100%;
     height: 100%;
+}
+.voiceMessageLoading
+{
+    width:10vw;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.voiceMessageLoading>svg
+{
+    width:1.5rem;
+    height: 1.5rem;
+}
+.voiceMessageError
+{
+    font-size: .8rem;
+    color: red;
+    font-weight: 700;
+}
+.audio
+{
+    width:22vw;
+    height: 1.5rem;
+    display: grid;
+    grid-template-columns: 1.5rem 1fr 3rem;
+    gap:.5rem;
+    justify-items: center;
+    align-items: center;
+}
+.play
+{
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.playIcon
+{
+    width: 100%;
+    height: 100%;
+    fill: grey;
+    transition: fill .3s ease;
+    cursor: pointer;
+}
+.play:hover>svg
+{
+    fill: #891FA6;
+}
+.timelineContainer
+{
+    width:100%;
+    height: .4rem;
+    border-radius: 10px;
+    background-color: grey;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.voiceMessageTime
+{
+    width:100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .6rem;
+    font-weight: 700;
+    color: grey;
+
+}
+.timeline
+{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    width: 0%;
+    border-radius: 10px;
+    background: #891FA6;
 }

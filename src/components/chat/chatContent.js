@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { act, useContext, useEffect, useRef, useState } from 'react'
 import styles from './chat.module.css'
 import Loading2 from '../../assets/svg/loading2'
 import refreshToken from '../helpers/refreshToken'
@@ -25,6 +25,7 @@ import BinIcon from '../../assets/svg/bin'
 import VoiceMessageIcon from '../../assets/svg/voiceMessage'
 import VoiceMessage from './voiceMessage'
 import MessageTime from './messageTime'
+import GetVoiceMessage from './getVoiceMessage'
 
 function ChatContent(props)
 {
@@ -39,10 +40,10 @@ function ChatContent(props)
     const [scrollHeaderDisplay,setScrollHeaderDisplay] = useState(false)
     const [recording,setRecording] = useState(false)
 
-
     const recorderRef = useRef(null);
     const chunksRef = useRef([]);
     const recordingIcon = useRef()
+    const recordingAction = useRef('')
 
     const navigate = useNavigate()
     const logout = useContext(logoutContext)
@@ -145,47 +146,70 @@ function ChatContent(props)
 
     }
 
-    const stopRecording = () =>{
-        setRecording(false)
-    if (recorderRef.current) {
-      recorderRef.current.stop();
-      setRecording(false)
-    }
+    const sendVoiceMessage = async(mess)=>{
+        try
+        {
+            setMessageLoading(true)
+            const formData = new FormData
+            formData.append('audio',mess,'voice.webm')
+            formData.append('chatId',params.id)
+            await refreshToken()
+            const response = await axios.post(`${ApiAddress}/send-voice-message`,formData,{headers:{"Content-Type":"multipart/form-data","Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            setMessageLoading(false)
+        }
+        catch(ex)
+        {
+            message.setContent('Nie udało się wysłać wiadomości',"error")
+             setMessageLoading(false)
+        }
     }
 
+
+
+    const stopRecording = (action) =>{
+        if (recorderRef.current) {
+            recordingAction.current = action
+            recorderRef.current.stop();
+        }
+    }
     const recordVoice = async() =>{
-        setRecording(!recording)
-        // if(!recording)
-        // {
-        //     try
-        //     {
-        //         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        //         const recorder = new MediaRecorder(stream);
-        //         recorder.ondataavailable = (e) => {
-        //         if (e.data.size > 0) {
-        //         chunksRef.current.push(e.data);
-        //         }
-        //         };
+        if(!recording && !messageLoading)
+        {
+            try
+            {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const recorder = new MediaRecorder(stream);
+                recorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                chunksRef.current.push(e.data);
+                }
+                };
         
-        //         recorder.onstop = () => {
-        //             const blob = new Blob(chunksRef.current, { type: "audio/webm" });
-        //             chunksRef.current = [];
-        //             setRecording(false)
-        //         };
-        //         recorder.start();
-        //         setRecording(true)
-        //         recorderRef.current = recorder;
-        //     }
-        //     catch(ex)
-        //     {
-        //         message.setContent("Wystąpił bład nagrywania","error")
-        //         setRecording(false)
-        //     }   
-        // }
-        // else
-        // {
-        //     stopRecording()
-        // }
+                recorder.onstop = () => {
+                    const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+                    chunksRef.current = [];
+                    if(recordingAction.current === "send")
+                    {
+                        sendVoiceMessage(blob)
+                    }
+                    
+                    setRecording(false)
+                };
+
+                recorder.start();
+                setRecording(true)
+                recorderRef.current = recorder;
+            }
+            catch(ex)
+            {
+                message.setContent("Wystąpił bład nagrywania","error")
+                setRecording(false)
+            }   
+        }
+        else
+        {
+            stopRecording('delete')
+        }
     }
 
     useEffect(()=>{
@@ -331,7 +355,7 @@ function ChatContent(props)
                             <UserImg img={user.img} />
                             </div>}
                         <div className={`${styles.message} ${logged.loggedUser.id === x.sender?styles.myMessage:null}`}>
-                            {x.message}
+                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.message}
                         </div>
                         <div className={`${styles.date} ${logged.loggedUser.id === x.sender?styles.myMessageDate:null}`}>
                             {getMessageDate(x.time)}
@@ -349,7 +373,7 @@ function ChatContent(props)
                         <MessageTime recording={recording}/>
                     </div>
                     <VoiceMessage />
-                    <div className={styles.cancelVoiceMessage} onClick={stopRecording}>
+                    <div className={styles.cancelVoiceMessage} onClick={e=>stopRecording('delete')}>
                         <BinIcon />
                     </div>
                 </div>
@@ -370,7 +394,7 @@ function ChatContent(props)
                     </div>
                     <emoji-picker locale="pl" ref={emoji} className={`${styles.emojiPicker} ${displayEmoji?styles.displayEmoji:''}`}/>
                 </div>
-                <div className={styles.sentIcon} onClick={e=>{sentMessage()}}>
+                <div className={styles.sentIcon} onClick={e=>{sentMessage();stopRecording("send")}}>
                     {messageLoading?<Loading2 class={styles.messageLoading}/>:
                     <SentIcon class={styles.bottomMenuSVG}/>}
                 </div>

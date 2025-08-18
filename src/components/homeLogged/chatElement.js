@@ -20,7 +20,7 @@ function ChatElement(props)
                 <UserImg img={props.img} />
             </div>
             <h2 className={styles.chatElementUsername}>{props.username}</h2>
-            <p className={`${styles.chatElementMessage} ${props.seen !== "seen"?styles.chatElementUnSeenYet:''}`}>{logged.loggedUser.id === props.sender?"Ty: ":''}{props.message}</p>
+            <p className={`${styles.chatElementMessage} ${props.seen !== "seen"?styles.chatElementUnSeenYet:''}`}>{logged.loggedUser.id === props.sender?"Ty: ":''}{props.type === "voice"?"Wiadomość głosowa":props.message}</p>
             <div className={styles.date}>{props.seen === "seen"?getMessageDate(props.time):<div className={styles.newMessage}></div>}</div>
         </div>
     )
