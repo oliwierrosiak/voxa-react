@@ -56,6 +56,8 @@ function ChatContent(props)
     const header = useRef()
     const scrollHeader = useRef()
 
+    const photoRef = useRef()
+
     const getChat = async() =>{
         try
         {
@@ -209,6 +211,35 @@ function ChatContent(props)
         else
         {
             stopRecording('delete')
+        }
+    }
+
+    const sendPhoto = async(e)=>{
+        try
+        {
+            await refreshToken()
+            const formData = new FormData()
+            for(let i = 0;i<e.target.files.length;i++)
+            {
+                formData.append("images",e.target.files[i])
+            }
+            formData.append("chatId",params.id)
+            const response = await axios.post(`${ApiAddress}/upload-chat-images`,formData,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`,"Content-Type":"multipart/form-data"}})
+            console.log(response)
+        }
+        catch(ex)
+        {
+            if(ex.status === 404)
+            {
+                message.setContent('Nie właściwy typ pliku',"error")
+
+            }
+            else
+            {
+                message.setContent('Nie udało się wysłać zdjęcia',"error")
+
+            }
+            setMessageLoading(false)
         }
     }
 
@@ -384,7 +415,8 @@ function ChatContent(props)
                     <MicrophoneIcon class={styles.bottomMenuSVG}/>
                     
                 </div>
-                <div className={styles.bottomMenuIcon} onClick={e=>setDisplayEmoji(false)}>
+                <div className={`${styles.bottomMenuIcon} ${styles.photoIcon}`} onClick={e=>{setDisplayEmoji(false);photoRef.current.click();setMessageLoading(true)}}>
+                    <input type='file' className={styles.photoInput} ref={photoRef} accept='image/*' multiple onChange={sendPhoto}></input>
                     <PhotoIcon class={styles.bottomMenuSVG}/>
                 </div>
                 <div className={`${styles.inputContainer} ${inputFocus?styles.inputContainerFocus:''}`} onClick={e=>e.target.classList.contains(styles.inputContainer)?e.target.children[0].focus():null}>
