@@ -26,6 +26,7 @@ import VoiceMessageIcon from '../../assets/svg/voiceMessage'
 import VoiceMessage from './voiceMessage'
 import MessageTime from './messageTime'
 import GetVoiceMessage from './getVoiceMessage'
+import GetPhotos from './getPohotos'
 
 function ChatContent(props)
 {
@@ -225,7 +226,7 @@ function ChatContent(props)
             }
             formData.append("chatId",params.id)
             const response = await axios.post(`${ApiAddress}/upload-chat-images`,formData,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`,"Content-Type":"multipart/form-data"}})
-            console.log(response)
+            setMessageLoading(false)
         }
         catch(ex)
         {
@@ -277,11 +278,15 @@ function ChatContent(props)
         setInputValue(value)
     }
 
-    useEffect(()=>{
+    const scrollFunc = () =>{
         if(chatElement.current)
         {
             chatElement.current.scrollTo(0,chatElement.current.scrollHeight)
         }
+    }
+
+    useEffect(()=>{
+        scrollFunc()
     },[chat])
 
     useEffect(()=>{
@@ -386,7 +391,7 @@ function ChatContent(props)
                             <UserImg img={user.img} />
                             </div>}
                         <div className={`${styles.message} ${logged.loggedUser.id === x.sender?styles.myMessage:null}`}>
-                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.message}
+                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} />:x.message}
                         </div>
                         <div className={`${styles.date} ${logged.loggedUser.id === x.sender?styles.myMessageDate:null}`}>
                             {getMessageDate(x.time)}
