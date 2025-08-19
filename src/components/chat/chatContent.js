@@ -40,6 +40,7 @@ function ChatContent(props)
     const [inputFocus,setInputFocus] = useState(false)
     const [scrollHeaderDisplay,setScrollHeaderDisplay] = useState(false)
     const [recording,setRecording] = useState(false)
+    const [dialogOpen,setDialogOpen] = useState(false)
 
     const recorderRef = useRef(null);
     const chunksRef = useRef([]);
@@ -216,6 +217,7 @@ function ChatContent(props)
     }
 
     const sendPhoto = async(e)=>{
+        setMessageLoading(true)
         try
         {
             await refreshToken()
@@ -358,7 +360,7 @@ function ChatContent(props)
 
     useEffect(()=>{
         chatScroll()
-    },[])
+    },[]) 
 
     return(
         <article className={`${styles.chat} ${props.displayAside?styles.chatReduced:''}`}>
@@ -391,7 +393,7 @@ function ChatContent(props)
                             <UserImg img={user.img} />
                             </div>}
                         <div className={`${styles.message} ${logged.loggedUser.id === x.sender?styles.myMessage:null}`}>
-                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} />:x.message}
+                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} />:x.message}
                         </div>
                         <div className={`${styles.date} ${logged.loggedUser.id === x.sender?styles.myMessageDate:null}`}>
                             {getMessageDate(x.time)}
@@ -420,8 +422,8 @@ function ChatContent(props)
                     <MicrophoneIcon class={styles.bottomMenuSVG}/>
                     
                 </div>
-                <div className={`${styles.bottomMenuIcon} ${styles.photoIcon}`} onClick={e=>{setDisplayEmoji(false);photoRef.current.click();setMessageLoading(true)}}>
-                    <input type='file' className={styles.photoInput} ref={photoRef} accept='image/*' multiple onChange={sendPhoto}></input>
+                <div className={`${styles.bottomMenuIcon} ${styles.photoIcon}`} onClick={e=>{setDisplayEmoji(false);photoRef.current.click()}}>
+                    <input type='file' className={styles.photoInput} ref={photoRef} accept='image/*,video/*' multiple onChange={sendPhoto}></input>
                     <PhotoIcon class={styles.bottomMenuSVG}/>
                 </div>
                 <div className={`${styles.inputContainer} ${inputFocus?styles.inputContainerFocus:''}`} onClick={e=>e.target.classList.contains(styles.inputContainer)?e.target.children[0].focus():null}>

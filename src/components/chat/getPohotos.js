@@ -18,11 +18,12 @@ function GetPhotos(props)
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-chat-img/${img}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:"blob"})
+            console.log(response.data)
             if(response.data)
             {
                 const localImg = [...imgs.current]
                 const url = URL.createObjectURL(response.data)
-                localImg.push(url)
+                localImg.push({type:response.data.type,url})
                 imgs.current = [...localImg]
                 
             }
@@ -55,10 +56,29 @@ function GetPhotos(props)
         }
     },[])
 
+    useEffect(()=>{
+        console.log(imgsState)
+    },[imgsState])
+
     return(
         loading?<div className={styles.photoLoadingContainer}>
             <Loading2 class={styles.photoLoading}/>
-        </div>:imgsState.map(x=>x==="error"?<div className={styles.imageError}>Błąd pobierania zdjęcia</div>:<img className={styles.chatImg} src={x}/>)
+        </div>:(
+        imgsState.map((x)=>{
+            if(x==="error")
+            {
+                return <div className={styles.imageError}>Błąd pobierania zdjęcia</div>
+            }
+            else if(x.type.includes('image'))
+            {
+                return <img className={styles.chatImg} src={x.url}/>
+            }
+            else
+            {
+                return <video className={styles.chatVideo} controls src={x.url} />
+            }
+        })
+        )
     )
 }
 
