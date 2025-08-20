@@ -907,10 +907,21 @@
     font-size: 1rem;
     font-weight: 700;
 }
-.galleryImg
+.galleryImgContainer
 {
     max-width: 70%;
     max-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.galleryImg
+{
+    max-width:  100%;
+    max-height: 100%;
+    position: relative;
+    
 }
 .galleryImg::selection
 {
