@@ -27,6 +27,7 @@ import VoiceMessage from './voiceMessage'
 import MessageTime from './messageTime'
 import GetVoiceMessage from './getVoiceMessage'
 import GetPhotos from './getPohotos'
+import Gallery from './gallery'
 
 function ChatContent(props)
 {
@@ -40,7 +41,8 @@ function ChatContent(props)
     const [inputFocus,setInputFocus] = useState(false)
     const [scrollHeaderDisplay,setScrollHeaderDisplay] = useState(false)
     const [recording,setRecording] = useState(false)
-    const [dialogOpen,setDialogOpen] = useState(false)
+    const [showGallery,setShowGallery] = useState(false)
+    const [clickedPhoto,setClickedPhoto] = useState('')
 
     const recorderRef = useRef(null);
     const chunksRef = useRef([]);
@@ -246,6 +248,11 @@ function ChatContent(props)
         }
     }
 
+    const galleryHandler = (clicked) =>{
+        setShowGallery(true)
+        setClickedPhoto(clicked)
+    }
+
     useEffect(()=>{
         let interval
         if(recording && recordingIcon.current)
@@ -289,6 +296,7 @@ function ChatContent(props)
 
     useEffect(()=>{
         scrollFunc()
+        setShowGallery(false)
     },[chat])
 
     useEffect(()=>{
@@ -362,8 +370,11 @@ function ChatContent(props)
         chatScroll()
     },[]) 
 
+
+
     return(
         <article className={`${styles.chat} ${props.displayAside?styles.chatReduced:''}`}>
+            {showGallery && <Gallery setShowGallery={setShowGallery} clickedPhoto={clickedPhoto} />}
             {loading?<div className={styles.contentLoading}>
                 <Loading2 class={styles.loadingSVG}/>
             </div>:(
@@ -371,6 +382,7 @@ function ChatContent(props)
                     <ErrorIcon />
                     <h2>Wystąpił błąd podczas pobierania czatu. Spróbuj ponownie później</h2>
                 </div>:<div className={styles.chatContent} ref={chatElement} onScroll={chatScroll}>
+                    
                     <header className={styles.chatContentHeader} ref={header}>
                         <div className={styles.chatHeaderImg}>
                             <UserImg img={user.img} />
@@ -393,7 +405,7 @@ function ChatContent(props)
                             <UserImg img={user.img} />
                             </div>}
                         <div className={`${styles.message} ${logged.loggedUser.id === x.sender?styles.myMessage:null}`}>
-                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} />:x.message}
+                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} galleryHandler={galleryHandler}/>:x.message}
                         </div>
                         <div className={`${styles.date} ${logged.loggedUser.id === x.sender?styles.myMessageDate:null}`}>
                             {getMessageDate(x.time)}

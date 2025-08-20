@@ -8,6 +8,7 @@ import Loading2 from "../../assets/svg/loading2"
 function GetPhotos(props)
 {
     const imgs = useRef([])
+    const imgsOriginalName = useRef([])
 
     const [imgsState,setImgsState] = useState([])
     const [loading,setLoading] = useState(true)
@@ -18,14 +19,18 @@ function GetPhotos(props)
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-chat-img/${img}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:"blob"})
-            console.log(response.data)
             if(response.data)
             {
                 const localImg = [...imgs.current]
+                const localImgsOriginalName = [...imgsOriginalName.current]
                 const url = URL.createObjectURL(response.data)
                 localImg.push({type:response.data.type,url})
+                if(response.data.type.includes("image"))
+                {
+                    localImgsOriginalName.push(img)
+                }
                 imgs.current = [...localImg]
-                
+                imgsOriginalName.current = [...localImgsOriginalName]
             }
             else
             {
@@ -34,9 +39,12 @@ function GetPhotos(props)
         }
         catch(ex)
         {
+            const localImgsOriginalName = [...imgsOriginalName.current]
+            localImgsOriginalName.push("error")
             const localImg = [...imgs.current]
             localImg.push("error")
             imgs.current = [...localImg]
+            imgsOriginalName.current = [...localImgsOriginalName]
         }
 
         if(imgs.current.length === props.imgs.length)
@@ -49,29 +57,29 @@ function GetPhotos(props)
         }
     }
 
-    useEffect(()=>{
-        for(let i = 0;i<props.imgs.length;i++)
+    const getImgFor = async() =>{
+         for(let i = 0;i<props.imgs.length;i++)
         {
-            getImages(props.imgs[i])
+            await getImages(props.imgs[i])
         }
-    },[])
+    }
 
     useEffect(()=>{
-        console.log(imgsState)
-    },[imgsState])
+       getImgFor()
+    },[])
 
     return(
         loading?<div className={styles.photoLoadingContainer}>
             <Loading2 class={styles.photoLoading}/>
         </div>:(
-        imgsState.map((x)=>{
+        imgsState.map((x,idx)=>{
             if(x==="error")
             {
                 return <div className={styles.imageError}>Błąd pobierania zdjęcia</div>
             }
             else if(x.type.includes('image'))
             {
-                return <img className={styles.chatImg} src={x.url}/>
+                return <img className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>
             }
             else
             {
