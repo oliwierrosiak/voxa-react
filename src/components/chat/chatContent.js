@@ -29,6 +29,7 @@ import GetVoiceMessage from './getVoiceMessage'
 import GetPhotos from './getPohotos'
 import Gallery from './gallery'
 import File from './file'
+import Message from './message'
 
 function ChatContent(props)
 {
@@ -442,7 +443,7 @@ function ChatContent(props)
                             <UserImg img={user.img} />
                             </div>}
                         <div className={`${styles.message} ${logged.loggedUser.id === x.sender?styles.myMessage:null}`}>
-                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} galleryHandler={galleryHandler}/>:x.type == "file"?<File file={x.message}/>:x.message}
+                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} galleryHandler={galleryHandler}/>:x.type == "file"?<File file={x.message}/>:<Message message={x.message} />}
                         </div>
                         <div className={`${styles.date} ${logged.loggedUser.id === x.sender?styles.myMessageDate:null}`}>
                             {getMessageDate(x.time)}

@@ -19,7 +19,7 @@ function File(props)
         {
             setLoading(true)
             await refreshToken()
-            const response = await axios.get(`${ApiAddress}/download-file/${props.file.dbName}/${props.file.name}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:'blob'})
+            const response = await axios.get(`${ApiAddress}/download-file/${props.file.dbName}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:'blob'})
             const newUrl = URL.createObjectURL(response.data)
             
            const a = document.createElement('a');

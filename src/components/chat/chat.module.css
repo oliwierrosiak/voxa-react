@@ -689,7 +689,6 @@
     background-color: #021369;
     padding: .3rem .5rem;
     border-radius: .8rem;
-    font-size: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1022,4 +1021,18 @@
     height: 100%;
     fill: rgb(216, 216, 216);
     transition: fill .3s ease;
+}
+.messageLink
+{
+    color: #891FA6;
+    font-weight: 700;
+    font-size: .9rem;
+}
+.messageLink:hover
+{
+    color: #C935F2;
+}
+.messageContent
+{
+    font-size: 1rem;
 }
