@@ -28,6 +28,7 @@ import MessageTime from './messageTime'
 import GetVoiceMessage from './getVoiceMessage'
 import GetPhotos from './getPohotos'
 import Gallery from './gallery'
+import File from './file'
 
 function ChatContent(props)
 {
@@ -60,6 +61,7 @@ function ChatContent(props)
     const header = useRef()
     const scrollHeader = useRef()
 
+    const file = useRef()
     const photoRef = useRef()
 
     const getChat = async() =>{
@@ -231,6 +233,8 @@ function ChatContent(props)
             formData.append("chatId",params.id)
             const response = await axios.post(`${ApiAddress}/upload-chat-images`,formData,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`,"Content-Type":"multipart/form-data"}})
             setMessageLoading(false)
+            e.target.value = ''
+
         }
         catch(ex)
         {
@@ -244,6 +248,7 @@ function ChatContent(props)
                 message.setContent('Nie udało się wysłać zdjęcia',"error")
 
             }
+            e.target.value = ''
             setMessageLoading(false)
         }
     }
@@ -251,6 +256,38 @@ function ChatContent(props)
     const galleryHandler = (clicked) =>{
         setShowGallery(true)
         setClickedPhoto(clicked)
+    }
+
+    const sendFile = async(e)=>
+    {
+        try
+        {
+            setMessageLoading(true)
+            const sizeLong = e.target.files[0].size / (1024*1024)
+            const size = Number(sizeLong.toFixed(2))
+            if(size > 200)
+            {
+                setMessageLoading(false)
+                message.setContent('Plik jest większy niż 200 MB',"error")
+            }
+            else
+            {
+                await refreshToken()
+                const formData = new FormData()
+                formData.append('file',e.target.files[0])
+                formData.append("chatId",params.id)
+                const response = await axios.post(`${ApiAddress}/upload-file`,formData,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+                setMessageLoading(false)
+                e.target.value = ''
+            }
+        }
+        catch(ex)
+        {
+            console.log(ex)
+            setMessageLoading(false)
+            message.setContent("Nie udało się wysłać pliku",'error')
+            e.target.value = ''
+        }
     }
 
     useEffect(()=>{
@@ -405,7 +442,7 @@ function ChatContent(props)
                             <UserImg img={user.img} />
                             </div>}
                         <div className={`${styles.message} ${logged.loggedUser.id === x.sender?styles.myMessage:null}`}>
-                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} galleryHandler={galleryHandler}/>:x.message}
+                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} galleryHandler={galleryHandler}/>:x.type == "file"?<File file={x.message}/>:x.message}
                         </div>
                         <div className={`${styles.date} ${logged.loggedUser.id === x.sender?styles.myMessageDate:null}`}>
                             {getMessageDate(x.time)}
@@ -427,14 +464,15 @@ function ChatContent(props)
                         <BinIcon />
                     </div>
                 </div>
-                <div className={styles.bottomMenuIcon} onClick={e=>setDisplayEmoji(false)}>
+                <div className={`${styles.bottomMenuIcon} ${styles.fileContainer}`} onClick={e=>{setDisplayEmoji(false);!messageLoading && file.current.click()}}>
                     <FileIcon class={styles.bottomMenuSVG}/>
+                    <input type='file' className={styles.fileInput} ref={file} onChange={sendFile}/>
                 </div>
                 <div className={`${styles.bottomMenuIcon} ${styles.microphone}`} onClick={e=>{setDisplayEmoji(false);recordVoice()}}>
                     <MicrophoneIcon class={styles.bottomMenuSVG}/>
                     
                 </div>
-                <div className={`${styles.bottomMenuIcon} ${styles.photoIcon}`} onClick={e=>{setDisplayEmoji(false);photoRef.current.click()}}>
+                <div className={`${styles.bottomMenuIcon} ${styles.photoIcon}`} onClick={e=>{setDisplayEmoji(false);!messageLoading && photoRef.current.click()}}>
                     <input type='file' className={styles.photoInput} ref={photoRef} accept='image/*,video/*' multiple onChange={sendPhoto}></input>
                     <PhotoIcon class={styles.bottomMenuSVG}/>
                 </div>

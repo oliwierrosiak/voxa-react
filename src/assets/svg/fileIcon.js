@@ -1,0 +1,8 @@
+function FileIcon(props)
+{
+    return(
+        <svg className={props.class} viewBox="0 0 24 24"><path d="M16,2l4,4H16ZM14,2H5A1,1,0,0,0,4,3V21a1,1,0,0,0,1,1H19a1,1,0,0,0,1-1V8H14Z"/></svg>
+    )
+}
+
+export default FileIcon
