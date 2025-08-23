@@ -15,6 +15,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: default;
+}
+.aside::selection
+{
+    background: none;
 }
 .smallAsideChatsContainer
 {
@@ -182,6 +187,10 @@
     width:100%;
     height: 100%;
 }
+.imgContainer>img::selection
+{
+    background: none;
+}
 .userName
 {
     font-size: .8rem;
@@ -246,6 +255,10 @@
     width:100%;
     height: 100%;
     border-radius: 50%;
+}
+.imgContainer2>img::selection
+{
+    background: none;
 }
 .hiddenAsideNewMessageAtChat
 {
@@ -568,6 +581,10 @@
     width:100%;
     height: 100%;
 }
+.scrollHeaderImgContainer>img::selection
+{
+    background:none;
+}
 .scrollHeaderUsername
 {
     font-size: 1rem;
@@ -587,6 +604,10 @@
 {
     width:100%;
     height: 100%;
+}
+.chatHeaderImg>img::selection
+{
+    background: none;
 }
 .chatContentHeader>h1
 {
@@ -673,6 +694,10 @@
     width:100%;
     height: 100%;
 }
+.friendImgContainer>img::selection
+{
+    background: none;
+}
 .date
 {
     width:10rem;
@@ -742,6 +767,10 @@
 {
     width:100%;
     height: 100%;
+}
+.seenUserContainer>img::selection
+{
+    background:none;
 }
 .voiceMessageLoading
 {
@@ -860,6 +889,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.chatImg::selection
+{
+    background: none;
 }
 .imageError
 {

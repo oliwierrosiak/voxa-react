@@ -52,8 +52,13 @@ function TopBar()
         inputBlur()
     }
 
-    const search = (e) => {
-        console.log("wyszukaj fraze " + searchValue)
+    const searchFunc = (e) => {
+        if(searchValue.trim())
+        {
+            navigate(`/search/${searchValue.trim()}`)
+            setSearchValue('')
+
+        }
     }   
 
     const getUserImg = async()=>
@@ -99,6 +104,7 @@ function TopBar()
     const logout = async() =>
     {
         logoutContextFunc.logout()
+        navigate('/')
     }
 
     return(
@@ -106,14 +112,14 @@ function TopBar()
             <img src={voxaLogo} className={styles.logo} onClick={e=>navigate('/')}/>
 
             <search className={styles.search}>
-                <form>
+                <form onSubmit={e=>{e.preventDefault();searchFunc()}}>
                 <input type='text' value={searchValue} onChange={e=>setSearchValue(e.target.value)} ref={input} className={styles.searchInput} placeholder='Szukaj czatów i znajomych...' onFocus={e=>{searchFocused(e);e.target.placeholder = ``}} onBlur={e=>{inputBlur(e);e.target.placeholder = `Szukaj czatów i znajomych...`}}/>
                 <div className={styles.searchMenu}>
                     <div className={styles.cancelContainer} onClick={clearSearchValue}>
                         <Cancel />
                     </div>
                     <div className={styles.line}></div>
-                    <div className={styles.searchIconContainer} onClick={search}>
+                    <div className={styles.searchIconContainer} onClick={searchFunc}>
                         <SearchIcon />
                     </div>
                 </div>

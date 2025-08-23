@@ -15,7 +15,7 @@ function ChatElement(props)
     }
 
     return(
-        <div className={styles.chatElement} onClick={redirect}>
+        <div className={`${styles.chatElement} ${props.class?props.class:''}`} onClick={redirect}>
             <div className={styles.chatElementImgContainer}>
                 <UserImg img={props.img} />
             </div>

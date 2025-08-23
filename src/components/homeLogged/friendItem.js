@@ -57,7 +57,7 @@ function FriendItem(props)
     }
 
     return(
-        <div className={`${styles.friendsItem}`} onClick={e=>sendInvitation(props.item._id)} onMouseOver={e=>plus.current.classList.add(styles.plusDisplay)} onMouseOut={e=>!props.item?.invitedLocal &&!loading && plus.current.classList.remove(styles.plusDisplay)}>
+        <div className={`${styles.friendsItem} ${props.class?props.class:''}`} onClick={e=>sendInvitation(props.item._id)} onMouseOver={e=>plus.current.classList.add(styles.plusDisplay)} onMouseOut={e=>!props.item?.invitedLocal &&!loading && plus.current.classList.remove(styles.plusDisplay)}>
             <div className={styles.imageContainer}>
 
                 <UserImg img={props.item?.img} />

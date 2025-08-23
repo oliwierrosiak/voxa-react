@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './components/home/home';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import LoginContext from './components/context/loginContext';
@@ -12,6 +12,7 @@ import Invitations from './components/invitations/invitations';
 import logoutContext from './components/context/logoutContext';
 import io from 'socket.io-client'
 import Chat from './components/chat/chat';
+import Search from './components/searchPage/search';
 
 export const socket = io(ApiAddress)
 
@@ -28,8 +29,6 @@ function App() {
     message:'',
     type:'',
   })
-
-
 
   const checkLogin = async()=>{
       const refreshToken = sessionStorage.getItem('refreshToken')
@@ -114,6 +113,7 @@ function App() {
           <Route path='/invitations' element={<Invitations />} />
           <Route path='/chats' element={<Chat />} />
           <Route path='/chats/:id' element={<Chat />}/>
+          <Route path='/search/:search' element={<Search />} />
       </Routes>
     </Router>
 

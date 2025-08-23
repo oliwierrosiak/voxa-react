@@ -100,6 +100,10 @@
     width:100%;
     height: 100%;
 }
+.chatElementImgContainer>img::selection
+{
+    background: none;
+}
 .chatElementUsername
 {
     grid-column: 2/3;
@@ -202,6 +206,10 @@
     width:100%;
     height: 100%;
     border-radius: 50%;
+}
+.imageContainer>img::selection
+{
+    background:none;
 }
 .loadingSVG
 {

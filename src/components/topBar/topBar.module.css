@@ -19,6 +19,10 @@
     cursor: pointer;
     transition: transform .3s ease;
 }
+.logo::selection
+{
+    background:none;
+}
 .logo:hover
 {
     transform: scale(1.05);
@@ -133,6 +137,10 @@
 .searchIconContainer>svg
 {
     fill: white;
+}
+.rightMenu::selection
+{
+    background: none;
 }
 .rightMenu
 {

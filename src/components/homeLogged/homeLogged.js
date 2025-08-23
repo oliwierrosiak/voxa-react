@@ -180,7 +180,6 @@ function HomeLogged()
         const users = [...displayFriends]
         const userIndex = users.findIndex(x=>x._id == id)
         users[userIndex].invitedLocal = true
-        console.log(users)
         setDisplayFriends(users)
     }
 
@@ -193,11 +192,13 @@ function HomeLogged()
                 <div className={styles.people}>
                     {suggestedFFriendsLoading?<div className={styles.loadingItem}><Loading2 /></div>:(noneUsers?<div className={styles.noneUsers}><NoneUsers /><h2>Nie znaleziono żadnych użytkowników</h2></div>:<>
                     <div className={styles.arrow} onClick={e=>changeUserListCounter('down')}>
-                        <Back  class={`${styles.arrowLeftSVG} ${userListCounter.start === 0?styles.arrowDisabled:''}`}/>
+                        {suggestedFriends.length > 5 && <Back  class={`${styles.arrowLeftSVG} ${userListCounter.start === 0?styles.arrowDisabled:''}`}/>}
+                        
                     </div>
                     {displayFriends.map(x=><FriendItem item={x} userItemClicked={userItemClicked}/>)}
                     <div className={styles.arrow} onClick={e=>changeUserListCounter('up')}>
-                        <Back  class={`${styles.arrowRightSVG} ${userListCounter.end === suggestedFriends.length?styles.arrowDisabled:''}`}/>
+                        {suggestedFriends.length > 5 && <Back  class={`${styles.arrowRightSVG} ${userListCounter.end === suggestedFriends.length?styles.arrowDisabled:''}`}/>}
+                        
                     </div>
                     </>)}
                 </div>
