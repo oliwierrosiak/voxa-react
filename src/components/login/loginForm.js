@@ -9,9 +9,13 @@ import axios from 'axios'
 import ApiAddress from '../../ApiAddress.js'
 import LoginContext from '../context/loginContext.js'
 import loggedUser from '../context/loggedUserContext.js'
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google'
+import messageContext from '../context/messageContext.js'
+import refreshToken from '../helpers/refreshToken.js'
 
 function LoginForm(props)
 {
+    const message = useContext(messageContext)
     const loggedUserContext = useContext(loggedUser)
     const loggedContext = useContext(LoginContext)
     const [emailValue,setEmailValue] = useState('')
@@ -92,6 +96,26 @@ function LoginForm(props)
             props.setLoginAction("register")
         }
     }
+    const googleLoginError = () =>{
+        message.setContent('Bład logowanie google',"error")
+    }
+
+
+    const googleLogin = async(res)=>{
+        try
+        {
+            const response = await axios.post(`${ApiAddress}/google-login`,{token:res.credential})
+            sessionStorage.setItem("token",response.data.token)
+            sessionStorage.setItem("refreshToken",response.data.refreshToken)
+            loggedContext.setLogged(true)
+            loggedUserContext.setLoggedUser(response.data)
+        }
+        catch(ex)
+        {
+            googleLoginError()
+        }
+    }
+
 
     return(
         <form onSubmit={validateData} className={styles.form}>
@@ -121,7 +145,8 @@ function LoginForm(props)
 
         <button className={`${styles.submit} ${props.loading?styles.btnLoading:""}`} type='submit'>{props.loading?<Loading />:"Zaloguj się!"}</button>
 
-        <button className={styles.googleLogin}>
+        <button type='button' className={styles.googleLogin}>
+        <GoogleLogin onSuccess={googleLogin} onError={googleLoginError}/>
             <img src={googleLogo} className={styles.googleIcon}/>
             Kontynuj z Google
         </button>

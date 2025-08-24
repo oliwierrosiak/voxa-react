@@ -13,6 +13,7 @@ import logoutContext from './components/context/logoutContext';
 import io from 'socket.io-client'
 import Chat from './components/chat/chat';
 import Search from './components/searchPage/search';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 export const socket = io(ApiAddress)
 
@@ -101,7 +102,7 @@ function App() {
   },[logged,loggedUserState])
 
   return (
-
+    <GoogleOAuthProvider clientId='294845836411-uisma3kqknrvl4a1veghuvdt1j1dun1t.apps.googleusercontent.com'>
     <LoginContext.Provider value={{logged,setLogged}}>
     <loggedUser.Provider value={{loggedUser:loggedUserState,setLoggedUser:setLoggedUserStateHandler}}>
     <logoutContext.Provider value={{logout}}>
@@ -123,7 +124,7 @@ function App() {
     </logoutContext.Provider>
     </loggedUser.Provider>
     </LoginContext.Provider>
-
+    </GoogleOAuthProvider>
   );
 }
 
