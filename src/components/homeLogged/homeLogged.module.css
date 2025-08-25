@@ -175,7 +175,7 @@
 }
 .friendsItem:hover>.imageContainer
 {
-    border:.3rem solid #C935F2;
+    border:.25rem solid #C935F2;
 }
 .friendsItem:hover>.userHeader
 {
@@ -183,9 +183,9 @@
 }
 .imageContainer
 {
-    width:7rem;
-    height: 7rem;
-    border:.3rem solid #891FA6;
+    width:6rem;
+    height: 6rem;
+    border:.25rem solid #891FA6;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -195,7 +195,7 @@
 }
 .userHeader
 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     width:100%;
     text-align: center;
     color: rgb(188, 188, 188);

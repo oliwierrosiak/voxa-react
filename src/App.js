@@ -14,6 +14,7 @@ import io from 'socket.io-client'
 import Chat from './components/chat/chat';
 import Search from './components/searchPage/search';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Profile from './components/profile/profile';
 
 export const socket = io(ApiAddress)
 
@@ -115,6 +116,7 @@ function App() {
           <Route path='/chats' element={<Chat />} />
           <Route path='/chats/:id' element={<Chat />}/>
           <Route path='/search/:search' element={<Search />} />
+          <Route path='/profile' element={<Profile />} />
       </Routes>
     </Router>
 
