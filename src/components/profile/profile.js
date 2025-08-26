@@ -10,6 +10,8 @@ import defaultImage from '../../assets/img/default.jpg'
 import Camera from '../../assets/svg/camera'
 import { Form, useNavigate } from 'react-router-dom'
 import messageContext from '../context/messageContext'
+import Input from './input'
+import OkIcon2 from '../../assets/svg/ok2'
 
 function Profile()
 {
@@ -18,6 +20,12 @@ function Profile()
     const [error,setError] = useState(false)
     const [imgLoading,setImgLoading] = useState(true)
     const [img,setImg] = useState('')
+
+    const [inputValues,setInputValues] = useState({
+        email:'',
+        name:'',
+        username:''
+    })
 
     const date = new Date().getHours()
 
@@ -31,6 +39,11 @@ function Profile()
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-profile`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            setInputValues({
+                email:response.data.email,
+                name:response.data.name,
+                username:response.data.username
+            })
             setUserData(response.data)
             setLoading(false)
         }
@@ -81,6 +94,33 @@ function Profile()
         }
     }
 
+    const checkValue = () => {
+        const values = {...inputValues}
+        if(values.name.trim() === "")
+        {
+            values.name = userData.name
+        }
+        if(values.username.trim() === "")
+        {
+            values.username = userData.username
+        }
+        setInputValues(values)
+    }
+
+    const setValues = (value,type) =>{
+        const values = {...inputValues}
+        switch(type)
+        {
+            case 'name':
+                values.name = value
+                break
+            case 'username':
+                values.username = value
+                break
+        }
+        setInputValues(values)
+    }
+
     useEffect(()=>{
         getUserData()
     },[])
@@ -126,20 +166,21 @@ function Profile()
         </div>
 
         <div className={`${styles.inputContainer} ${styles.emailInput}`}>
-
+            <Input value={inputValues.email} checkValue={checkValue} setValues={setValues} type="email" />
         </div>
 
         <div className={`${styles.inputContainer} ${styles.nameInput}`}>
-
+            <Input value={inputValues.name} checkValue={checkValue} setValues={setValues} type="name"/>
         </div>
 
         <div className={`${styles.inputContainer} ${styles.usernameInput}`}>
-
+            <Input value={inputValues.username} checkValue={checkValue} setValues={setValues} type="username"/>
+            
         </div>
 
-        <button className={styles.changePassword}></button>
+        <button className={styles.changePassword}>Resetuj Hasło</button>
 
-        <button className={styles.deleteAccount}></button>
+        <button className={styles.deleteAccount}>Usuń Konto</button>
 
         </main>}
 
