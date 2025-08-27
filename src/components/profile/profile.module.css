@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: .5fr 1fr 1fr 1fr 1fr;
-    padding: 1rem 1.5rem 2rem 1.5rem;
+    padding: 1rem 2rem 2rem 2rem;
     gap:1rem 5rem;
     justify-items: center;
     align-items: center;

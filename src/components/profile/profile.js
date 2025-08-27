@@ -121,6 +121,65 @@ function Profile()
         setInputValues(values)
     }
 
+    const sendName = async() =>
+    {
+        if(inputValues.name !== userData.name && inputValues.name.trim() !== "")
+        {
+            try
+            {
+                setLoading(true)
+                await refreshToken()
+                const response = await axios.patch(`${ApiAddress}/update-name`,{name:inputValues.name},{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+                getUserData()
+            }
+            catch(ex)
+            {
+                message.setContent('Nie udało się zmienić imienia','error')
+                setLoading(false)
+            }
+        }
+    }
+
+    const sendUsername = async()=>{
+        if(inputValues.username !== userData.username && inputValues.username.trim() !== "")
+        {
+            try
+            {
+                setLoading(true)
+                await refreshToken()
+                const response = await axios.patch(`${ApiAddress}/update-username`,{username:inputValues.username},{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+                getUserData()
+            }
+            catch(ex)
+            {
+                if(ex.response.data.message === "Duplicated username")
+                {
+                    message.setContent('Nazwa jest zajęta',"error")
+                    setLoading(false)
+                }
+                else
+                {
+                    message.setContent('Nie udało się zmienić nazwy użytkownika',"error")
+                    setLoading(false)
+                }
+            }
+        }
+    }
+
+    const resetPassword = async() =>
+    {
+        try
+        {
+            await refreshToken()
+            const response = await axios.get(`${ApiAddress}/reset-password`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            message.setContent('Wiadomość została wysłana. Sprawdź swoja skrzynkę odbiorczą.','info')
+        }
+        catch(ex)
+        {
+            message.setContent('Nie można w tym momencie zresetować hasła','error')
+        }
+    }
+
     useEffect(()=>{
         getUserData()
     },[])
@@ -170,15 +229,15 @@ function Profile()
         </div>
 
         <div className={`${styles.inputContainer} ${styles.nameInput}`}>
-            <Input value={inputValues.name} checkValue={checkValue} setValues={setValues} type="name"/>
+            <Input value={inputValues.name} checkValue={checkValue} setValues={setValues} type="name" send={sendName}/>
         </div>
 
         <div className={`${styles.inputContainer} ${styles.usernameInput}`}>
-            <Input value={inputValues.username} checkValue={checkValue} setValues={setValues} type="username"/>
+            <Input value={inputValues.username} checkValue={checkValue} setValues={setValues} type="username" send={sendUsername}/>
             
         </div>
 
-        <button className={styles.changePassword}>Resetuj Hasło</button>
+        <button className={styles.changePassword} onClick={resetPassword}>Resetuj Hasło</button>
 
         <button className={styles.deleteAccount}>Usuń Konto</button>
 

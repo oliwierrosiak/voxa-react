@@ -22,7 +22,7 @@ function Input(props)
             <input type='text' disabled={props.type === "email"} className={`${styles.input} ${props.type === "email"?styles.inputDisabled:styles.inputPadding}`} onFocus={inputFocused} onBlur={inputBlur} value={props.value} onChange={e=>props.setValues(e.target.value,props.type)}/>
 
             {props.type !== "email" &&
-            <div className={styles.acceptChanges}>
+            <div className={styles.acceptChanges} onClick={props.send}>
                 <OkIcon2 class={styles.checkMark}/>
             </div>}
 

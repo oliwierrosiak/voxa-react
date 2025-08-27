@@ -112,11 +112,11 @@ function App() {
     <Router>
       <Routes>
           <Route path='/' element={logged?<HomeLogged />:<Home />}/>
+          <Route path='/profile' element={<Profile />} />
           <Route path='/invitations' element={<Invitations />} />
           <Route path='/chats' element={<Chat />} />
           <Route path='/chats/:id' element={<Chat />}/>
           <Route path='/search/:search' element={<Search />} />
-          <Route path='/profile' element={<Profile />} />
       </Routes>
     </Router>
 
