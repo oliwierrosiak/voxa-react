@@ -452,6 +452,7 @@ function ChatContent(props)
                 </div>
             )}
             {loading || chatError?null:
+            user.username === "Unknown"?<div className={styles.chatDeleted}>Ten czat się zakończył ponieważ użytkownik usunął swoje konto</div>:
             <div className={styles.menu}>
                 <div className={`${styles.recording} ${recording?styles.recordingShow:''}`}>
                     <div className={styles.recordingIconContainer}>
