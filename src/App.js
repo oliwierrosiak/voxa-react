@@ -15,11 +15,13 @@ import Chat from './components/chat/chat';
 import Search from './components/searchPage/search';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Profile from './components/profile/profile';
+import ResetPassword from './components/resetPassword/resetPassword';
 
 export const socket = io(ApiAddress)
 
 function App() {
 
+  const [showLoginState,setShowLoginState] = useState('')
   const [logged,setLogged] = useState(false)
   const [loggedUserState,setLoggedUserState] = useState({
     name:'',
@@ -89,6 +91,7 @@ function App() {
         sessionStorage.removeItem('refreshToken')
         setLoggedUserState(false)
         setLogged(false)
+        setShowLoginState('')
   }
 
   useEffect(()=>{
@@ -111,12 +114,13 @@ function App() {
 
     <Router>
       <Routes>
-          <Route path='/' element={logged?<HomeLogged />:<Home />}/>
+          <Route path='/' element={logged?<HomeLogged />:<Home showLoginState={showLoginState} setShowLoginState={setShowLoginState}/>}/>
           <Route path='/profile' element={<Profile />} />
           <Route path='/invitations' element={<Invitations />} />
           <Route path='/chats' element={<Chat />} />
           <Route path='/chats/:id' element={<Chat />}/>
           <Route path='/search/:search' element={<Search />} />
+          <Route path='/reset-password/:token' element={<ResetPassword setShowLoginState={setShowLoginState}/>}/>
       </Routes>
     </Router>
 

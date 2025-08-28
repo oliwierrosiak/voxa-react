@@ -5,15 +5,15 @@ import ShowLogin from '../login/showLogin'
 
 function Home(props)
 {
-    const [showLoginState,setShowLoginState] = useState('')
+  
 
     const cancelLoginForm = () =>{
-        setShowLoginState('')
+        props.setShowLoginState('')
     }
 
     const setLoginAction = (action) =>
     {
-        setShowLoginState(action)
+        props.setShowLoginState(action)
     }
 
     return(
@@ -29,12 +29,12 @@ function Home(props)
                 </p>
 
                 <div className={styles.btns}>
-                    <button className={`${styles.btn} ${styles.loginBtn}`} onClick={e=>setShowLoginState('login')}>Zaloguj się</button>
+                    <button className={`${styles.btn} ${styles.loginBtn}`} onClick={e=>props.setShowLoginState('login')}>Zaloguj się</button>
                     <div className={styles.loginLine}></div>
-                    <button className={`${styles.btn} ${styles.registerBtn}`} onClick={e=>setShowLoginState("register")}>Zarejestruj się</button>
+                    <button className={`${styles.btn} ${styles.registerBtn}`} onClick={e=>props.setShowLoginState("register")}>Zarejestruj się</button>
                 </div>
 
-                {showLoginState?<ShowLogin action={showLoginState} cancelLoginForm={cancelLoginForm} setLoginAction={setLoginAction}/>:null}
+                {props.showLoginState?<ShowLogin action={props.showLoginState} cancelLoginForm={cancelLoginForm} setLoginAction={setLoginAction}/>:null}
 
             </header>
         </main>
