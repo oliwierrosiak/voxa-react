@@ -284,3 +284,138 @@
     cursor: default;
     border:.3rem solid grey;
 }
+.deleteConfirmContainer
+{
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deleteAccountContainer
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:1.2rem;
+    background-color: #010B40;
+    border:.4rem solid #891FA6;
+    padding: 2rem 3rem;
+    border-radius: 1.5rem;
+    width: 50vw;
+}
+.logo
+{
+    width: 20vw;
+    margin-bottom: .5rem;
+}
+.deleteAccountContainer>p
+{
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+}
+.deleteAccountContainer>p>mark
+{
+    background: none;
+    color: white;
+    text-decoration: underline .2rem red;
+    font-weight: 700;
+}
+.passwordInput
+{
+    width: 80%;
+    padding: .5rem .5rem;
+    border:0;
+    border-bottom: .3rem solid grey;
+    outline: none;
+    background: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+}
+.passwordInput:focus
+{
+    cursor: text;
+     border-bottom: .3rem solid #C935F2;
+}
+.btnContainer
+{
+    width: 100%;
+    display: flex;
+    gap:1.5rem;
+    justify-content: center;
+}
+.cancel
+{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    padding: .3rem .8rem;
+    outline: none;
+    border-radius: 1rem;
+    background: #010B40;
+    border:.25rem solid #891FA6;
+    cursor: pointer;
+    transition: background .3s ease;
+}
+.cancel:hover
+{
+    background: #891FA6;
+}
+.accept
+{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    padding: .3rem .8rem;
+    outline: none;
+    border-radius: 1rem;
+    background: rgb(131, 1, 1);
+    border:.25rem solid rgb(179, 3, 3);
+    cursor: pointer;
+    transition: background .3s ease;
+}
+.accept:hover
+{
+     background: rgb(179, 3, 3);
+}
+.error
+{
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 700;
+    color: red;
+    text-align: center;
+}
+.deleteAccountLoadingContainer
+{
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:2rem;
+}
+.deleteAccountLoadingContainer>h2
+{
+    font-size: 1.5rem;
+    font-weight: 900;
+    width: 100%;
+    text-align: center;
+}
+.deleteAccountLoading
+{
+    width: 4rem;
+    height: 4rem;
+}

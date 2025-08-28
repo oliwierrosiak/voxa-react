@@ -8,10 +8,10 @@ import ApiAddress from '../../ApiAddress'
 import ErrorIcon from '../../assets/svg/error'
 import defaultImage from '../../assets/img/default.jpg'
 import Camera from '../../assets/svg/camera'
-import { Form, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import messageContext from '../context/messageContext'
 import Input from './input'
-import OkIcon2 from '../../assets/svg/ok2'
+import DeleteAccountConfirm from './deleteAccountConfirm'
 
 function Profile()
 {
@@ -20,6 +20,7 @@ function Profile()
     const [error,setError] = useState(false)
     const [imgLoading,setImgLoading] = useState(true)
     const [img,setImg] = useState('')
+    const [deleteAccountConfirm,setDeleteAccountConfirm] = useState(false)
 
     const [inputValues,setInputValues] = useState({
         email:'',
@@ -239,7 +240,9 @@ function Profile()
 
         <button className={styles.changePassword} onClick={resetPassword}>Resetuj Hasło</button>
 
-        <button className={styles.deleteAccount}>Usuń Konto</button>
+        <button className={styles.deleteAccount} onClick={e=>setDeleteAccountConfirm(true)}>Usuń Konto</button>
+
+        {deleteAccountConfirm && <DeleteAccountConfirm setDeleteAccountConfirm={setDeleteAccountConfirm}/>}
 
         </main>}
 
