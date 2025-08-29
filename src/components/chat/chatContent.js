@@ -126,7 +126,7 @@ function ChatContent(props)
         }
         catch(ex)
         {
-            console.log(ex)
+
         }
     }   
 
@@ -284,7 +284,6 @@ function ChatContent(props)
         }
         catch(ex)
         {
-            console.log(ex)
             setMessageLoading(false)
             message.setContent("Nie udało się wysłać pliku",'error')
             e.target.value = ''

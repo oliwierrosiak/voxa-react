@@ -120,7 +120,7 @@ function LoginForm(props)
     return(
         <form onSubmit={validateData} className={styles.form}>
         <div className={styles.inputContainer} onClick={e=>e.target.classList.contains(styles.inputContainer)?e.target.children[0].focus():null}>
-            <input type='text' className={styles.input} disabled={props.loading} onFocus={inputFocus} onBlur={inputBlur} onChange={e=>setEmailValue(e.target.value)} value={emailValue}></input>
+            <input type='email' autoComplete="email" className={styles.input} disabled={props.loading} onFocus={inputFocus} onBlur={inputBlur} onChange={e=>setEmailValue(e.target.value)} value={emailValue}></input>
             <h2 className={styles.inputPlaceholder} onClick={e=>e.target.closest('div').children[0].focus()}>
                 Podaj Adres Email
             </h2>
@@ -129,7 +129,7 @@ function LoginForm(props)
         <div className={styles.error}>{formError.email}</div>
 
         <div className={styles.inputContainer} onClick={e=>e.target.classList.contains(styles.inputContainer)?e.target.children[0].focus():null}>
-            <input type={showPassword?"text":"password"} disabled={props.loading} className={`${styles.input} ${styles.passwordInput}`} onFocus={inputFocus} onBlur={inputBlur} onChange={e=>setPasswordValue(e.target.value)} value={passwordValue}></input>
+            <input type={showPassword?"text":"password"} autoComplete="current-password" disabled={props.loading} className={`${styles.input} ${styles.passwordInput}`} onFocus={inputFocus} onBlur={inputBlur} onChange={e=>setPasswordValue(e.target.value)} value={passwordValue}></input>
             <h2 className={styles.inputPlaceholder} onClick={e=>e.target.closest('div').children[0].focus()}>
                 Podaj Hasło
             </h2>

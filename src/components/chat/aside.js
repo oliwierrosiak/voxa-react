@@ -31,7 +31,6 @@ function Aside(props)
         }
         catch(ex)
         {
-            console.log(ex)
             if(ex.status === 404)
             {
                 navigate('/')

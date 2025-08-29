@@ -25,7 +25,11 @@ function Home(props)
                 </div>
 
                 <p className={styles.p}>
-                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dictum nunc sit amet nunc eleifend, id luctus velit accumsan. In et posuere elit. Ut tempor dui ultrices neque volutpat ullamcorper. Pellentesque ornare ante a sem pretium, ac aliquam augue condimentum. Nulla facilisis lacus non magna accumsan, vel mattis mi accumsan. Etiam eu nunc non massa auctor tincidunt. Fusce tempus semper arcu vel bibendum. Vestibulum quis orci commodo sem tempus faucibus. Sed non mauris felis. In convallis ligula non scelerisque laoreet. Etiam pharetra maximus eros, nec mattis urna aliquam at. Mauris at sapien sed massa ornare eleifend et nec lectus. 
+                      Wiatamy w serwisie Voxa! Voxa to nowoczesny komunikator internetowy, służący do czatowania, wymiany informacji, zdjęć plików czy wiadomości głosowych. Stworzyliśmy go z myślą o ludziach, którzy cenią sobie szybkość, prostotę i bezpieczeństwo w codziennej wymianie informacji.
+                </p>
+
+                <p className={styles.p}>
+                      Zarejestruj się bezpłatnie już teraz i korzystaj z możliwości naszego serwisu! Wyszukuj, przeglądaj, pozwaj i dodawaj nowe osoby, rozpoczynaj konwersajce i ciesz się chwilą spędzoną wspólnie ze swoimi znajomymi na czatach online.
                 </p>
 
                 <div className={styles.btns}>

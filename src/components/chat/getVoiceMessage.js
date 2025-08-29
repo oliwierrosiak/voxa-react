@@ -40,7 +40,6 @@ function GetVoiceMessage(props)
         }
         catch(ex)
         {
-            console.log(ex)
             setError(true)
             setLoading(false)
         }

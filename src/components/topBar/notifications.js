@@ -32,7 +32,6 @@ function Notifications(props)
         }
         catch(ex)
         {
-            console.log(ex)
             setNotifications([])
             setLoading(false)
         }
@@ -47,12 +46,10 @@ function Notifications(props)
         }
         catch(ex)
         {
-            console.log(ex)
         }
     }
 
     const redirect = (destination,time) => {
-        console.log(destination)
         if(destination === "invitation" && location.pathname != '/invitations')
         {
             navigate('/invitations')
@@ -84,7 +81,6 @@ function Notifications(props)
             getNotifications()
         })
         socket.on('notifySeenUpdate',()=>{
-            console.log("update")
             getNotifications()
         })
     },[])
