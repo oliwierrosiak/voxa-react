@@ -13,6 +13,7 @@ async function refreshToken()
     {
         sessionStorage.removeItem('token')
         sessionStorage.removeItem("refreshToken")
+        
     }
 }
 

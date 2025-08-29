@@ -10,11 +10,12 @@ import EmptyIcon from '../../assets/svg/empty'
 import logoutContext from '../context/logoutContext'
 import messageContext from '../context/messageContext'
 import { socket } from '../../App'
+import { useNavigate } from 'react-router-dom'
 
 
 function Invitations(props)
 {
-
+    const navigate = useNavigate()
     const [loading,setLoading] = useState(true)
     const [error,setError] = useState(0)
     const [users,setUsers] = useState([])
@@ -43,9 +44,17 @@ function Invitations(props)
             }
             else
             {
+                if(ex.status == 403)
+                {
+                    navigate('/')
+                    logoutContextHandler.logout()
+                }
+                else
+                {
+                    message.setContent('Wystapił bład serwera podczas pobierania zaproszeń',"error")
+                    logoutContextHandler.logout()
 
-                message.setContent('Wystapił bład serwera podczas pobierania zaproszeń',"error")
-                logoutContextHandler.logout()
+                }
             }
         }
     }
