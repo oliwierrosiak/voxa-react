@@ -62,6 +62,7 @@ function GetVoiceMessage(props)
             timerRef.current = setInterval(()=>{
                 if(audioRef.current.currentTime>=duration)
                 {
+                    audioRef.current.currentTime=0
                     clearInterval(timerRef.current)
                     setShowDuration(0)
                     setPlaying(false)

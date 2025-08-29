@@ -78,7 +78,6 @@
     cursor: pointer;
     transition: all .3s ease;
     background-color: #010B40;
-
 }
 .inputFocused
 {
@@ -271,6 +270,7 @@
 }
 .card
 {
+    padding-top: .5rem;
     width:100%;
     display: flex;
     flex-direction: column;

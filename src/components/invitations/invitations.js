@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
 import styles from './invitations.module.css'
-import PageAuthorization from '../helpers/pageAuthorization'
 import TopBar from '../topBar/topBar'
 import refreshToken from '../helpers/refreshToken'
 import axios from 'axios'
@@ -113,7 +112,6 @@ function Invitations(props)
     return(
         <>
         <TopBar />
-            <PageAuthorization />
             <main className={styles.main}>
                 {loading?<div className={styles.loadingContainer}><Loading2 /></div>:<>
                 <h1 className={styles.header}>Twoje Zaproszenia</h1>
