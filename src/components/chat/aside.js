@@ -82,7 +82,7 @@ function Aside(props)
                 </header>
                 <div className={styles.asideChatsContainer} ref={asideChatsContainer}>
                 {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:myChats.map(x=>
-                    <AsideChatItem redirect={redirect} {...x} />
+                    <AsideChatItem redirect={redirect} key={x._id} {...x} />
                 )}
                 </div>
                 </>:<>
@@ -90,7 +90,7 @@ function Aside(props)
                         <ArrowIcon class={styles.arrowSVG2} />
                     </div>
                     {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:<div className={styles.smallAsideChatsContainer}>{myChats.map(x=>
-                        <div className={`${styles.smallAsideItem} ${params.id === x.conversationId?styles.currentChat:''}`} onClick={e=>redirect(x.conversationId)}>
+                        <div key={x._id} className={`${styles.smallAsideItem} ${params.id === x.conversationId?styles.currentChat:''}`} onClick={e=>redirect(x.conversationId)}>
                             <div className={styles.imgContainer2}>
                                 <UserImg img={x.img} />
                                 {x.seen !== "seen" && <div className={styles.hiddenAsideNewMessageAtChat}></div>}

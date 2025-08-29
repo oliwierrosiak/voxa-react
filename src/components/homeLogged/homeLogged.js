@@ -195,7 +195,7 @@ function HomeLogged()
                         {suggestedFriends.length > 5 && <Back  class={`${styles.arrowLeftSVG} ${userListCounter.start === 0?styles.arrowDisabled:''}`}/>}
                         
                     </div>
-                    {displayFriends.map(x=><FriendItem item={x} userItemClicked={userItemClicked}/>)}
+                    {displayFriends.map(x=><FriendItem item={x} key={x._id} userItemClicked={userItemClicked}/>)}
                     <div className={styles.arrow} onClick={e=>changeUserListCounter('up')}>
                         {suggestedFriends.length > 5 && <Back  class={`${styles.arrowRightSVG} ${userListCounter.end === suggestedFriends.length?styles.arrowDisabled:''}`}/>}
                         
@@ -211,7 +211,7 @@ function HomeLogged()
                     </div>:(myChatsError?<div className={styles.noneUsers}>
                         <NoneUsers />
                         <h2>Nie masz żadnych czatów</h2>
-                    </div>:<>{myChats.map(x=><ChatElement {...x} />
+                    </div>:<>{myChats.map(x=><ChatElement key={x._id} {...x} />
                     )}
                     <a href='/chats' className={styles.showAllChats}>Zobacz wszystkie czaty</a>
                     </>)}

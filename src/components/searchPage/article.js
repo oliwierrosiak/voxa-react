@@ -110,8 +110,8 @@ function Article(props)
                 {props.users.length > max && <Back  class={`${styles.arrowLeftSVG} ${counter.start === 0?styles.arrowDisabled:''}`}/>}
             </div>
             {props.chat?<>
-            {displayUsers.map(x=><ChatElement {...x} class={styles.chatElement}/>)}
-            </>:displayUsers.map(x=><FriendItem class={styles.user} userItemClicked={userItemClicked} item={x}/>)}
+            {displayUsers.map(x=><ChatElement key={Math.floor(Math.random()*10000)} {...x} class={styles.chatElement}/>)}
+            </>:displayUsers.map(x=><FriendItem key={Math.floor(Math.random()*10000)} class={styles.user} userItemClicked={userItemClicked} item={x}/>)}
             <div className={styles.rightArrowContainer} onClick={e=>changeCounter('right')}>
                 {props.users.length > max && <Back  class={`${styles.arrowRightSVG} ${counter.end === props.users.length?styles.arrowDisabled:''}`}/>}
             </div>

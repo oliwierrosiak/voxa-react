@@ -126,7 +126,7 @@ function Invitations(props)
                 <h1 className={styles.header}>Twoje Zaproszenia</h1>
                     <div className={styles.usersContainer}>
                         {!error?(
-                            users.map((x)=>{return <div className={styles.usersItem}>
+                            users.map((x)=>{return <div key={x._id} className={styles.usersItem}>
                                 <div className={styles.imgContainer}>
                                     <UserImg img={x.img} />
                                 </div>   

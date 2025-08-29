@@ -75,15 +75,15 @@ function GetPhotos(props)
         imgsState.map((x,idx)=>{
             if(x==="error")
             {
-                return <div className={styles.imageError}>Błąd pobierania zdjęcia</div>
+                return <div key={Math.floor(Math.random()*1000)} className={styles.imageError}>Błąd pobierania zdjęcia</div>
             }
             else if(x.type.includes('image'))
             {
-                return <img className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>
+                return <img key={Math.floor(Math.random()*1000)} className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>
             }
             else
             {
-                return <video className={styles.chatVideo} controls src={x.url} />
+                return <video key={Math.floor(Math.random()*1000)} className={styles.chatVideo} controls src={x.url} />
             }
         })
         )

@@ -94,7 +94,7 @@ function Notifications(props)
             <span className={styles.triangle2}></span>
             <div className={styles.notificationsContent}>
                 {loading?<div className={styles.notificationLoadingContainer}><Loading2 class={styles.notificationLoading}/></div>:(notifications.length>0?
-                notifications.map(x=><NotificationItem redirect={redirect} x={x}/>)
+                notifications.map(x=><NotificationItem key={Math.floor(Math.random()*10000)} redirect={redirect} x={x}/>)
                 :<div className={styles.noneNotification}>
                 <NoneUsers class={styles.noneUsersSVG} />
                 <h2 className={styles.noneNotificationHeader}>Nie masz żadnych powiadomień</h2>
