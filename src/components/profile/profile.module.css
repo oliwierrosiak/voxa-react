@@ -165,6 +165,9 @@
     border:.3rem solid #C935F2;
     cursor: pointer;
     transition: background .3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .changePassword:hover
 {
@@ -238,7 +241,7 @@
     translate: 0 50%;
     padding: 0rem .6rem;
     background-color: #010326;
-    left:3rem;
+    left:2.5vw;
     cursor: pointer;
     color: grey;
     transition: color .3s ease;
@@ -310,6 +313,7 @@
     padding: 2rem 3rem;
     border-radius: 1.5rem;
     width: 50vw;
+    min-width: 30rem;
 }
 .logo
 {
@@ -418,4 +422,14 @@
 {
     width: 4rem;
     height: 4rem;
+}
+.passwordLoading
+{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.resetPasswordBtn
+{
+    background: grey !important;
+    border: .3rem solid rgb(87, 87, 87) !important;
 }

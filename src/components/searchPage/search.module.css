@@ -127,6 +127,6 @@
 }
 .chatElement
 {
-    width: 30% !important;
+    max-width: 20rem;
     background: #01032668;
 }

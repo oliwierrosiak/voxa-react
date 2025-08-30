@@ -4,6 +4,7 @@ import axios from "axios"
 import ApiAddress from "../../ApiAddress"
 import styles from './chat.module.css'
 import Loading2 from "../../assets/svg/loading2"
+import PlayIcon from "../../assets/svg/play"
 
 function GetPhotos(props)
 {
@@ -25,7 +26,7 @@ function GetPhotos(props)
                 const localImgsOriginalName = [...imgsOriginalName.current]
                 const url = URL.createObjectURL(response.data)
                 localImg.push({type:response.data.type,url})
-                if(response.data.type.includes("image"))
+                if(response.data.type.includes("image") || response.data.type.includes("application"))
                 {
                     localImgsOriginalName.push(img)
                 }
@@ -83,7 +84,7 @@ function GetPhotos(props)
             }
             else
             {
-                return <video key={Math.floor(Math.random()*1000)} className={styles.chatVideo} controls src={x.url} />
+                return <div className={styles.videoOverlay}><video key={Math.floor(Math.random()*1000)} className={styles.chatVideo} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/><div className={styles.videoPlay} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}><PlayIcon class={styles.videoPlaySVG}/></div></div>
             }
         })
         )

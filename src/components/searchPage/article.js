@@ -41,6 +41,7 @@ function Article(props)
 
     const changeCounter = (dir) =>
     {
+
         const localCounter = {...counter}
         if(dir === "left")
         {
@@ -48,6 +49,7 @@ function Article(props)
             {
                 localCounter.start -= 1
                 localCounter.end -= 1
+                setCounter({...localCounter})
             }
         }
         else if(dir === "right")
@@ -56,10 +58,11 @@ function Article(props)
             {
                 localCounter.end += 1
                 localCounter.start += 1
+                setCounter({...localCounter})
             }
         }
 
-        setCounter({...localCounter})
+
     }
 
     useEffect(()=>{

@@ -22,7 +22,8 @@
     background-color: #010B40;
     border: .3rem solid #891FA6;
     border-radius: 1.5rem;
-    width: 40vw;
+    width: 35vw;
+    min-width: 25rem;
     position: relative;
     overflow: hidden;
 }
@@ -39,6 +40,7 @@
 .logo
 {
     width: 15vw;
+    min-width: 10rem;
     margin-bottom: 1.2rem;
 }
 .inputContainer
@@ -225,7 +227,7 @@
     left: 2rem;
     width:2.5rem;
     height: 2.5rem;
-    fill: #891FA6;
+    fill: rgb(202, 202, 202);
     cursor: pointer;
     transition: fill .3s ease;
 }

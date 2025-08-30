@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import messageContext from '../context/messageContext'
 import Input from './input'
 import DeleteAccountConfirm from './deleteAccountConfirm'
+import Loading1 from '../../assets/svg/loading1'
 
 function Profile()
 {
@@ -21,6 +22,7 @@ function Profile()
     const [imgLoading,setImgLoading] = useState(true)
     const [img,setImg] = useState('')
     const [deleteAccountConfirm,setDeleteAccountConfirm] = useState(false)
+    const [resetPasswordLoading,setResetPasswordLoading] = useState(false)
 
     const [inputValues,setInputValues] = useState({
         email:'',
@@ -169,15 +171,22 @@ function Profile()
 
     const resetPassword = async() =>
     {
+        if(resetPasswordLoading)
+        {
+            return;
+        }
         try
         {
+            setResetPasswordLoading(true)
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/reset-password`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
             message.setContent('Wiadomość została wysłana. Sprawdź swoja skrzynkę odbiorczą.','info')
+            setResetPasswordLoading(false)
         }
         catch(ex)
         {
             message.setContent('Nie można w tym momencie zresetować hasła','error')
+             setResetPasswordLoading(false)
         }
     }
 
@@ -238,7 +247,7 @@ function Profile()
             
         </div>
 
-        <button className={styles.changePassword} onClick={resetPassword}>Resetuj Hasło</button>
+        <button className={`${styles.changePassword} ${resetPasswordLoading?styles.resetPasswordBtn:''}`} onClick={resetPassword}>{resetPasswordLoading?<Loading1 class={styles.passwordLoading} />:"Resetuj Hasło"}</button>
 
         <button className={styles.deleteAccount} onClick={e=>setDeleteAccountConfirm(true)}>Usuń Konto</button>
 

@@ -8,6 +8,7 @@
 .aside
 {
     width:5vw;
+    min-width: 3.5rem;
     height: 92vh;
     background-color: #010B40;
     transition: width .3s ease;
@@ -64,6 +65,7 @@
 .displayAside
 {
     width: 22vw;
+    min-width: 13rem;
 }
 .chatReduced
 {
@@ -300,6 +302,7 @@
     bottom: .5rem;
     left:50%;
     width: 50vw;
+    min-width: 30rem;
     translate: -50% 0;
     padding: .4rem .6rem;
     background-color: #010B40;
@@ -316,6 +319,7 @@
     bottom: .5rem;
     left:50%;
     width: 50vw;
+    min-width: 30rem;
     translate: -50% 0;
     padding: .4rem .6rem;
     background-color: #010B40;
@@ -659,12 +663,13 @@
     top:0;
     left:0;
     right: 0;
-    bottom: 6rem;
+    bottom: 4rem;
     overflow: scroll;
     padding: 0 0rem;
     display: flex;
     flex-direction: column;
     gap:.8rem;
+    padding-bottom: .5rem;
 }
 .chatContent::-webkit-scrollbar
 {
@@ -681,13 +686,13 @@
 .messageContainer
 {
     display: grid;
-    grid-template-columns:1.5rem 1fr 10rem;
-    max-width: 60vw;
+    grid-template-columns:1.5rem 1fr 5rem;
+    max-width: calc(30vw + 13rem);
     align-self: flex-start;
     gap:.5rem;
     align-items: center;
     justify-items: center;
-    padding-left: 5rem;
+    padding-left: 3%;
 }
 .friendImgContainer
 {
@@ -712,7 +717,7 @@
 }
 .date
 {
-    width:10rem;
+    width:5rem;
     height: 100%;
     display: flex;
     justify-content: flex-start;
@@ -735,8 +740,8 @@
 {
     align-self: flex-end;
     padding-left: 0;
-    padding-right: 5rem;
-    grid-template-columns: 10rem 1fr 1.5rem;
+    padding-right: 3%;
+    grid-template-columns: 5rem 1fr 1.5rem;
 }
 .myMessage
 {
@@ -915,7 +920,7 @@
 }
 .chatVideo
 {
-    width:20rem;
+    width:100%;
     padding: .3rem 0;
     border-radius: .8rem;
 }
@@ -977,6 +982,7 @@
     height: 3rem;
     translate: 0 -50%;
     cursor: pointer;
+    z-index: 10;
 }
 .rightArrowContainer
 {
@@ -1080,4 +1086,29 @@
 .messageContent
 {
     font-size: 1rem;
+}
+.videoOverlay
+{
+    position: relative;
+    cursor: pointer;
+}
+.videoPlay
+{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 6rem;
+    height: 6rem;
+}
+.videoPlaySVG
+{
+    width: 100%;
+    height: 100%;
+    fill: rgb(163, 163, 163);
+    transition: fill .3s ease;
+}
+.videoOverlay:hover>.videoPlay>.videoPlaySVG
+{
+    fill: #891FA6;
 }
