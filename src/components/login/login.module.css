@@ -152,7 +152,7 @@
     color: white;
     font-weight: 700;
     outline: none;
-    background: rgb(113, 113, 113);
+    background: rgb(100, 100, 100);
     border: .3rem solid rgb(141, 141, 141);
     border-radius: .8rem;
     font-family: "Merriweather Sans", sans-serif;
@@ -407,4 +407,159 @@
 .progressPos4
 {
     width: 100%;
+}
+@media(max-width:425px)
+{
+    .loginContainer
+    {
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3px);
+    }
+    .login
+    {
+        width: 90vw;
+        padding: 3rem 3rem 2rem 3rem;
+        border: .5rem solid #891FA6;
+        border-radius: 2rem;
+        gap:2rem;
+    }
+    .logo
+    {
+        width: 70%;
+    }
+    .form
+    {
+        gap:.8rem;
+    }
+    .inputContainer
+    {
+        height: 5rem;
+        border: .4rem solid #891FA6;
+         border-radius: 1.8rem;
+    }
+    .input
+    {
+        font-size: 1.8rem;
+        padding: .3rem .8rem;
+    }
+    .inputPlaceholder
+    {
+        font-size: 1.8rem;
+    }
+    .inputFocused
+    {
+        border: .4rem solid #C935F2;
+    }
+    .placeholderWhileInputIsFocus
+    {
+        font-size: 1.6rem;
+    }
+    .eye
+    {
+        height: 2.5rem;
+        width: 2.5rem;
+        right: .8rem;
+    }
+    .passwordInput
+    {
+        padding-right: 4rem;
+    }
+    .line
+    {
+        height: .4rem;
+    }
+    .submit
+    {
+        font-size: 2rem;
+        padding: .6rem;
+        border-radius: 1.5rem;
+           margin: 1.6rem 0 .8rem 0;
+    }
+    .submit:hover
+    {
+        background: #891FA6;
+    }
+    .googleLogin
+    {
+        font-size: 1.8rem;
+        padding: .6rem;
+        gap:.5rem;
+        border: .4rem solid rgb(141, 141, 141);
+        border-radius: 1.5rem;
+        margin: .8rem 0 1.6rem 0;
+    }
+    .googleLogin:hover
+    {
+            background: rgb(100, 100, 100);
+    }
+    .googleIcon
+    {
+        width:2.5rem;
+        height: 2.5rem;
+        
+    }
+    .haveNotAnAccount
+    {
+        font-size:  1.5rem;
+        flex-direction: column;
+    }
+    .registerLink
+    {
+        font-size: 2rem;
+    }
+    .registerLink:hover
+    {
+         color: #891FA6;
+    }
+    .error
+    {
+        font-size: 1.5rem;
+        height: 2rem;
+    }
+    .back
+    {
+        top:4.8rem;
+        height: 3.5rem;
+        width: 3.5rem;
+        left:2rem;
+
+    }
+    .registerBtn
+    {
+        font-size: 2rem;
+        padding: .5rem;
+        border:.4rem solid #C935F2;
+        border-radius: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .registerBtn:hover
+    {
+        background: #891FA6;
+    }
+    .btnDisabled
+    {
+        border: .4rem solid rgb(84, 84, 84) !important;
+    }
+    .registerBtns
+    {
+        gap:1.5rem;
+    }
+    .cardSpinner
+    {
+        height: 18rem;
+    }
+    .fileContainer
+    {
+        border:.4rem solid #891FA6;
+        height: 8rem;
+        width: 8rem;
+    }
+    .fileContainer:hover
+    {
+        border:.4rem solid #C935F2; 
+    }
+    .progressBar
+    {
+        height: .8rem;
+    }
 }

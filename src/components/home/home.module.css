@@ -84,3 +84,66 @@
 {
     background: #891FA6;
 }
+@media(max-width:425px)
+{
+    .main
+    {
+        height: 100svh;
+    }
+    .header
+    {
+        background: #010326af;
+        backdrop-filter: blur(2px);
+        padding: 3rem;
+        gap:3rem;
+    }
+    .logo
+    {
+         background-color: #0103268a;
+        border-radius: 1rem;
+        box-shadow: 0 0 2rem 3rem #0103268a;
+    }
+    .p
+    {
+        font-size: 1.5rem;
+        background-color: #0103268a;
+        border-radius: 1rem;
+        box-shadow: 0 0 2rem 3rem #0103268a;
+    }
+    .btns
+    {
+        flex-direction: column;
+        gap:3rem;
+        background-color: #0103268a;
+        border-radius: 1rem;
+        box-shadow: 0 0 2rem 3rem #0103268a;
+        margin-top: 1rem;
+    }
+    .loginLine
+    {
+        display: none;
+    }
+    .btn
+    {
+        font-size: 2.2rem;
+        width: 80%;
+        border-radius: 1.5rem;
+        padding: .8rem;
+    }
+    .loginBtn
+    {
+        border: .5rem solid #C935F2;
+    }
+    .registerBtn
+    {
+            border: .5rem solid #891FA6;
+    }
+    .loginBtn:hover
+    {
+        background:#891FA6;
+    }
+    .registerBtn:hover
+    {
+         background: #010B40;
+    }
+}
