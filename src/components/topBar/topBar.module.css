@@ -10,7 +10,7 @@
     justify-content: space-between;
     align-items: center;
     padding: .5rem .5rem;
-    height: 8vh;
+    height: 8svh;
     z-index: 10;
     min-height: 3rem;
 }
@@ -498,4 +498,215 @@
 .unSeen
 {
     color: white;
+}
+.menu
+{
+    width: 4rem;
+    height:4rem;
+    display: none;
+    justify-content: center ;
+    align-items: center;
+}
+.menu>svg
+{
+    width: 100%;
+    height: 100%;
+    fill: grey;
+    transition: fill .3s ease;
+}
+.icon
+{
+    width: 1.2rem;
+    height: 1.2rem;
+}
+.logoutIcon
+{
+    width: 1.8rem;
+    height: 1.8rem;
+}
+.responsiveMenu
+{
+    position: fixed;
+    top:8svh;
+    left:0;
+    bottom: 0;
+    right: 0;
+    background-color: #01032676;
+    backdrop-filter: blur(5px);
+    transform: translate(-120%,0);
+    z-index: 8;
+    display: none;
+    transition: transform .3s ease-out;
+}
+@media (max-width:425px){
+    .menu
+    {
+        display: flex;
+    }
+    .search
+    {
+        display: none;
+    }
+    .logo
+    {
+        max-width: max-content;
+        max-height: 80%;
+    }
+    .logo:hover
+    {
+        transform: scale(1);
+    }
+    .rightMenu
+    {
+        gap:1.5rem;
+    }
+    .bellContainer
+    {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .profileImg
+    {
+        width: 3rem;
+        height: 3rem;
+        border:.3rem solid #891FA6;
+    }
+    .profileImg:hover
+    {
+             border:.3rem solid #891FA6;
+    }
+    .profileListContainer
+    {
+        gap:1.8rem;
+            padding: 2.5rem 2.5rem;
+            border:.5rem solid #891FA6;
+            border-radius: 1.5rem;
+    }
+    .listContainer
+    {
+        max-width: 50rem;
+        padding-top: 1.5rem;
+        right: -0.3rem;
+    }
+    .userImage
+    {
+        width: 10rem;
+        height: 10rem;
+        border:.4rem solid #891FA6;
+    }
+    .username
+    {
+        font-size: 2.5rem;
+    }
+    .profileListContainer>ul>li
+    {
+        font-size: 2.5rem;
+        gap:1.5rem;
+    }
+    .icon
+    {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+    .logoutIcon
+    {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .liLogout
+    {
+        padding:.8rem 1rem;
+        font-size: 2.5rem;
+        border-radius: 1.5rem;
+            border:.4rem solid rgb(197, 0, 0);
+    }
+    .liLogout:hover
+    {
+        background: rgb(89, 0, 0);
+    }
+    .profileListContainer>ul
+    {
+        gap:1.8rem;
+    }
+    .triangle
+    {
+         border-left: 1.3rem solid transparent;
+        border-right: 1.3rem solid transparent;
+        border-bottom: 1.5rem solid #891FA6;
+        top:-1.6rem;
+        right: .1rem;
+    }
+    .newNotify
+    {
+        width: 1rem;
+        height: 1rem;
+    }
+    .bellContainer:hover>svg
+    {
+        fill: grey;
+    }
+    .notificationsContainer
+    {
+        width: 30rem;
+        right: -4rem;
+        height: 50vh;
+    }
+    .notificationsContainerDisplay
+    {
+        padding-top:3rem;
+    }
+    .noneNotification
+    {
+        gap:1rem;
+    }
+    .noneUsersSVG
+    {
+        width: 5rem !important;
+        height: 5rem !important;
+    }
+    .noneNotificationHeader
+    {
+        font-size: 1.5rem;
+    }
+    .notifications
+    {
+        border:.5rem solid #891FA6;
+        border-radius: 1.5rem;
+    }
+    .triangle2
+    {
+        border-left: 1.3rem solid transparent;
+        border-right: 1.3rem solid transparent;
+        border-bottom: 1.5rem solid #891FA6;
+        right: 3.5rem;
+        top:-1.8rem;
+    }
+    .notificationItem
+    {
+        grid-template-columns: 4rem 1fr 4rem;
+        padding: 1.5rem 1.5rem;
+        gap:.5rem 1rem;
+    }
+    .userImg
+    {
+        width: 3.5rem;
+        height: 3.5rem;
+        border:.3rem solid #891FA6;
+    }
+    .notificationContent
+    {
+        font-size: 1.2rem;
+    }
+    .date
+    {
+        font-size: 1rem;
+    }
+    .responsiveMenu
+    {
+        display: flex;
+    }
+    .responsiveMenuDisplay
+    {
+        transform: translate(0,0);
+    }
 }

@@ -171,6 +171,7 @@
     height: 100%;
     gap:.8rem;
     cursor: pointer;
+    max-width: 13vw;
 }
 .friendsItem:hover>.imageContainer
 {
@@ -182,8 +183,8 @@
 }
 .imageContainer
 {
-    width:6rem;
-    height: 6rem;
+    width:8vw;
+    height: 8vw;
     border:.25rem solid #891FA6;
     border-radius: 50%;
     display: flex;
@@ -194,7 +195,7 @@
 }
 .userHeader
 {
-    font-size: 1.5rem;
+    font-size: 3vw;
     width:100%;
     text-align: center;
     color: rgb(188, 188, 188);

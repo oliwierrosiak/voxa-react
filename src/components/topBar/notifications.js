@@ -63,16 +63,18 @@ function Notifications(props)
     }
 
     useEffect(()=>{
-        notifications.forEach(x=>{
-            if(x.seen === false)
+        for(let i = 0; i<notifications.length;i++)
+        {
+            if(notifications[i].seen === false)
             {
                 props.setNewNotify(true)
+                break
             }
             else
             {
                 props.setNewNotify(false)
             }
-        })
+        }
     },[notifications])
 
     useEffect(()=>{

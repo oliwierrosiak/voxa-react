@@ -19,6 +19,7 @@ import logoutContext from '../context/logoutContext'
 import Notifications from './notifications'
 import { socket } from '../../App'
 import notifySound from '../../assets/sound/notifySound.mp3'
+import MenuIcon from '../../assets/svg/menu'
 
 function TopBar()
 {
@@ -35,6 +36,8 @@ function TopBar()
     const [searchValue,setSearchValue] = useState('')
     const [img,setImg] = useState('')
     const [newNotify,setNewNotify] = useState(false)
+    const [displayResponsiveMenu,setDisplayResponsiveMenu] = useState(false)
+
 
     const searchFocused = (e)=>
     {
@@ -89,8 +92,16 @@ function TopBar()
         }
     }
 
+    const windowResize = (e) =>{
+        if(window.innerWidth > 425)
+        {
+            setDisplayResponsiveMenu(false)
+        }
+    }
+
     useEffect(()=>{
         getUserImg()
+        window.addEventListener("resize",windowResize)
         socket.on('notify',(val)=>{
             if(val === "add")
             {
@@ -99,6 +110,9 @@ function TopBar()
                 setNewNotify(true)
             }
         })
+        return ()=>{
+             window.removeEventListener("resize",windowResize)
+        }
     },[])
 
     const logout = async() =>
@@ -109,6 +123,10 @@ function TopBar()
 
     return(
         <nav className={styles.topBar}>
+            <div className={`${styles.responsiveMenu} ${displayResponsiveMenu?styles.responsiveMenuDisplay:''}`}></div>
+            <div className={styles.menu} onClick={e=>setDisplayResponsiveMenu(!displayResponsiveMenu)}>
+                <MenuIcon />
+            </div>
             <img src={voxaLogo} className={styles.logo} onClick={e=>navigate('/')}/>
 
             <search className={styles.search}>
@@ -152,10 +170,10 @@ function TopBar()
                             </div>
                             <h2 className={styles.username}>{loggedUserContext.loggedUser.username}</h2>
                             <ul>
-                                <li onClick={e=>navigate('/profile')}><ProfileIcon/>Profil</li>
-                                <li onClick={e=>navigate('/invitations')}><InvitationsIcon />Zaproszenia</li>
-                                <li onClick={e=>navigate('/chats')}><ChatIcon />Czaty</li>
-                                <li className={styles.liLogout} onClick={logout}><Logout />Wyloguj się</li>
+                                <li onClick={e=>navigate('/profile')}><ProfileIcon class={styles.icon}/>Profil</li>
+                                <li onClick={e=>navigate('/invitations')}><InvitationsIcon class={styles.icon} />Zaproszenia</li>
+                                <li onClick={e=>navigate('/chats')}><ChatIcon class={styles.icon}/>Czaty</li>
+                                <li className={styles.liLogout} onClick={logout}><Logout class={styles.logoutIcon}/>Wyloguj się</li>
                             </ul>
                         </div>
                     </div>
