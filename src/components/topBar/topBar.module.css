@@ -531,14 +531,165 @@
     left:0;
     bottom: 0;
     right: 0;
-    background-color: #01032676;
+    background-color: #010326ca;
     backdrop-filter: blur(5px);
     transform: translate(-120%,0);
-    z-index: 8;
+    z-index: 3;
     display: none;
     transition: transform .3s ease-out;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2rem 3rem;
+    align-items: center;
+    box-shadow: 0 3.5rem 2rem 3rem #010326ca;
+}
+.cancel
+{
+    width: 50% !important;
+    height: 50% !important;
+}
+.responsiveSearch
+{
+    width: 100%;
+    position: relative;
+}
+.responsiveSearchBar
+{
+    width: 100%;
+    outline: none;
+    font-size: 2.5rem;
+    border: 0;
+    background: none;
+    text-align: center;
+    padding: 1.3rem 5rem 1.8rem 3rem;
+    color: white;
+    font-weight: 700;
+}
+.responsiveSearchBorder
+{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    right: 0;
+    height: .5rem;
+    border-radius: 10px;
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.responsiveSearchIcon
+{
+    position: absolute;
+    top:50%;
+    right: .5rem;
+    width: 3rem;
+    height: 3rem;
+    translate: 0 -50%;
+    background-color: #891FA6;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: 0;
+}
+.responsiveSearchIconSVG
+{
+    width: 70%;
+    height: 70%;
+    fill: white;
+    padding-right: .1rem;
+}
+.responsiveSearchBorderFill
+{
+    height: 100%;
+    width: 100%;
+    transform: scaleX(0);
+    background-color: #C935F2;
+    border-radius: 10px;
+    transition: transform .3s ease;
+}
+.responsiveSearchBorderFilled
+{
+    transform: scaleX(1);
+}
+.responsiveProfile
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1rem;
+}
+.responsiveUserImgContainer
+{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    border:.5rem solid #891FA6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.responsiveUserImgContainer>img
+{
+    width: 100%;
+    height: 100%;
+}
+.responsiveUsername
+{
+    font-size: 3.5rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.responsiveList
+{
+    list-style-type: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:3rem;
+    align-items: center;
+}
+.responsiveList>li
+{
+    display: flex;
+    align-items: center;
+    gap:1.5rem;
+    font-size: 3rem;
+    color: rgb(170, 170, 170);
+    font-weight: 700;
+}
+.icon2
+{
+    width: 3rem;
+    height: 3rem;
+    fill: rgb(170, 170, 170);
+}
+.logoutIcon2
+{
+    width: 4rem;
+    height: 4rem;
+}
+.responsiveLogout
+{
+    background-color: rgb(134, 7, 7);
+    padding: 1rem 1.2rem;
+    border-radius: 1.5rem;
+    border:.5rem solid rgb(215, 3, 3);
+    color: white !important;
+    font-size: 3.5rem !important;
+    gap:.8rem !important;
 }
 @media (max-width:425px){
+    .topBar
+    {
+            padding: .5rem 1rem .5rem .5rem;
+    }
     .menu
     {
         display: flex;
@@ -650,6 +801,7 @@
         width: 30rem;
         right: -4rem;
         height: 50vh;
+        z-index: 20;
     }
     .notificationsContainerDisplay
     {

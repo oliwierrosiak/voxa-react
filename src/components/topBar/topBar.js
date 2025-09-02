@@ -20,6 +20,7 @@ import Notifications from './notifications'
 import { socket } from '../../App'
 import notifySound from '../../assets/sound/notifySound.mp3'
 import MenuIcon from '../../assets/svg/menu'
+import ResponsiveMenu from './responsiveMenu/responsiveMenu'
 
 function TopBar()
 {
@@ -123,9 +124,10 @@ function TopBar()
 
     return(
         <nav className={styles.topBar}>
-            <div className={`${styles.responsiveMenu} ${displayResponsiveMenu?styles.responsiveMenuDisplay:''}`}></div>
+            <ResponsiveMenu logout={logout} displayResponsiveMenu={displayResponsiveMenu} setDisplayResponsiveMenu={setDisplayResponsiveMenu} img={img} imgLoading={imgLoading}/>
+
             <div className={styles.menu} onClick={e=>setDisplayResponsiveMenu(!displayResponsiveMenu)}>
-                <MenuIcon />
+                {displayResponsiveMenu?<Cancel class={styles.cancel}/>:<MenuIcon />}
             </div>
             <img src={voxaLogo} className={styles.logo} onClick={e=>navigate('/')}/>
 
