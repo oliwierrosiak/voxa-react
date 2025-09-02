@@ -92,9 +92,13 @@ function HomeLogged()
 
     const usersCounterSetter = () =>
     {
-        if(suggestedFriends.length >= 5)
+        if(suggestedFriends.length >= 5 && window.innerWidth > 425)
         {
             changeDisplayFriends()
+            setUserListCounter({
+                start:0,
+                end:5
+            })
         }
         else
         {
@@ -141,10 +145,19 @@ function HomeLogged()
         }
     }
 
+    const windowResize = () =>
+    {
+        usersCounterSetter()
+    }
+
     useEffect(()=>{
         if(suggestedFriends.length)
         {
+            window.addEventListener('resize',windowResize)
             usersCounterSetter()
+        }
+        return()=>{
+            window.removeEventListener('resize',windowResize)
         }
     },[suggestedFriends])
 
@@ -165,6 +178,8 @@ function HomeLogged()
             getMyChats()
         }
     }
+
+
 
     useEffect(()=>{
         getData()
@@ -190,7 +205,7 @@ function HomeLogged()
             <article className={styles.article}>
                 <h1 className={styles.articleHeader}>Dodawaj Znajomych</h1>
                 <div className={styles.people}>
-                    {suggestedFFriendsLoading?<div className={styles.loadingItem}><Loading2 /></div>:(noneUsers?<div className={styles.noneUsers}><NoneUsers /><h2>Nie znaleziono żadnych użytkowników</h2></div>:<>
+                    {suggestedFFriendsLoading?<div className={styles.loadingItem}><Loading2 /></div>:(noneUsers?<div className={styles.noneUsers}><NoneUsers /><h2>Nie znaleziono żadnych użytkowników</h2></div>:<div className={styles.peopleList}>
                     <div className={styles.arrow} onClick={e=>changeUserListCounter('down')}>
                         {suggestedFriends.length > 5 && <Back  class={`${styles.arrowLeftSVG} ${userListCounter.start === 0?styles.arrowDisabled:''}`}/>}
                         
@@ -200,7 +215,7 @@ function HomeLogged()
                         {suggestedFriends.length > 5 && <Back  class={`${styles.arrowRightSVG} ${userListCounter.end === suggestedFriends.length?styles.arrowDisabled:''}`}/>}
                         
                     </div>
-                    </>)}
+                    </div>)}
                 </div>
             </article>
             <article className={styles.article}>

@@ -1,7 +1,7 @@
 .main
 {
     width:100%;
-    min-height: 92vh;
+    min-height: 92svh;
     background:linear-gradient(45deg,#891FA6,#010B40);
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -33,7 +33,14 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    gap:1rem;
+    align-items: center;
+}
+.peopleList
+{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    gap:7vw;
     align-items: center;
 }
 .myChatsLoadingSVG
@@ -283,4 +290,38 @@
 {
     font-size: 1.5rem;
     color: grey;
+    text-align: center;
+}
+@media(max-width:425px)
+{
+    .main
+    {
+        gap:3rem;
+        padding: 3rem 2rem;
+    }
+    .article
+    {
+    }
+    .articleHeader
+    {
+        font-size: 3rem;
+    }
+    .noneUsers>h2
+    {
+        font-size: 2.2rem;
+
+    }
+    .people
+    {
+        max-width: 85vw;
+        overflow: scroll;
+        justify-content: flex-start;
+    }
+    .peopleList
+    {
+    }
+    .arrow
+    {
+        display: none;
+    }
 }
