@@ -39,7 +39,8 @@
 {
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    width: 100%;
     gap:7vw;
     align-items: center;
 }
@@ -175,7 +176,6 @@
     align-items: center;
     justify-content: center;
     width: 15%;
-    height: 100%;
     gap:.8rem;
     cursor: pointer;
     max-width: 13vw;
@@ -225,8 +225,8 @@
 }
 .arrow
 {
-    width:3rem;
-    height: 3rem;
+    width:4vw;
+    height: 4vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -242,14 +242,14 @@
 }
 .arrowLeftSVG
 {
-    width:3rem;
-    height: 3rem;
+    width:4vw;
+    height: 4vw;
     fill: rgb(255, 255, 255);
 }
 .arrowRightSVG
 {
-    width: 3rem;
-    height: 3rem;
+    width: 4vw;
+    height: 4vw;
     fill: white;
     rotate: 180deg;
 }
@@ -260,10 +260,10 @@
 .plus
 {
     position: absolute;
-    right: 0rem;
-    bottom: 0rem;
-    width:2rem;
-    height: 2rem;
+    right: -.3vw;
+    bottom:-.3vw;
+    width:3vw;
+    height: 3vw;
     background-color: #010B40;
     border-radius: 50%;
     border: .2rem solid #C935F2;
@@ -272,6 +272,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.okIcon
+{
+    width: 1.5rem;
+    height: 1.5rem;
 }
 .plusDisplay
 {
@@ -317,11 +322,60 @@
         overflow: scroll;
         justify-content: flex-start;
     }
-    .peopleList
+    .people::-webkit-scrollbar
     {
+        width: 0;
+        height: .5rem;
+    }
+    .people::-webkit-scrollbar-thumb
+    {
+        background-color: #891FA6;
+        border-radius: 10px;
     }
     .arrow
     {
         display: none;
+    }
+    .peopleList
+    {
+        gap:4rem;
+    }
+    .friendsItem
+    {
+        max-width: max-content;
+        width: auto;
+        gap:1.2rem;
+    }
+    .imageContainer
+    {
+        width: 10rem;
+        height: 10rem;
+        border:.5rem solid #891FA6;
+
+    }
+    .userHeader
+    {
+        font-size: 3rem;
+    }
+    .friendsItem:hover>.userHeader
+    {
+        color: rgb(188, 188, 188);
+    }
+    .friendsItem:hover>.imageContainer
+    {
+         border:.5rem solid #891FA6;
+    }
+    .plus
+    {
+        width: 4rem;
+        height: 4rem;
+        right: -.3rem;
+        bottom:-.3rem;
+        border: .4rem solid #C935F2;
+    }
+    .okIcon
+    {
+        width: 2.8rem;
+        height:2.8rem;
     }
 }

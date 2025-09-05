@@ -63,7 +63,7 @@ function FriendItem(props)
                 <UserImg img={props.item?.img} />
 
                 <div className={`${styles.plus} ${loading||props.item?.invitedLocal?styles.plusDisplay:''}`} ref={plus}>
-                    {loading?<Loading2 class={styles.loadingSVG} />:props.item?.invitedLocal?<OkIcon />:<PlusIcon />}
+                    {loading?<Loading2 class={styles.loadingSVG} />:props.item?.invitedLocal?<OkIcon class={styles.okIcon}/>:<PlusIcon />}
                     
                 </div>
 
