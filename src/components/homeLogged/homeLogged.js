@@ -27,6 +27,7 @@ function HomeLogged()
     const [myChats,setMyChats] = useState([])
     const [myChatsLoading,setMyChatsLoading] = useState(true)
     const [myChatsError,setMyChatsError] = useState(false)
+    const [myAllChats,setMyAllChats] = useState([])
 
     const message = useContext(messageContext)
     const logoutContextHandler = useContext(logoutContext)
@@ -109,17 +110,16 @@ function HomeLogged()
         }
     }
 
-    const getMyChats = async()=>{
-         try
+    const setMyChatsCount = () =>
+    {
+        if(window.innerWidth > 425)
         {
-            await refreshToken()
-            const response = await axios.get(`${ApiAddress}/get-my-chats`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
             const chats = []
             for(let i =0;i<3;i++)
             {
-                if(response.data[i])
+                if(myAllChats[i])
                 {
-                    chats.push(response.data[i])
+                    chats.push(myAllChats[i])
                 }
                 else
                 {
@@ -127,6 +127,20 @@ function HomeLogged()
                 }
             }
             setMyChats(chats)
+        }
+        else
+        {
+            setMyChats(myAllChats)
+        }
+        
+    }
+
+    const getMyChats = async()=>{
+         try
+        {
+            await refreshToken()
+            const response = await axios.get(`${ApiAddress}/get-my-chats`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            setMyAllChats(response.data)
             setMyChatsLoading(false)
         }
         catch(ex)
@@ -144,6 +158,22 @@ function HomeLogged()
             }
         }
     }
+
+    const windowResize2 = () =>
+    {
+        setMyChatsCount()
+    }
+
+    useEffect(()=>{
+        if(myAllChats.length)
+        {
+            window.addEventListener('resize',windowResize2)
+            setMyChatsCount()
+        }
+        return () =>{
+            window.removeEventListener('resize',windowResize2)
+        }
+    },[myAllChats])
 
     const windowResize = () =>
     {
@@ -228,9 +258,9 @@ function HomeLogged()
                         <h2>Nie masz żadnych czatów</h2>
                     </div>:<>{myChats.map(x=><ChatElement key={x._id} {...x} />
                     )}
-                    <a href='/chats' className={styles.showAllChats}>Zobacz wszystkie czaty</a>
                     </>)}
                 </div>
+                {!myChatsError && <a href='/chats' className={styles.showAllChats}>Zobacz wszystkie czaty</a>}
             </article>
         </main>
     </>)

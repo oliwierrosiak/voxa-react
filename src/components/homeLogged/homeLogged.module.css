@@ -155,6 +155,7 @@
     font-size: .7rem;
     color: gray;
     font-weight: 700;
+    text-align: center;
 }
 .newMessage
 {
@@ -302,31 +303,41 @@
     .main
     {
         gap:3rem;
-        padding: 3rem 2rem;
-    }
-    .article
-    {
+        padding: 3rem 0rem;
+
     }
     .articleHeader
     {
         font-size: 3rem;
     }
+    .noneUsers
+    {
+        width: 100%;
+        height: 100%;
+    }
     .noneUsers>h2
     {
         font-size: 2.2rem;
-
+        padding: 0 3rem;
     }
     .people
     {
-        max-width: 85vw;
+        max-width: 98vw;
         overflow: scroll;
         justify-content: flex-start;
     }
+    .chats::-webkit-scrollbar,
     .people::-webkit-scrollbar
     {
         width: 0;
         height: .5rem;
     }
+    .chats::-webkit-scrollbar-button,
+    .people::-webkit-scrollbar-button
+    {
+        width: 2rem;
+    }
+    .chats::-webkit-scrollbar-thumb,
     .people::-webkit-scrollbar-thumb
     {
         background-color: #891FA6;
@@ -339,6 +350,8 @@
     .peopleList
     {
         gap:4rem;
+        padding: 0 2rem;
+        width: max-content;
     }
     .friendsItem
     {
@@ -377,5 +390,66 @@
     {
         width: 2.8rem;
         height:2.8rem;
+    }
+    .chats
+    {
+        flex-wrap: nowrap;
+        max-width: 98vw;
+        overflow: scroll;
+        padding: 0 2rem;
+        justify-content: flex-start;
+    }
+    .showAllChats
+    {
+        font-size: 2rem;
+        color: rgb(211, 211, 211);
+        text-shadow: -.1rem .08rem .2rem white;
+    }
+    .chatElement
+    {
+        grid-template-columns: 8rem 1fr 5rem;
+        gap:.5rem 1.5rem;
+        background: #010c409d;
+        padding: 1.2rem 1.5rem;
+        border-radius: 2rem;
+    }
+    .chatElement:hover
+    {
+        background: #010c409d;
+    }
+    .chatElementImgContainer
+    {
+        width: 8rem;
+        height: 8rem;
+        border: .5rem solid #891FA6;
+    }
+    .chatElementUsername
+    {
+        font-size: 2.5rem;
+    }
+    .chatElementMessage
+    {
+        font-size: 2rem;
+        width: 35vw;
+        max-width: 35vw;
+    }   
+    .date
+    {
+        font-size: 1.5rem;
+    }
+    .newMessage
+    {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .loadingItem
+    {
+        width: 100%;
+    }
+    .myChatsLoading
+    {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 }
