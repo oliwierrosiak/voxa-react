@@ -42,7 +42,7 @@ function Message(props)
 
     return(
         <div className={`${styles.messageContainer} ${display?styles.messageContainerDisplay:''}`}>
-            {props.value.type === "error"?<ErrorIcon />:props.value.type === "info"?<InfoIcon />:null}
+            {props.value.type === "error"?<ErrorIcon class={styles.errorSVG}/>:props.value.type === "info"?<InfoIcon class={styles.errorSVG}/>:null}
             <h2>{props.value.message}</h2>
             <div className={styles.cancel} onClick={closeMessage}>
                 <Cancel />
