@@ -13,7 +13,7 @@ import { socket } from '../../App'
 import { useNavigate } from 'react-router-dom'
 
 
-function Invitations(props)
+function Invitations()
 {
     const navigate = useNavigate()
     const [loading,setLoading] = useState(true)
