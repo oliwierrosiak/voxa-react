@@ -8,13 +8,59 @@ function Article(props)
 {
     const setMaxState = () =>
     {
+        if(window.innerWidth <= 425)
+        {
+            return props.users.length
+        }
         if(props.chat)
         {
-            return props.fullHeight?6:3
+            if(props.fullHeight)
+            {
+                if(props.users.length > 6)
+                {
+                    return 6
+                }
+                else
+                {
+                    return props.users.length
+                }
+            }
+            else
+            {
+                if(props.users.length > 3)
+                {
+                    return 3
+                }
+                else
+                {
+                    return props.users.length
+                }
+            }
         }
         else
         {
-             return props.fullHeight?10:5
+            if(props.fullHeight)
+            {
+                if(props.users.length > 10)
+                {
+                    return 10
+                }
+                else
+                {
+                    return props.users.length
+                }
+            }
+            else
+            {
+                if(props.users.length > 5)
+                {
+                    return 5
+                }
+                else
+                {
+                    return props.users.length
+                }
+            }
         }
     }
 
@@ -68,15 +114,7 @@ function Article(props)
     useEffect(()=>{
         if(props.users)
         {
-            if(props.users.length > max)
-            {
-                setDisplayingUsers()
-            }
-            else
-            {
-                setDisplayUsers(props.users)
-            }
-            
+            setDisplayingUsers()
         }
 
         return()=>{
@@ -91,13 +129,29 @@ function Article(props)
     useEffect(()=>{
         if(props.users)
         {
-            if(props.users.length > max)
-            {
-                setDisplayingUsers()
-            }
+            setDisplayingUsers()
         }
        
     },[counter])
+
+    const windowResize = () =>{
+        setMax(setMaxState)
+    }
+
+    useEffect(()=>{
+        setCounter({
+            start:0,
+            end:max
+        })
+    },[max])
+
+    useEffect(()=>{
+        window.addEventListener("resize",windowResize)
+        return()=>{
+            window.removeEventListener("resize",windowResize)
+
+        }
+    },[])
 
     const userItemClicked = (id) =>
     {

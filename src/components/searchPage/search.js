@@ -51,7 +51,7 @@ function Search()
             {loading?<div className={styles.loadingContainer}>
                 <Loading2 class={styles.loading}/>
             </div>:(data.users === 404 && data.chats === 404?<div className={styles.noneSearch}>
-                <NoneUsers />
+                <NoneUsers class={styles.noneUsersSVG}/>
                 <h2 className={styles.noneSearchHeader}>Nie znaleziono żadnych wyników</h2>
             </div>:<>
                 {data.users !== 404?<Article users={data.users} chat={false} fullHeight={data.chats === 404}/>:null}
