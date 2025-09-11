@@ -137,8 +137,10 @@
 @media (max-width:425px){
     .main
     {
+        min-height: 92svh;
+        height: max-content;
         gap:2rem;
-        padding: 2.5rem .5rem;
+        padding: 2.5rem .5rem 3.5rem .5rem;
     }
     .header
     {
@@ -152,6 +154,7 @@
     .noneSearch
     {
         gap:2rem;
+        height: 70svh;
     }
     .noneSearchHeader
     {
@@ -166,16 +169,16 @@
     }
     .users
     {
-        background-color: yellow;
+        height: 35svh;
         display: flex;
         justify-content: flex-start;
         flex-wrap: nowrap;
         overflow: scroll;
         padding: 2rem;
+        gap:3rem;
     }
     .user
     {
-        background-color: pink;
         width:  max-content;
     }
     .rightArrowContainer,
@@ -185,9 +188,15 @@
     }
     .fullHeight
     {
-        background-color: red;
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        grid-auto-flow: column;
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        overflow: visible;
+        justify-content: space-around;
+        gap:5rem;
+    }
+    .chatElement
+    {
+        max-width: max-content;
     }
 }
