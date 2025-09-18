@@ -20,6 +20,7 @@ function Aside(props)
     const params = useParams()
     const logout = useContext(logoutContext)
     const asideChatsContainer = useRef()
+    const responsive = useRef(window.innerWidth <= 425)
 
     const getMyChats = async()=>{
         try
@@ -55,8 +56,22 @@ function Aside(props)
         navigate(`/chats/${dest}`)
     }
 
+    const windowResize = () =>
+    {
+        if(window.innerWidth > 425 && responsive.current)
+        {
+            responsive.current = false
+            props.setDisplayAside(true)
+        }
+        else if(window.innerWidth <= 425 && !responsive.current)
+        {
+            responsive.current = true
+        }
+    }
+
     useEffect(()=>{
         getMyChats()
+        window.addEventListener("resize",windowResize)
         socket.on('notify',(val)=>{
             if(val === "add")
             {
@@ -68,6 +83,9 @@ function Aside(props)
             asideChatsContainer?.current?.scrollTo(0,asideChatsContainer.scrollHeight)
             getMyChats()
         })
+        return()=>{
+            window.removeEventListener("resize",windowResize)
+        }
     },[])
 
     return(

@@ -39,6 +39,8 @@
     width:100%;
     overflow: scroll;
     max-height: 80vh;
+    display: flex;
+    flex-direction: column;
 }
 .asideChatsContainer::-webkit-scrollbar
 {
@@ -203,6 +205,8 @@
     display: flex;
     align-items: flex-end;
     color: rgb(202, 202, 202);
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .userMessage
 {
@@ -1123,12 +1127,27 @@
     translate: 0 -50%;
     display: none;
 }
+.responsiveArrow2
+{
+    width: 3.5rem;
+    height: 3.5rem;
+    position: absolute;
+    top:50%;
+    left:1rem;
+    translate: 0 -50%;
+}
+.responsiveArrow2>svg
+{
+    fill: grey;
+}
 @media (max-width:425px) {
     .main
     {
         position: relative;
         width: 100vw;
         overflow: hidden;
+        min-height: 92svh !important;
+        height: 92svh;
     }
     .aside
     {
@@ -1137,8 +1156,11 @@
         top:0;
         bottom: 0;
         width: 100% !important;
+        height: 100%;
         z-index: 1;
         transform: translate(-100%,0);
+        background-color: #010326;
+        padding: 0;
     }
     .displayAside
     {
@@ -1160,5 +1182,90 @@
     .menuIcon
     {
         display: none;
+    }
+    .asideHeader
+    {
+        display: none;
+        padding: 0;
+    }
+    .asideChatsContainer
+    {
+        max-height:none;
+        height: 100%;
+        gap:5rem;
+        padding: 3rem 0 5rem 0;
+    }
+    .loadingSVG
+    {
+        width: 6rem;
+        height: 6rem;
+    }
+    .chatItem
+    {
+        grid-template-columns: 7rem 1fr 6rem;
+        grid-template-rows: 1fr .8fr;
+        padding: 0 1.5rem;
+        gap:.5rem 1.2rem
+    }
+    .chatItem:hover
+    {
+        background:none;
+    }
+    .imgContainer
+    {
+        width: 7rem;
+        height: 7rem;
+        border: .45rem solid #891FA6;
+    }
+    .userName
+    {
+        font-size: 2.5rem;
+            color: grey;
+    }
+    .userMessage
+    {
+        font-size: 1.5rem;
+    }
+    .currentChat
+    {
+        background:none !important;
+    }
+    .asideItemDate
+    {
+        font-size: 1.4rem;
+        line-height:1.1;
+        color: rgb(182, 182, 182);
+    }
+    .newMessageAtChat
+    {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .arrowSVG:hover
+    {
+        fill:white;
+    }
+    .asideChatsContainer::-webkit-scrollbar
+    {
+        width: .5rem;
+    }
+    .asideChatsContainer::-webkit-scrollbar-button
+    {
+        height: 2rem;
+    }
+    .scrollHeader
+    {
+        gap:1rem;
+        padding: 1.5rem 0;
+    }
+    .scrollHeaderImgContainer
+    {
+        width: 3.5rem;
+        height: 3.5rem;
+        border:.35rem solid #891FA6;
+    }
+    .scrollHeaderUsername
+    {
+        font-size: 2.8rem;
     }
 }

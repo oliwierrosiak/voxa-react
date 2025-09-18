@@ -431,6 +431,9 @@ function ChatContent(props)
                         <p>To jest początek twojej konwersacji z tym użytkownikiem</p>
                     </header>
                     <header className={`${styles.scrollHeader} ${scrollHeaderDisplay?styles.scrollHeaderDisplay:''}`} ref={scrollHeader}>
+                        <div className={styles.responsiveArrow2} onClick={e=>props.setDisplayAside(!props.displayAside)}>
+                            <ArrowIcon class={styles.arrowSVG} />
+                        </div>
                         <div className={styles.scrollHeaderImgContainer}>
                             <UserImg img={user.img} />
                         </div>

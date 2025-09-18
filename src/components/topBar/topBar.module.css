@@ -861,4 +861,12 @@
     {
         transform: translate(0,0);
     }
+    .profileListContainer>ul>li:hover>svg
+    {
+        fill:rgb(162, 162, 162);
+    }
+    .profileListContainer>ul>li:hover
+    {
+            color: rgb(162, 162, 162);
+    }
 }
