@@ -72,7 +72,7 @@ function Aside(props)
 
     return(
         <aside className={`${styles.aside} ${props.displayAside?styles.displayAside:''}`}>
-                {props.displayAside?<>
+                {props.displayAside || window.innerWidth <= 425?<>
                 <header className={styles.asideHeader}>
                     <div className={styles.menuIcon} onClick={e=>props.setDisplayAside(!props.displayAside)}>
                         <ArrowIcon class={styles.arrowSVG} />
@@ -81,7 +81,7 @@ function Aside(props)
                 </header>
                 <div className={styles.asideChatsContainer} ref={asideChatsContainer}>
                 {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:myChats.map(x=>
-                    <AsideChatItem redirect={redirect} key={x._id} {...x} />
+                    <AsideChatItem redirect={redirect} setDisplayAside={props.setDisplayAside} displayAside={props.displayAside} key={x._id} {...x} />
                 )}
                 </div>
                 </>:<>

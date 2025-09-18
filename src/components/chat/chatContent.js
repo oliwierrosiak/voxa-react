@@ -22,7 +22,6 @@ import getMessageDate from '../helpers/getMessageDate'
 import SentArrowIcon from '../../assets/svg/sentArrow'
 import sound2 from '../../assets/sound/seen.mp3'
 import BinIcon from '../../assets/svg/bin'
-import VoiceMessageIcon from '../../assets/svg/voiceMessage'
 import VoiceMessage from './voiceMessage'
 import MessageTime from './messageTime'
 import GetVoiceMessage from './getVoiceMessage'
@@ -30,6 +29,7 @@ import GetPhotos from './getPohotos'
 import Gallery from './gallery'
 import File from './file'
 import Message from './message'
+import ArrowIcon from '../../assets/svg/arrow'
 
 function ChatContent(props)
 {
@@ -421,6 +421,9 @@ function ChatContent(props)
                 </div>:<div className={styles.chatContent} ref={chatElement} onScroll={chatScroll}>
                     
                     <header className={styles.chatContentHeader} ref={header}>
+                        <div className={styles.responsiveArrow} onClick={e=>props.setDisplayAside(!props.displayAside)}>
+                            <ArrowIcon class={styles.arrowSVG} />
+                        </div>
                         <div className={styles.chatHeaderImg}>
                             <UserImg img={user.img} />
                         </div>

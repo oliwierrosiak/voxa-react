@@ -94,8 +94,17 @@ function App() {
         setShowLoginState('')
   }
 
+  const windowResize = () =>
+  {
+    
+  }
+
   useEffect(()=>{
     checkLogin()
+    window.addEventListener('resize',windowResize)
+    return()=>{
+       window.removeEventListener('resize',windowResize)
+    }
   },[])
 
   useEffect(()=>{

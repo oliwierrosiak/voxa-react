@@ -8,8 +8,18 @@ function AsideChatItem(props)
 
     const params = useParams()
 
+    
+    const itemClicked = (e) =>
+    {
+        props.redirect(props.conversationId)
+        if(window.innerWidth <= 425)
+        {
+            props.setDisplayAside(!props.displayAside)
+        }
+    }
+
     return(
-        <div className={`${styles.chatItem} ${params.id === props.conversationId?styles.currentChat:''}`} onClick={e=>props.redirect(props.conversationId)}>
+        <div className={`${styles.chatItem} ${params.id === props.conversationId?styles.currentChat:''}`} onClick={itemClicked}>
             <div className={styles.imgContainer}>
                 <UserImg img={props.img} />
             </div>
