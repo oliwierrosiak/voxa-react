@@ -112,7 +112,7 @@ function ChatContent(props)
     }
 
     const keyPressed = (e) =>{
-        if(e.key === "Enter")
+        if(e.key === "Enter" && window.innerWidth > 425)
         {
             sentMessage()
         }
@@ -407,7 +407,20 @@ function ChatContent(props)
         chatScroll()
     },[]) 
 
+    const textarea = useRef()
 
+    const textAreaResizeReset = () =>{
+        if(window.innerWidth <= 425 && textarea.current)
+        {
+            textarea.current.style.height = "auto"; 
+        }
+    }
+
+    const textAreaResize = (e) =>
+    {
+        e.target.style.height = "auto"; 
+        e.target.style.height = e.target.scrollHeight + "px";
+    }
 
     return(
         <article className={`${styles.chat} ${props.displayAside?styles.chatReduced:''}`}>
@@ -459,7 +472,7 @@ function ChatContent(props)
             {loading || chatError?null:
             user.username === "Unknown"?<div className={styles.chatDeleted}>Ten czat się zakończył ponieważ użytkownik usunął swoje konto</div>:
             <div className={styles.menu}>
-                <div className={`${styles.recording} ${recording?styles.recordingShow:''}`}>
+                <div className={`${styles.recording} ${recording?styles.recordingShow:''} ${inputFocus && window.innerWidth <= 425?styles.bottomMenuIconHide:''}`}>
                     <div className={styles.recordingIconContainer}>
                         <div className={styles.recordingIcon} ref={recordingIcon}></div>
                     </div>
@@ -471,26 +484,28 @@ function ChatContent(props)
                         <BinIcon />
                     </div>
                 </div>
-                <div className={`${styles.bottomMenuIcon} ${styles.fileContainer}`} onClick={e=>{setDisplayEmoji(false);!messageLoading && file.current.click()}}>
+                <div className={`${styles.bottomMenuIcon} ${styles.fileContainer} ${inputFocus && window.innerWidth <= 425?styles.bottomMenuIconHide:''}`} onClick={e=>{setDisplayEmoji(false);!messageLoading && file.current.click()}}>
                     <FileIcon class={styles.bottomMenuSVG}/>
                     <input type='file' className={styles.fileInput} ref={file} onChange={sendFile}/>
                 </div>
-                <div className={`${styles.bottomMenuIcon} ${styles.microphone}`} onClick={e=>{setDisplayEmoji(false);recordVoice()}}>
+                <div className={`${styles.bottomMenuIcon} ${styles.microphone} ${inputFocus && window.innerWidth <= 425?styles.bottomMenuIconHide:''}`} onClick={e=>{setDisplayEmoji(false);recordVoice()}}>
                     <MicrophoneIcon class={styles.bottomMenuSVG}/>
                     
                 </div>
-                <div className={`${styles.bottomMenuIcon} ${styles.photoIcon}`} onClick={e=>{setDisplayEmoji(false);!messageLoading && photoRef.current.click()}}>
+                <div className={`${styles.bottomMenuIcon} ${styles.photoIcon} ${inputFocus && window.innerWidth <= 425?styles.bottomMenuIconHide:''}`} onClick={e=>{setDisplayEmoji(false);!messageLoading && photoRef.current.click()}}>
                     <input type='file' className={styles.photoInput} ref={photoRef} accept='image/*,video/*' multiple onChange={sendPhoto}></input>
                     <PhotoIcon class={styles.bottomMenuSVG}/>
                 </div>
                 <div className={`${styles.inputContainer} ${inputFocus?styles.inputContainerFocus:''}`} onClick={e=>e.target.classList.contains(styles.inputContainer)?e.target.children[0].focus():null}>
+                    {window.innerWidth > 425?<>
                     <input type='text' className={styles.input} placeholder='Napisz wiadomość...' onFocus={e=>{e.target.placeholder='';setInputFocus(true);setDisplayEmoji(false)}} onBlur={e=>{e.target.placeholder='Napisz wiadomość...';setInputFocus(false)}} value={inputValue} onChange={e=>setInputValue(e.target.value)}/>
                     <div className={styles.inputIcon} onClick={e=>setDisplayEmoji(!displayEmoji)}>
                         <EmoteIcon class={styles.inputSVG}/>
                     </div>
                     <emoji-picker locale="pl" ref={emoji} className={`${styles.emojiPicker} ${displayEmoji?styles.displayEmoji:''}`}/>
+                    </>:<textarea ref={textarea} onInput={textAreaResize} className={styles.input} placeholder='Napisz wiadomość...' onFocus={e=>{e.target.placeholder='';setInputFocus(true)}} onBlur={e=>{e.target.placeholder='Napisz wiadomość...';setInputFocus(false)}} value={inputValue} onChange={e=>setInputValue(e.target.value)} rows="1"></textarea>}
                 </div>
-                <div className={styles.sentIcon} onClick={e=>{sentMessage();stopRecording("send")}}>
+                <div className={styles.sentIcon} onClick={e=>{sentMessage();stopRecording("send");textAreaResizeReset()}}>
                     {messageLoading?<Loading2 class={styles.messageLoading}/>:
                     <SentIcon class={styles.bottomMenuSVG}/>}
                 </div>
