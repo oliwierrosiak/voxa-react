@@ -429,7 +429,7 @@ function ChatContent(props)
                 <Loading2 class={styles.loadingSVG}/>
             </div>:(
                 chatError?<div className={styles.chatError}>
-                    <ErrorIcon />
+                    <ErrorIcon class={styles.errorIcon}/>
                     <h2>Wystąpił błąd podczas pobierania czatu. Spróbuj ponownie później</h2>
                 </div>:<div className={styles.chatContent} ref={chatElement} onScroll={chatScroll}>
                     

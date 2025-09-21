@@ -1145,6 +1145,11 @@
 {
     display: none;
 }
+.errorIcon
+{
+    width: 2rem;
+    height: 2rem;
+}
 @media (max-width:425px) {
     .main
     {
@@ -1280,7 +1285,7 @@
     }
     .chatContent
     {
-        background-color: rgba(255, 0, 0, 0.45);
+        /* background-color: rgba(255, 0, 0, 0.45); */
         bottom: 6rem;
     }
     .chatDeleted
@@ -1439,5 +1444,74 @@
     {
         font-size: 1.8rem;
     }
-
+    .chatError
+    {
+        gap:1rem;
+    }
+    .chatError>h2
+    {
+        font-size: 2rem;
+    }
+    .errorIcon
+    {
+        width: 8rem;
+        height: 8rem;
+    }
+    .messageContainer
+    {
+        gap:.5rem;
+        max-width: none;
+        grid-template-columns:3rem 1fr 8rem;
+        padding-left: 1rem;
+    }
+    .myMessageContainer
+    {
+         grid-template-columns: 8rem 1fr 1.5rem;
+         padding-right: .5rem;
+         padding-left: 0;
+    }
+    .messageStatusSent
+    {
+        width: 1.5rem;
+        height: 1.5rem;
+        align-self: center;
+        transform: scale(0.9);
+    }
+    .seenUserContainer
+    {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: .23rem solid #891FA6;
+    }
+    .friendImgContainer
+    {
+        width: 3rem;
+        height: 3rem;
+        border:.3rem solid #891FA6;
+        margin-bottom: .3rem;
+    }
+    .message
+    {
+        padding: .7rem 1rem;
+        border-radius: 1.5rem;
+        margin-left: .5rem;
+    }
+    .messageContent
+    {
+        font-size: 2rem;
+        max-width: 60vw;
+        overflow-wrap: break-word;
+    }
+    .date
+    {
+        width: 8rem;
+        font-size: 1.4rem;
+        margin-left: 1rem;
+    }
+    .myMessageDate
+    {
+        text-align: end;
+        margin-right: .5rem;
+        margin-left: 0;
+    }
 }
