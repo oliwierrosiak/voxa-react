@@ -73,7 +73,7 @@ function Gallery(props)
             <div className={`${styles.leftArrowContainer} ${displayPhoto === imgs[0]?styles.arrowDisabled:''}`} onClick={e=>changePhoto('left')}>
                 <GalleryArrowIcon class={styles.leftArrow}/>
             </div>
-            {loading?<Loading2 class={styles.galleryLoading}/>:<GalleryImg img={displayPhoto}/>}
+            {loading?<Loading2 class={styles.galleryLoading}/>:<GalleryImg img={displayPhoto} changePhoto={changePhoto}/>}
              <div className={`${styles.rightArrowContainer} ${displayPhoto === imgs.at(-1)?styles.arrowDisabled:''}`} onClick={e=>changePhoto('right')}>
                 <GalleryArrowIcon class={styles.rightArrow}/>
             </div>

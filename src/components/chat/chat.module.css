@@ -926,8 +926,10 @@
 .chatVideo
 {
     width:100%;
+    max-height: 20rem;
     padding: .3rem 0;
     border-radius: .8rem;
+    filter: brightness(0.5);
 }
 .gallery
 {
@@ -1285,8 +1287,8 @@
     }
     .chatContent
     {
-        /* background-color: rgba(255, 0, 0, 0.45); */
         bottom: 6rem;
+        gap:1.5rem;
     }
     .chatDeleted
     {
@@ -1502,6 +1504,14 @@
         max-width: 60vw;
         overflow-wrap: break-word;
     }
+    .messageLink
+    {
+        font-size: 2rem;
+    }
+    .messageLink:hover
+    {
+            color: #891FA6;
+    }
     .date
     {
         width: 8rem;
@@ -1513,5 +1523,126 @@
         text-align: end;
         margin-right: .5rem;
         margin-left: 0;
+    }
+    .voiceMessageLoading
+    {
+        width:50vw;
+        height: 3rem;
+    }
+    .voiceMessageLoading>svg
+    {
+        width: 3rem;
+        height: 3rem;
+    }
+    .voiceMessageError
+    {
+        width: 50vw;
+        font-size: 1.3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .audio
+    {
+        width:50vw;
+        grid-template-columns: 3rem 1fr 5.5rem;
+        height: 3rem;
+    }
+    .play
+    {
+        width: 3rem;
+        height: 3rem;
+    }
+    .play>svg,
+    .play:hover>svg
+    {
+            fill: rgb(132, 132, 132);
+    }
+    .timelineContainer
+    {
+        height: .8rem;
+        background-color: rgb(132, 132, 132);
+    }
+    .voiceMessageTime
+    {
+        font-size: 1rem;
+        color: rgb(132, 132, 132);
+    }
+    .timeline
+    {
+        background: #C935F2;
+    }
+    .chatImg
+    {
+        max-width: 60vw;
+        padding: .6rem .2rem;
+        border-radius: 1.2rem;
+    }
+    .imageError
+    {
+        width: max-content;
+        font-size: 2rem;
+        padding: 1rem .5rem;
+    }
+    .photoLoadingContainer
+    {
+        width: 40vw;
+        height: 40vw;
+    }
+    .photoLoading
+    {
+        width: 5rem;
+        height: 5rem;
+    }
+    .chatVideo
+    {
+            max-height: 30rem;
+            width: auto;
+            max-width: 60vw;
+    }
+    .gallery
+    {
+        background:rgba(21, 21, 21, 0.674);
+        backdrop-filter: blur(15px);
+    }
+    .galleryLoading
+    {
+        width: 8rem;
+        height: 8rem;
+    }
+    .photoError
+    {
+        gap:1.5rem;
+        width: 100%;
+    }
+    .photoError>h2
+    {
+        font-size: 3rem;
+    }
+    .galleryImg
+    {
+        max-width: 95vw;
+        max-height: 70svh;
+        border-radius: 1rem;
+    }
+    .galleryVideo
+    {
+        max-width: 95vw;
+        max-height: 70svh;
+        border-radius: 1rem;
+        background-color: black;
+    }
+    .leftArrowContainer
+    {
+        display: none;
+    }
+    .rightArrowContainer
+    {
+        display: none;
+    }
+    .videoOverlay:hover>.videoPlay>.videoPlaySVG
+    {
+           fill: rgb(163, 163, 163);
     }
 }

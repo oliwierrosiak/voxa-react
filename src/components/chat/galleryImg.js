@@ -6,6 +6,8 @@ import Loading2 from "../../assets/svg/loading2"
 import styles from './chat.module.css'
 import ErrorIcon from "../../assets/svg/error"
 
+let touchStart = 0
+
 function GalleryImg(props)
 {
     const [loading,setLoading] = useState(true)
@@ -160,11 +162,30 @@ function GalleryImg(props)
 
     },[props])
 
+    const touchStartFunc = (e) =>
+    {
+        touchStart = e.touches[0].clientX
+    }
+
+    const touchEndFunc = (e) =>
+    {
+        let endX = e.changedTouches[0].clientX;
+        let deltaX = endX - touchStart;
+        if(deltaX > 50)
+        {
+            props.changePhoto("left")
+        }
+        else if(deltaX < -50)
+        {
+            props.changePhoto("right")
+        }
+    }
+
     return(
         loading?<Loading2 class={styles.galleryLoading} />:error?<div className={styles.photoError}>
-            <ErrorIcon />
+            <ErrorIcon class={styles.errorIcon}/>
             <h2>Błąd pobierania</h2>
-        </div>:video?<video controls src={url} className={styles.galleryVideo}/>:<div className={styles.galleryImgContainer} onWheel={zoomImg}><img src={url} draggable={false} style={{
+        </div>:video?<video controls src={url} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} className={styles.galleryVideo}/>:<div className={styles.galleryImgContainer} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} onWheel={zoomImg}><img src={url} draggable={false} style={{
           transform: `translate(${positions.x}px, ${positions.y}px) scale(${zoom})`
         }} className={styles.galleryImg} ref={imgRef} onMouseMove={handleMouseMove} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}/></div>
     )
