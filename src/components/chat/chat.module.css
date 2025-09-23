@@ -1623,13 +1623,13 @@
     .galleryImg
     {
         max-width: 95vw;
-        max-height: 70svh;
+        max-height: 85svh;
         border-radius: 1rem;
     }
     .galleryVideo
     {
         max-width: 95vw;
-        max-height: 70svh;
+        max-height: 85svh;
         border-radius: 1rem;
         background-color: black;
     }
@@ -1644,5 +1644,32 @@
     .videoOverlay:hover>.videoPlay>.videoPlaySVG
     {
            fill: rgb(163, 163, 163);
+    }
+    .fileContainer2
+    {
+        grid-template-columns: 3rem 1fr;
+        font-size: 2rem;
+        max-width: 60vw;
+        gap:.8rem;
+        word-break: break-all;
+    }
+    .fileIconContainer
+    {
+        width: 3rem;
+        height: 3rem;
+    }
+    .fileIconContainer:hover
+    {
+            background: rgb(80, 80, 80);
+    }
+    .fileIcon
+    {
+        width: 90%;
+        height: 90%;
+    }
+    .fileIconContainer:hover>.fileIcon
+    {
+        fill: rgb(216, 216, 216);
+      
     }
 }
