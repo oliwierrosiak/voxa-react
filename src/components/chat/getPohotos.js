@@ -26,7 +26,7 @@ function GetPhotos(props)
                 const localImgsOriginalName = [...imgsOriginalName.current]
                 const url = URL.createObjectURL(response.data)
                 localImg.push({type:response.data.type,url})
-                if(response.data.type.includes("image") || response.data.type.includes("application"))
+                if(response.data.type.includes("image") || response.data.type.includes("application") || response.data.type.includes('video'))
                 {
                     localImgsOriginalName.push(img)
                 }
