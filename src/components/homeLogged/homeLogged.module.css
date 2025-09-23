@@ -101,6 +101,9 @@
     border-radius: 50%;
     border: .25rem solid #891FA6;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .chatElementImgContainer>img
 {
