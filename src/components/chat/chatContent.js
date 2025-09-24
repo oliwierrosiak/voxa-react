@@ -215,7 +215,7 @@ function ChatContent(props)
                         </div>
                         <h1 className={styles.scrollHeaderUsername}>{user.username}</h1>
                     </header>
-                    {chat.map((x,idx)=><div key={x.time} className={`${styles.messageContainer} ${logged.loggedUser.id === x.sender?styles.myMessageContainer:null}`}>
+                    {chat.map((x,idx)=><div key={Math.floor(Math.random()*1000000)} className={`${styles.messageContainer} ${logged.loggedUser.id === x.sender?styles.myMessageContainer:null}`}>
                         {logged.loggedUser.id === x.sender?<div className={styles.messageStatusContainer}>
                             {x.status === "sent"?<SentArrowIcon class={styles.messageStatusSent} />:(checkSeenElement(idx)?<div className={styles.seenUserContainer}>
                                 <UserImg img={user.img} />

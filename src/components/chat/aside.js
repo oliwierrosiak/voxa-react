@@ -99,7 +99,7 @@ function Aside(props)
                 </header>
                 <div className={styles.asideChatsContainer} ref={asideChatsContainer}>
                 {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:myChats.map(x=>
-                    <AsideChatItem redirect={redirect} setDisplayAside={props.setDisplayAside} displayAside={props.displayAside} key={x._id} {...x} />
+                    <AsideChatItem redirect={redirect} setDisplayAside={props.setDisplayAside} displayAside={props.displayAside} key={Math.floor(Math.random()*100000)} {...x} />
                 )}
                 </div>
                 </>:<>
@@ -107,7 +107,7 @@ function Aside(props)
                         <ArrowIcon class={styles.arrowSVG2} />
                     </div>
                     {loading?<div className={styles.loadingContainer}><Loading2 class={styles.loadingSVG}/></div>:<div className={styles.smallAsideChatsContainer}>{myChats.map(x=>
-                        <div key={x._id} className={`${styles.smallAsideItem} ${params.id === x.conversationId?styles.currentChat:''}`} onClick={e=>redirect(x.conversationId)}>
+                        <div key={Math.floor(Math.random()*100000)} className={`${styles.smallAsideItem} ${params.id === x.conversationId?styles.currentChat:''}`} onClick={e=>redirect(x.conversationId)}>
                             <div className={styles.imgContainer2}>
                                 <UserImg img={x.img} />
                                 {x.seen !== "seen" && <div className={styles.hiddenAsideNewMessageAtChat}></div>}

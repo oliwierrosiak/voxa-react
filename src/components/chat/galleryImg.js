@@ -185,7 +185,7 @@ function GalleryImg(props)
         loading?<Loading2 class={styles.galleryLoading} />:error?<div className={styles.photoError}>
             <ErrorIcon class={styles.errorIcon}/>
             <h2>Błąd pobierania</h2>
-        </div>:video?<video controls src={url} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} className={styles.galleryVideo}/>:<div className={styles.galleryImgContainer} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} onWheel={zoomImg}><img src={url} draggable={false} style={{
+        </div>:video?<video loading="lazy" controls src={url} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} className={styles.galleryVideo}/>:<div className={styles.galleryImgContainer} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} onWheel={zoomImg}><img loading="lazy" src={url} draggable={false} style={{
           transform: `translate(${positions.x}px, ${positions.y}px) scale(${zoom})`
         }} className={styles.galleryImg} ref={imgRef} onMouseMove={handleMouseMove} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}/></div>
     )

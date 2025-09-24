@@ -23,9 +23,9 @@ function Gallery(props)
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-chat-imgs-data/${params.id}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
-            setDisplayPhoto(props.clickedPhoto)
+            // setDisplayPhoto(props.clickedPhoto)
             setImgs(response.data)
-            setLoading(false)
+
         }
         catch(ex)
         {
@@ -33,6 +33,34 @@ function Gallery(props)
             props.setShowGallery(false)
         }
     }
+
+    useEffect(()=>{
+        if(imgs[0])
+        {
+            if(!imgs.includes(props.clickedPhoto))
+            {
+                const searchingValue = props.clickedPhoto.split('.')[0]
+                const video = imgs.find((x)=>{
+                    const rawValue = x.split('.')[0]
+                    if(searchingValue === rawValue)
+                    {
+                        return x
+                    }
+                    else
+                    {
+                        return null
+                    }
+                })
+                setDisplayPhoto(video)
+                setLoading(false)
+            }
+            else
+            {
+                setDisplayPhoto(props.clickedPhoto)
+                setLoading(false)
+            }
+        }
+    },[imgs])
 
     const galleryClicked = (e) =>{
         if(e.target.classList.contains(styles.gallery))

@@ -100,7 +100,7 @@ function GetVoiceMessage(props)
     useEffect(()=>{
         getVoice()
         return()=>{
-            audioRef.current.pause()
+            audioRef?.current?.pause()
             audioRef.current = null
             clearInterval(timerRef.current)
         }

@@ -13,6 +13,7 @@ function GetPhotos(props)
 
     const [imgsState,setImgsState] = useState([])
     const [loading,setLoading] = useState(true)
+    const [typeVideo,setTypeVideo] = useState(false)
 
     const getImages = async(img) =>
     {
@@ -20,6 +21,13 @@ function GetPhotos(props)
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-chat-img/${img}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:"blob"})
+            const responseInfo = await axios.get(`${ApiAddress}/get-chat-img-info/${img}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+
+            if(responseInfo?.data?.type === "video")
+            {   
+                setTypeVideo(true)
+            }
+
             if(response.data)
             {
                 const localImg = [...imgs.current]
@@ -32,6 +40,7 @@ function GetPhotos(props)
                 }
                 imgs.current = [...localImg]
                 imgsOriginalName.current = [...localImgsOriginalName]
+                setLoading(false)
             }
             else
             {
@@ -52,9 +61,6 @@ function GetPhotos(props)
         {
             setImgsState([...imgs.current])
             setLoading(false)
-            setTimeout(() => {
-                props.scrollFunc()
-            }, 100);
         }
     }
 
@@ -78,14 +84,15 @@ function GetPhotos(props)
             {
                 return <div key={Math.floor(Math.random()*1000)} className={styles.imageError}>Błąd pobierania zdjęcia</div>
             }
-            else if(x.type.includes('image'))
-            {
-                return <img key={Math.floor(Math.random()*1000)} className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>
-            }
             else
             {
-                return <div className={styles.videoOverlay}><video key={Math.floor(Math.random()*1000)} className={styles.chatVideo} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/><div className={styles.videoPlay} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}><PlayIcon class={styles.videoPlaySVG}/></div></div>
+                return !typeVideo?<img key={Math.floor(Math.random()*1000)} className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>:
+                <div className={styles.videoOverlay} key={Math.floor(Math.random()*10000)}>
+                    <img className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>
+                    <div className={styles.videoPlay} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}><PlayIcon class={styles.videoPlaySVG}/></div>
+                </div>
             }
+            
         })
         )
     )
