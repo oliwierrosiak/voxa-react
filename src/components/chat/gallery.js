@@ -23,7 +23,6 @@ function Gallery(props)
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-chat-imgs-data/${params.id}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
-            // setDisplayPhoto(props.clickedPhoto)
             setImgs(response.data)
 
         }

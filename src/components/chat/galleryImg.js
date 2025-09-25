@@ -171,11 +171,11 @@ function GalleryImg(props)
     {
         let endX = e.changedTouches[0].clientX;
         let deltaX = endX - touchStart;
-        if(deltaX > 50)
+        if(deltaX > 150)
         {
             props.changePhoto("left")
         }
-        else if(deltaX < -50)
+        else if(deltaX < -150)
         {
             props.changePhoto("right")
         }

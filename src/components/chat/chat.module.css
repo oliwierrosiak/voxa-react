@@ -974,7 +974,7 @@
 .galleryImg
 {
     max-height: 80vh;
-    max-width: 55vw;
+    max-width: 55vw;  
 }
 .galleryImg::selection
 {
