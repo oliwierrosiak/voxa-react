@@ -117,7 +117,7 @@ function ChatContent(props)
         return()=>{
             socket.off('chatUpdate',socketUpdate)
         }
-    },[params])
+    },[params.id])
 
     const scrollFunc = () =>{
         if(chatElement.current)

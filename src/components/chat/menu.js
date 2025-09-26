@@ -89,7 +89,7 @@ function Menu(props)
             }
             catch(ex)
             {
-                message.setContent("Wystąpił bład nagrywania","error")
+                message.setContent("Wystąpił bład nagrywania.","error")
                 setRecording(false)
             }   
         }

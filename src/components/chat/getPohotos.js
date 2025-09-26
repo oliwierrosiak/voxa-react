@@ -13,7 +13,7 @@ function GetPhotos(props)
 
     const [imgsState,setImgsState] = useState([])
     const [loading,setLoading] = useState(true)
-    const [typeVideo,setTypeVideo] = useState(false)
+    const typeVideo = useRef([])
 
     const getImages = async(img) =>
     {
@@ -25,7 +25,9 @@ function GetPhotos(props)
 
             if(responseInfo?.data?.type === "video")
             {   
-                setTypeVideo(true)
+                const localTypeVideo = [...typeVideo.current]
+                localTypeVideo.push(img)
+                typeVideo.current = localTypeVideo
             }
 
             if(response.data)
@@ -33,7 +35,7 @@ function GetPhotos(props)
                 const localImg = [...imgs.current]
                 const localImgsOriginalName = [...imgsOriginalName.current]
                 const url = URL.createObjectURL(response.data)
-                localImg.push({type:response.data.type,url})
+                localImg.push({type:response.data.type,url,originalName:img})
                 if(response.data.type.includes("image") || response.data.type.includes("application") || response.data.type.includes('video'))
                 {
                     localImgsOriginalName.push(img)
@@ -86,7 +88,7 @@ function GetPhotos(props)
             }
             else
             {
-                return !typeVideo?<img key={Math.floor(Math.random()*1000)} className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>:
+                return !typeVideo.current.includes(x.originalName)?<img key={Math.floor(Math.random()*1000)} className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>:
                 <div className={styles.videoOverlay} key={Math.floor(Math.random()*10000)}>
                     <img className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>
                     <div className={styles.videoPlay} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}><PlayIcon class={styles.videoPlaySVG}/></div>
