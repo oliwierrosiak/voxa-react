@@ -47,7 +47,17 @@ function ChatContent(props)
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-chat/${params.id}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
-            setChat(response.data.chat)
+            const chat = response.data.chat
+            for(let i = chat.length-1; i>=0;i--)
+            {
+                if(typeof(chat[i].message) !== "string")
+                {
+                    chat[i].lastMedia = true
+                    break
+                }
+            }
+
+            setChat(chat)
             setUser(response.data.user)
             setLoading(false)
         }
@@ -195,7 +205,7 @@ function ChatContent(props)
                             <UserImg img={user.img} />
                             </div>}
                         <div className={`${styles.message} ${logged.loggedUser.id === x.sender?styles.myMessage:null}`}>
-                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} galleryHandler={galleryHandler}/>:x.type == "file"?<File file={x.message}/>:<Message message={x.message} />}
+                            {x.type === "voice"?<GetVoiceMessage file={x.message}/>:x.type === "photos" || x.type === "video"?<GetPhotos scrollFunc={scrollFunc} imgs={x.message} lastMedia={x?.lastMedia} galleryHandler={galleryHandler}/>:x.type == "file"?<File file={x.message}/>:<Message message={x.message} />}
                         </div>
                         <div className={`${styles.date} ${logged.loggedUser.id === x.sender?styles.myMessageDate:null}`}>
                             {getMessageDate(x.time)}

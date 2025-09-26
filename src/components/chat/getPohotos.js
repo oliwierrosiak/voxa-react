@@ -63,6 +63,13 @@ function GetPhotos(props)
         {
             setImgsState([...imgs.current])
             setLoading(false)
+            if(props.lastMedia)
+            {
+                setTimeout(() => {
+                    props.scrollFunc()
+                }, 100);
+
+            }
         }
     }
 
