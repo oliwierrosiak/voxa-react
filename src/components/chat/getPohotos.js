@@ -67,7 +67,7 @@ function GetPhotos(props)
             {
                 setTimeout(() => {
                     props.scrollFunc()
-                }, 100);
+                }, 400);
 
             }
         }

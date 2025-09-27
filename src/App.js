@@ -87,6 +87,7 @@ function App() {
         {
 
         }
+        socket.disconnect()
         sessionStorage.removeItem('token')
         sessionStorage.removeItem('refreshToken')
         setLoggedUserState(false)

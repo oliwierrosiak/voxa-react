@@ -212,6 +212,10 @@
     color: rgb(188, 188, 188);
     transition: color .3s ease;
 }
+.userHeader::selection
+{
+    background: none;
+}
 .imageContainer>img
 {
     width:100%;
