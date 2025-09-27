@@ -21,7 +21,6 @@
     justify-content: center;
     padding: 3rem 2rem 3rem 55%;
     gap:2rem;
-
 }
 .logo
 {
@@ -83,6 +82,21 @@
 .registerBtn:hover
 {
     background: #891FA6;
+}
+@media (max-width:1080px) {
+    .btns
+    {
+        flex-wrap: wrap;
+        gap:2rem;
+    }
+    .btn
+    {
+        width: 100%;
+    }
+    .loginLine
+    {
+        display: none;
+    }
 }
 @media(max-width:425px)
 {
