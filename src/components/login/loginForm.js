@@ -121,7 +121,7 @@ function LoginForm(props)
     },[])
 
     return(
-        <form onSubmit={validateData} className={styles.form}>
+        <form noValidate onSubmit={validateData} className={styles.form}>
         <div className={styles.inputContainer} onClick={e=>e.target.classList.contains(styles.inputContainer)?e.target.children[0].focus():null}>
             <input type='email' autoComplete="email" className={styles.input} disabled={props.loading} onFocus={inputFocus} onBlur={inputBlur} onChange={e=>setEmailValue(e.target.value)} value={emailValue}></input>
             <h2 className={styles.inputPlaceholder} onClick={e=>e.target.closest('div').children[0].focus()}>
@@ -153,6 +153,9 @@ function LoginForm(props)
             <img src={googleLogo} className={styles.googleIcon}/>
             Kontynuj z Google
         </button>
+
+        <p className={styles.passwordForgotten} onClick={e=>props.setLoginAction('passwordForgotten')}>Zapominałeś hasła?</p>
+
         <p className={styles.haveNotAnAccount}>Nie masz jeszcze konta? <a href='' onClick={registerClicked} className={styles.registerLink}>Zarejestruj się!</a></p>
         </form>
     )

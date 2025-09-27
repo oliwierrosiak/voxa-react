@@ -408,6 +408,96 @@
 {
     width: 100%;
 }
+.passwordForgotten
+{
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: .5rem;
+    color: #891FA6;
+    cursor: pointer;
+    transition: color .3s ease;
+}
+.passwordForgotten:hover
+{
+    color: #C935F2;
+}
+.passwordForgottenContainer
+{
+    display: flex;
+    flex-direction: column;
+    gap:1.2rem;
+    width: 100%;
+}
+.passwordForgottenInput
+{
+    width: 100%;
+    font-size: 1.5rem;
+    background:none;
+    border: 0;
+    outline: none;
+    border-bottom: .3rem solid gray;
+    color: white;
+    padding: .5rem;
+    text-align: center;
+}
+.passwordForgottenInput:focus
+{
+     border-bottom: .3rem solid #C935F2;
+}
+.resetPassword
+{
+    font-size: 1.5rem;
+    padding: .5rem;
+    border-radius: 1rem;
+    background-color: #891FA6;
+    border:.3rem solid #C935F2;
+    outline: none;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .3s ease;
+}
+.resetPassword:hover
+{
+    background-color: #C935F2;
+}
+.passwordForgottenError
+{
+    color: red;
+    font-size: 1.2rem;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+}
+.passwordForgottenLoading
+{
+    width: 4rem;
+    height: 4rem;
+    margin: 1rem;
+}
+.redirectToRegister
+{
+    color: #891FA6;
+    transition: color .3s ease;
+}
+.redirectToRegister:hover
+{
+      color: #C935F2;
+}
+.resetPasswordDone
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+}
+.passwordResetDoneP
+{
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+}
 @media(max-width:425px)
 {
     .loginContainer
@@ -561,5 +651,62 @@
     .progressBar
     {
         height: .8rem;
+    }
+    .passwordForgotten
+    {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    .passwordForgotten:hover
+    {
+        color: #891FA6;
+    }
+    .passwordForgottenContainer
+    {
+        gap:2rem;
+    }
+    .passwordForgottenInput
+    {
+        font-size: 2.5rem;
+        border-bottom: .5rem solid gray;
+        padding: .8rem;
+    }
+    .passwordForgottenInput:focus
+    {
+         border-bottom: .5rem solid #C935F2;
+    }
+    .resetPassword
+    {
+        font-size: 3rem;
+        border:.5rem solid #C935F2;
+        border-radius: 1.5rem;
+        padding: .8rem;
+        margin-bottom: 2rem;
+    }
+    .passwordForgottenError
+    {
+        font-size: 2rem;
+    }
+    .resetPassword:hover
+    {
+            background-color: #891FA6;
+    }
+    .passwordForgottenLoading
+    {
+        width: 6rem;
+        height: 6rem;
+        margin: 1rem 0 2rem 0;
+    }
+    .resetPasswordDone
+    {
+        gap:3rem;
+    }
+    .passwordResetDoneP
+    {
+        font-size: 1.8rem;
+    }
+    .redirectToRegister:hover
+    {
+            color: #891FA6;
     }
 }

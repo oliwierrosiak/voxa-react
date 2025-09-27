@@ -5,6 +5,7 @@ import RegisterForm from './registerForm'
 import Back from '../../assets/svg/back'
 import { useRef, useState } from 'react'
 import Loading from '../../assets/svg/loading2'
+import PasswordForgotten from './passwordForgotten'
 
 function ShowLogin(props)
 {   
@@ -58,6 +59,7 @@ function ShowLogin(props)
                 <div className={styles.back} onClick={e=>!loading?props.cancelLoginForm():null}>
                     <Back/>
                 </div>
+                {props.action === "passwordForgotten"?<PasswordForgotten loading={loading} setLoading={setLoading} setLoginAction={props.setLoginAction}/>:null}
                 {props.action === "login"?<LoginForm setLoginAction={props.setLoginAction} loading={loading} setLoading={setLoading}/>:null}
                 {props.action === "register"?<RegisterForm keyPressed={keyPressed} loading={loading} setLoading={setLoading} registerCard={registerCard} registerValidation={registerValidation} setRegisterValidation={setRegisterValidation} setCard={setCard}/>:null}
 
