@@ -9,6 +9,7 @@ import axios from "axios"
 import ApiAddress from "../../ApiAddress"
 import NoneUsers from "../../assets/svg/noneUsers"
 import Article from "./article"
+import setDocumentTitle from "../helpers/useDocumentTitle"
 
 function Search()
 {
@@ -37,6 +38,7 @@ function Search()
     }
 
     useEffect(()=>{
+        setDocumentTitle(`Wyniki - ${params.search}`)
         getData()
     },[params.search])
 

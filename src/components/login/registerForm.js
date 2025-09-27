@@ -9,6 +9,7 @@ import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
 import LoginContext from '../context/loginContext'
 import loggedUser from '../context/loggedUserContext'
+import setDocumentTitle from '../helpers/useDocumentTitle'
 
 function RegisterForm(props)
 {
@@ -197,6 +198,7 @@ function RegisterForm(props)
     },[props.registerValidation])
 
     useEffect(()=>{
+        setDocumentTitle("Voxa - Rejestracja")
         window.addEventListener("keydown",props.keyPressed)
         return ()=>{
             window.removeEventListener("keydown",props.keyPressed)

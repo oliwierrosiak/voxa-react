@@ -9,6 +9,7 @@ import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
 import { useNavigate, useParams } from 'react-router-dom'
 import messageContext from '../context/messageContext'
+import setDocumentTitle from '../helpers/useDocumentTitle'
 
 function ResetPassword(props)
 {
@@ -113,6 +114,7 @@ function ResetPassword(props)
     }
 
     useEffect(()=>{
+        setDocumentTitle("Resetowanie hasła")
         verifyToken()
     },[])
 

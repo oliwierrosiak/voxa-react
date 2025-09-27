@@ -5,6 +5,7 @@ import Aside from './aside'
 import setDisplayAsideInChats from '../helpers/setDisplayAsideInChats'
 import ChatContent from './chatContent'
 import { useParams } from 'react-router-dom'
+import setDocumentTitle from '../helpers/useDocumentTitle'
 
 function Chat()
 {
@@ -15,6 +16,23 @@ function Chat()
 
     useEffect(()=>{
         sessionStorage.setItem('displayAside',JSON.stringify(displayAside))
+        setDocumentTitle("Czaty")
+        if(window.innerWidth <= 425 && displayAside)
+        {
+            setDocumentTitle("Czaty")
+        }
+        else if(window .innerWidth <= 425 && !displayAside)
+        {
+            const lastPage = sessionStorage.getItem('lastPage')
+            if(lastPage)
+            {
+                setDocumentTitle(lastPage)
+            }
+            else
+            {
+                setDisplayAside('Czaty')
+            }
+        }
     },[displayAside])
 
     return(

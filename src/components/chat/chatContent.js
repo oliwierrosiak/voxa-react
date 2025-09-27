@@ -23,6 +23,7 @@ import Message from './message'
 import ArrowIcon from '../../assets/svg/arrow'
 import Menu from './menu'
 import ScrollHeader from './scrollHeader'
+import setDocumentTitle from '../helpers/useDocumentTitle'
 
 function ChatContent(props)
 {
@@ -137,6 +138,8 @@ function ChatContent(props)
     }
 
     useEffect(()=>{
+        setDocumentTitle(`Czat - ${user.username}`)
+        sessionStorage.setItem("lastPage",`Czat - ${user.username}`)
         scrollFunc()
         setShowGallery(false)
     },[chat])

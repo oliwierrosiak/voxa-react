@@ -13,6 +13,7 @@ import messageContext from '../context/messageContext'
 import ChatElement from './chatElement'
 import { socket } from '../../App'
 import sound from '../../assets/sound/message.mp3'
+import setDocumentTitle from '../helpers/useDocumentTitle'
 
 function HomeLogged()
 {
@@ -198,6 +199,10 @@ function HomeLogged()
 
         }
     },[userListCounter])
+
+    useEffect(()=>{
+        setDocumentTitle('Strona główna')
+    },[])
 
      const socketUpdate = (res) =>{
 

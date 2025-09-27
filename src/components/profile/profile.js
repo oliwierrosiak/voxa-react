@@ -13,6 +13,7 @@ import messageContext from '../context/messageContext'
 import Input from './input'
 import DeleteAccountConfirm from './deleteAccountConfirm'
 import Loading1 from '../../assets/svg/loading1'
+import setDocumentTitle from '../helpers/useDocumentTitle'
 
 function Profile()
 {
@@ -191,6 +192,7 @@ function Profile()
     }
 
     useEffect(()=>{
+        setDocumentTitle('Profil')
         getUserData()
     },[])
 

@@ -11,6 +11,7 @@ import logoutContext from '../context/logoutContext'
 import messageContext from '../context/messageContext'
 import { socket } from '../../App'
 import { useNavigate } from 'react-router-dom'
+import setDocumentTitle from '../helpers/useDocumentTitle'
 
 
 function Invitations()
@@ -112,6 +113,7 @@ function Invitations()
     }
 
     useEffect(()=>{
+        setDocumentTitle('Twoje zaproszenia')
         getMyInvitations()
         socket.on('notify',()=>{
             getMyInvitations()  

@@ -1,6 +1,8 @@
 import styles from './home.module.css'
 import logo from '../../assets/img/voxalogo1.png'
 import ShowLogin from '../login/showLogin'
+import { useEffect } from 'react'
+import setDocumentTitle from '../helpers/useDocumentTitle'
 
 function Home(props)
 {
@@ -14,6 +16,13 @@ function Home(props)
     {
         props.setShowLoginState(action)
     }
+
+    useEffect(()=>{
+        if(!props.showLoginState)
+        {
+            setDocumentTitle('Voxa')
+        }
+    },[props.showLoginState])
 
     return(
         <main className={styles.main}>

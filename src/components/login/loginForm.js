@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './login.module.css'
 import Eye from '../../assets/svg/eye'
 import EyeOff from '../../assets/svg/EyeOff'
@@ -11,6 +11,7 @@ import LoginContext from '../context/loginContext.js'
 import loggedUser from '../context/loggedUserContext.js'
 import { GoogleLogin } from '@react-oauth/google'
 import messageContext from '../context/messageContext.js'
+import setDocumentTitle from '../helpers/useDocumentTitle.js'
 
 function LoginForm(props)
 {
@@ -115,6 +116,9 @@ function LoginForm(props)
         }
     }
 
+    useEffect(()=>{
+        setDocumentTitle('Voxa - Logowanie')
+    },[])
 
     return(
         <form onSubmit={validateData} className={styles.form}>
