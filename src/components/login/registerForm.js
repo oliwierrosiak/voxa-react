@@ -3,7 +3,7 @@ import { inputBlur, inputFocus } from './inputActions'
 import { useEffect, useReducer, useState, useRef, useContext } from 'react'
 import Eye from '../../assets/svg/eye'
 import EyeOff from '../../assets/svg/EyeOff'
-import userImg from '../../assets/img/user.png'
+import userImg from '../../assets/img/default.jpg'
 import Camera from '../../assets/svg/camera'
 import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
@@ -68,7 +68,7 @@ function RegisterForm(props)
                 err.name = ex.response.data.errors.name
                 err.email = ex.response.data.errors.email
                 err.password = ex.response.data.errors.password
-                err.username = ex.response.data.errors.username
+                err.username = ex.response.data.errors.username || "Wystąpił bład serwera"
                 err.repeatPassword = ``
                 
             }
