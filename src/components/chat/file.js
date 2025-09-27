@@ -1,10 +1,9 @@
-import { useContext, useEffect, useId, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 import styles from './chat.module.css'
 import FileIcon from '../../assets/svg/fileIcon'
 import Loading1 from '../../assets/svg/loading1'
 import refreshToken from '../helpers/refreshToken'
 import ApiAddress from '../../ApiAddress'
-import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import messageContext from '../context/messageContext'
 

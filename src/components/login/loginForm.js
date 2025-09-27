@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 import styles from './login.module.css'
 import Eye from '../../assets/svg/eye'
 import EyeOff from '../../assets/svg/EyeOff'
@@ -9,9 +9,8 @@ import axios from 'axios'
 import ApiAddress from '../../ApiAddress.js'
 import LoginContext from '../context/loginContext.js'
 import loggedUser from '../context/loggedUserContext.js'
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google'
+import { GoogleLogin } from '@react-oauth/google'
 import messageContext from '../context/messageContext.js'
-import refreshToken from '../helpers/refreshToken.js'
 
 function LoginForm(props)
 {

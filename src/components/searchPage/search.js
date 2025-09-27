@@ -1,4 +1,4 @@
-import { startTransition, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import TopBar from "../topBar/topBar"
 import styles from './search.module.css'

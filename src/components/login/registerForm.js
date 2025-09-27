@@ -1,6 +1,6 @@
 import styles from './login.module.css'
 import { inputBlur, inputFocus } from './inputActions'
-import { useEffect, useReducer, useState, useRef, useContext } from 'react'
+import { useEffect, useReducer, useState, useContext } from 'react'
 import Eye from '../../assets/svg/eye'
 import EyeOff from '../../assets/svg/EyeOff'
 import userImg from '../../assets/img/default.jpg'

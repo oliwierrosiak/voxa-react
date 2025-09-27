@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import styles from './homeLogged.module.css'
 import UserImg from './userImg'
 import getMessageDate from '../helpers/getMessageDate'

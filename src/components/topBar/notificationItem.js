@@ -1,7 +1,7 @@
 import styles from './topBar.module.css'
 import UserImg from '../homeLogged/userImg'
 import NotificationDate from './notificationData'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import refreshToken from '../helpers/refreshToken'
 import ApiAddress from '../../ApiAddress'

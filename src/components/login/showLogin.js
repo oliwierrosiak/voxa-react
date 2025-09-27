@@ -3,7 +3,7 @@ import logo from '../../assets/img/voxalogo1.png'
 import LoginForm from './loginForm'
 import RegisterForm from './registerForm'
 import Back from '../../assets/svg/back'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Loading from '../../assets/svg/loading2'
 
 function ShowLogin(props)
@@ -23,6 +23,7 @@ function ShowLogin(props)
 
         }
     }
+
 
     const changeRegisterCard = (direction) => {
         if(direction === "asc")
@@ -48,6 +49,7 @@ function ShowLogin(props)
             nextBtn.current.click()
         }
     }
+
 
     return(
         <div className={styles.loginContainer} onClick={hideLoginForm}>

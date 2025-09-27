@@ -1,7 +1,7 @@
 import styles from './homeLogged.module.css'
 import UserImg from './userImg'
 import PlusIcon from '../../assets/svg/plus'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import Loading2 from '../../assets/svg/loading2'
 import refreshToken from '../helpers/refreshToken'
 import axios from 'axios'

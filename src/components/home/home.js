@@ -1,6 +1,5 @@
 import styles from './home.module.css'
 import logo from '../../assets/img/voxalogo1.png'
-import { useState } from 'react'
 import ShowLogin from '../login/showLogin'
 
 function Home(props)

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import styles from './chat.module.css'
 
 function Message(props)
