@@ -43,6 +43,9 @@ function ChatContent(props)
     const chatElement = useRef()
     const header = useRef()
     
+    let touchStart = 0
+    let touchEnd = 0
+
     const getChat = async() =>{
         try
         {
@@ -177,8 +180,17 @@ function ChatContent(props)
         return empty
     }
 
+    const touchEndFunc = (e) =>
+    {
+        touchEnd = e.changedTouches[0].clientX
+        if(touchStart - touchEnd < -(window.innerWidth * 0.3) && window.innerWidth <= 425)
+        {
+            props.setDisplayAside(true)
+        }
+    }
+
     return(
-        <article className={`${styles.chat} ${props.displayAside?styles.chatReduced:''}`}>
+        <article className={`${styles.chat} ${props.displayAside?styles.chatReduced:''}`} onTouchStart={e=>{touchStart = e.touches[0].clientX}} onTouchEnd={touchEndFunc}>
             {showGallery && <Gallery setShowGallery={setShowGallery} clickedPhoto={clickedPhoto} />}
             {loading?<div className={styles.contentLoading}>
                 <Loading2 class={styles.loadingSVG}/>

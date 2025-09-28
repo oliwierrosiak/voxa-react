@@ -22,6 +22,9 @@ function Aside(props)
     const asideChatsContainer = useRef()
     const responsive = useRef(window.innerWidth <= 425)
 
+    let touchStart = 0
+    let touchEnd = 0 
+
     const getMyChats = async()=>{
         try
         {
@@ -88,8 +91,20 @@ function Aside(props)
         }
     },[])
 
+    const touchEndFunc = (e) =>
+    {
+        touchEnd = e.changedTouches[0].clientX
+        if(touchStart - touchEnd > window.innerWidth * 0.3 && responsive.current)
+        {
+            if(params.id)
+            {
+               props.setDisplayAside(false)
+            }
+        }
+    }
+
     return(
-        <aside className={`${styles.aside} ${props.displayAside?styles.displayAside:''}`}>
+        <aside className={`${styles.aside} ${props.displayAside?styles.displayAside:''}`} onTouchStart={e=>touchStart = e.touches[0].clientX} onTouchEnd={touchEndFunc}>
                 {props.displayAside || window.innerWidth <= 425?<>
                 <header className={styles.asideHeader}>
                     <div className={styles.menuIcon} onClick={e=>props.setDisplayAside(!props.displayAside)}>
