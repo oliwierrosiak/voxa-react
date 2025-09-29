@@ -9,9 +9,9 @@ import axios from 'axios'
 import ApiAddress from '../../ApiAddress.js'
 import LoginContext from '../context/loginContext.js'
 import loggedUser from '../context/loggedUserContext.js'
-import { GoogleLogin } from '@react-oauth/google'
 import messageContext from '../context/messageContext.js'
 import setDocumentTitle from '../helpers/useDocumentTitle.js'
+import { useGoogleLogin } from '@react-oauth/google'
 
 function LoginForm(props)
 {
@@ -104,7 +104,7 @@ function LoginForm(props)
     const googleLogin = async(res)=>{
         try
         {
-            const response = await axios.post(`${ApiAddress}/google-login`,{token:res.credential})
+            const response = await axios.post(`${ApiAddress}/google-login`,{token:res.access_token})
             sessionStorage.setItem("token",response.data.token)
             sessionStorage.setItem("refreshToken",response.data.refreshToken)
             loggedContext.setLogged(true)
@@ -119,6 +119,18 @@ function LoginForm(props)
     useEffect(()=>{
         setDocumentTitle('Voxa - Logowanie')
     },[])
+
+    const loginWithGoogle = useGoogleLogin({
+        onSuccess: (res) => {
+            axios.get(
+                `https://www.googleapis.com/oauth2/v3/userinfo`,
+                { headers: { Authorization: `Bearer ${res.access_token}` } }
+            ).then(userInfo => {
+                googleLogin(res)
+            }).catch(() => googleLoginError())
+        },
+        onError: googleLoginError,
+    })
 
     return(
         <form noValidate onSubmit={validateData} className={styles.form}>
@@ -148,8 +160,7 @@ function LoginForm(props)
 
         <button className={`${styles.submit} ${props.loading?styles.btnLoading:""}`} type='submit'>{props.loading?<Loading />:"Zaloguj się!"}</button>
 
-        <button type='button' className={styles.googleLogin}>
-        <GoogleLogin onSuccess={googleLogin} onError={googleLoginError}/>
+        <button type='button' className={styles.googleLogin} onClick={loginWithGoogle}>
             <img src={googleLogo} className={styles.googleIcon}/>
             Kontynuj z Google
         </button>
