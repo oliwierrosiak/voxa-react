@@ -32,6 +32,7 @@ function Invitations()
         {
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/get-my-invitations`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            console.log(response.data)
             setUsers(response.data)
             setLoading(false)
         }

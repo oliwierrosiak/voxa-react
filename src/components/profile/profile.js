@@ -67,9 +67,8 @@ function Profile()
         try
         {
             await refreshToken()
-            const response = await axios.get(`${ApiAddress}/user-img`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:"blob"})
-            const url = URL.createObjectURL(response.data)
-            setImg(url)
+            const response = await axios.get(`${ApiAddress}/user-img`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            setImg(response.data.userImg)
             setImgLoading(false)
         }
         catch(ex)
@@ -224,7 +223,7 @@ function Profile()
         <div className={styles.imgElement}>
 
             <div className={styles.imgContainer} onClick={e=>fileRef.current.click()}>
-                {imgLoading?<Loading2 class={styles.imgLoading} />:<img src={img} />}
+                {imgLoading?<Loading2 class={styles.imgLoading} />:<img src={img} onError={()=>setImg(defaultImage)}/>}
                 <div className={styles.overlay}>
                     <Camera />
                 </div>

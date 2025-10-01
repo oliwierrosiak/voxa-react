@@ -1,37 +1,32 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import styles from './chat.module.css'
 import FileIcon from '../../assets/svg/fileIcon'
-import Loading1 from '../../assets/svg/loading1'
-import refreshToken from '../helpers/refreshToken'
-import ApiAddress from '../../ApiAddress'
-import axios from 'axios'
 import messageContext from '../context/messageContext'
+import axios from 'axios'
 
 function File(props)
 {
-    const [loading,setLoading] = useState(false)
-
     const message = useContext(messageContext)
 
     const getFile = async()=>{
         try
         {
-            setLoading(true)
-            await refreshToken()
-            const response = await axios.get(`${ApiAddress}/download-file/${props.file.dbName}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:'blob'})
-            const newUrl = URL.createObjectURL(response.data)
-            
-           const a = document.createElement('a');
-            a.href = newUrl;
+            if(!props.file.link)
+                throw new Error()
+            const response = await axios.get(props.file.link,{responseType:'blob'})
+            if(!response.data)
+                throw new Error()
+            const url = new URL.createObjectURL(response.data)
+            const a = document.createElement('a');
+            a.href = url;
+            a.target = "_blank"
             a.download = props.file.name;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            setLoading(false)
         }
         catch(ex)
         {
-            setLoading(false)
             message.setContent('Nie udało się pobrać pliku','error')
         }
     }
@@ -40,7 +35,7 @@ function File(props)
     return(
         <div className={styles.fileContainer2}>
             <div className={styles.fileIconContainer} onClick={getFile}>
-                {loading?<Loading1 />:<FileIcon class={styles.fileIcon}/>}
+                <FileIcon class={styles.fileIcon}/>
             </div>
             <p className={styles.fileName}>{props.file.name}</p>
         </div>

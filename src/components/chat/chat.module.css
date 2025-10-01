@@ -186,6 +186,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .imgContainer>img
 {
@@ -597,6 +598,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .scrollHeaderImgContainer>img
 {
@@ -621,6 +623,7 @@
     border:.3rem solid #891FA6;
     border-radius: 50%;
     overflow: hidden;
+    position: relative;
 }
 .chatHeaderImg>img
 {
@@ -710,7 +713,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    align-self: flex-end;  
+    align-self: flex-end;
+    position: relative;
 }
 .friendImgContainer>img
 {
@@ -785,6 +789,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .seenUserContainer>img
 {

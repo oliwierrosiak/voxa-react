@@ -72,9 +72,8 @@ function TopBar()
             await refreshToken()
             const response = await axios.get(`${ApiAddress}/user-img`,{headers:{
                 "Authorization": `Bearer ${sessionStorage.getItem('token')}`
-            },responseType:"blob"})
-            const imgUrl = URL.createObjectURL(response.data)
-            setImg(imgUrl)
+            }})
+            setImg(response.data.userImg)
             setImgLoading(false)
         }
         catch(ex)
@@ -160,14 +159,14 @@ function TopBar()
                 </div>
                 <div className={styles.profileContainer}>
                     <div className={styles.profileImg}>
-                        {imgLoading?<Loading2 class={styles.loadingSVG} />:<img src={img}/>}
+                        {imgLoading?<Loading2 class={styles.loadingSVG} />:<img src={img} onError={()=>setImg(defaultImg)}/>}
                         
                     </div>
                     <div className={styles.listContainer}>
                         <div className={styles.profileListContainer}>
                             <span className={styles.triangle}></span>
                             <div className={styles.userImage}>
-                                {imgLoading?<Loading2 class={styles.loadingSVG} />:<img src={img}/>}
+                                {imgLoading?<Loading2 class={styles.loadingSVG} />:<img src={img} onError={()=>setImg(defaultImg)}/>}
                                 
                             </div>
                             <h2 className={styles.username}>{loggedUserContext.loggedUser.username}</h2>
