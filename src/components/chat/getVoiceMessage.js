@@ -3,7 +3,6 @@ import Loading2 from "../../assets/svg/loading2"
 import styles from './chat.module.css'
 import refreshToken from "../helpers/refreshToken"
 import axios from "axios"
-import ApiAddress from "../../ApiAddress"
 import PlayIcon from "../../assets/svg/play"
 import StopIcon from "../../assets/svg/stopIcon"
 import getMessageDuration from "../helpers/getMessageDuration"
@@ -31,7 +30,7 @@ function GetVoiceMessage(props)
         try
         {
             await refreshToken()
-            const response = await axios.get(`${ApiAddress}/get-voice-message/${props.file}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:"blob"})
+            const response = await axios.get(props.file,{responseType:"blob"})
             const url = URL.createObjectURL(response.data)
             setDuration(await getDuration(response.data))
             const audio = new Audio(url)
