@@ -16,6 +16,7 @@ import Search from './components/searchPage/search';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Profile from './components/profile/profile';
 import ResetPassword from './components/resetPassword/resetPassword';
+import NotFound from './components/404/notFound';
 
 export const socket = io(ApiAddress)
 
@@ -132,6 +133,7 @@ function App() {
           <Route path='/chats/:id' element={<Chat />}/>
           <Route path='/search/:search' element={<Search />} />
           <Route path='/reset-password/:token' element={<ResetPassword setShowLoginState={setShowLoginState}/>}/>
+          <Route path='*' element={<NotFound />}/>
       </Routes>
     </Router>
 
