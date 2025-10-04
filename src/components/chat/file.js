@@ -16,7 +16,7 @@ function File(props)
             const response = await axios.get(props.file.link,{responseType:'blob'})
             if(!response.data)
                 throw new Error()
-            const url = new URL.createObjectURL(response.data)
+            const url = URL.createObjectURL(response.data)
             const a = document.createElement('a');
             a.href = url;
             a.target = "_blank"
@@ -27,6 +27,7 @@ function File(props)
         }
         catch(ex)
         {
+            console.log(ex)
             message.setContent('Nie udało się pobrać pliku','error')
         }
     }

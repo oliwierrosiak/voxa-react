@@ -38,7 +38,7 @@ function Menu(props)
         try
         {
             props.setMessageLoading(true)
-            const formData = new FormData
+            const formData = new FormData()
             formData.append('audio',mess,'voice.webm')
             formData.append('chatId',params.id)
             await refreshToken()
@@ -65,7 +65,7 @@ function Menu(props)
             try
             {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const recorder = new MediaRecorder(stream);
+                const recorder = new MediaRecorder(stream,{mimeType:'audio/webm;codecs=opus'});
                 recorder.ondataavailable = (e) => {
                 if (e.data.size > 0) {
                 chunksRef.current.push(e.data);
