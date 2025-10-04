@@ -61,7 +61,6 @@ function LoginForm(props)
 
     const validateData = (e) =>
     {
-        console.log("val")
         e.preventDefault()
         if(!props.loading)
         {
