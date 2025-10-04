@@ -15,6 +15,8 @@ import { useGoogleLogin } from '@react-oauth/google'
 
 function LoginForm(props)
 {
+    let googleTimeout
+    let loginTimeout
     const message = useContext(messageContext)
     const loggedUserContext = useContext(loggedUser)
     const loggedContext = useContext(LoginContext)
@@ -30,11 +32,11 @@ function LoginForm(props)
     {
         try
         {
-            const timeout = setTimeout(() => {
+            loginTimeout = setTimeout(() => {
                 message.setContent('Logowanie może zająć wiecej czasu ze względu na rozruch serwera','info')
             }, 5000);
             const response = await axios.post(`${ApiAddress}/login`,{email:emailValue,password:passwordValue})
-            clearTimeout(timeout)
+            clearTimeout(loginTimeout)
             sessionStorage.setItem("token",response.data.token)
             sessionStorage.setItem("refreshToken",response.data.refreshToken)
             loggedContext.setLogged(true)
@@ -42,6 +44,7 @@ function LoginForm(props)
         }
         catch(ex)
         {
+            clearTimeout(loginTimeout)
             const errors = {...formError}
             if(ex?.response?.data?.status === 401)
             {
@@ -102,6 +105,8 @@ function LoginForm(props)
         }
     }
     const googleLoginError = () =>{
+        clearTimeout(googleTimeout)
+        props.setLoading(false)
         message.setContent('Bład logowanie google',"error")
     }
 
@@ -110,11 +115,11 @@ function LoginForm(props)
         try
         {
             props.setLoading(true)
-            const timeout = setTimeout(() => {
+            googleTimeout = setTimeout(() => {
                 message.setContent('Logowanie może zająć wiecej czasu ze względu na rozruch serwera','info')
             }, 5000);
             const response = await axios.post(`${ApiAddress}/google-login`,{token:res.access_token})
-            clearTimeout(timeout)
+            clearTimeout(googleTimeout)
             sessionStorage.setItem("token",response.data.token)
             sessionStorage.setItem("refreshToken",response.data.refreshToken)
             loggedContext.setLogged(true)

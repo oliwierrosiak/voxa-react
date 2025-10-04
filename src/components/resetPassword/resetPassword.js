@@ -25,12 +25,13 @@ function ResetPassword(props)
         repeatPassword:'',
     })
     const [sendLoading,setSendLoading] = useState(false)
+    let timeout
 
     const verifyToken = async() =>
     {
         try
         {
-            const timeout = setTimeout(()=>{
+            timeout = setTimeout(()=>{
                 message.setContent('Resetowanie hasła może zająć wiecej czasu ze względu na rozruch serwera','info')
             },5000)
             const response = await axios.get(`${ApiAddress}/reset-password-token/${params.token}`)
@@ -39,6 +40,7 @@ function ResetPassword(props)
         }
         catch(ex)
         {
+            clearTimeout(timeout)
             if(ex.status === 401)
             {
                 message.setContent('Twoja sesja resetowania hasła wygasła','error')

@@ -8,6 +8,7 @@ import messageContext from '../context/messageContext'
 
 function PasswordForgotten(props)
 {
+    let timeout
     const [inputValue,setInputValue] = useState('')
     const [error,setError] = useState('')
     const [done,setDone] = useState(false)
@@ -17,7 +18,7 @@ function PasswordForgotten(props)
     const resetPassword = async()=>{
         try
         {
-            const timeout = setTimeout(()=>{
+            timeout = setTimeout(()=>{
                 message.setContent('Resetowanie hasła może zająć wiecej czasu ze względu na rozruch serwera','info')
             },5000)
             const response = await axios.post(`${ApiAddress}/password-forgotten`,{email:inputValue})
@@ -27,6 +28,7 @@ function PasswordForgotten(props)
         }
         catch(ex)
         {
+            clearTimeout(timeout)
             setDone(true)
             props.setLoading(false)
         }

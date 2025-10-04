@@ -14,6 +14,7 @@ import messageContext from '../context/messageContext'
 
 function RegisterForm(props)
 {
+    let timeout
     const message = useContext(messageContext)
     const loggedUserContext = useContext(loggedUser)
     const loggedContext = useContext(LoginContext)
@@ -52,7 +53,7 @@ function RegisterForm(props)
             formData.append('email',values.email)
             formData.append('password',values.password)
             formData.append('username',values.username)
-            const timeout = setTimeout(() => {
+            timeout = setTimeout(() => {
                 message.setContent('Rejestracja może zająć wiecej czasu ze względu na rozruch serwera','info')
             }, 5000);
             await axios.post(`${ApiAddress}/register`,formData,{
@@ -69,6 +70,7 @@ function RegisterForm(props)
         }
         catch(ex)
         {
+            clearTimeout(timeout)
             const err = {...errors}
             if(ex.status === 400)
             {
