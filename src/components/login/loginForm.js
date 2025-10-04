@@ -58,6 +58,7 @@ function LoginForm(props)
 
     const validateData = (e) =>
     {
+        console.log("val")
         e.preventDefault()
         if(!props.loading)
         {
@@ -108,6 +109,7 @@ function LoginForm(props)
     const googleLogin = async(res)=>{
         try
         {
+            props.setLoading(true)
             const timeout = setTimeout(() => {
                 message.setContent('Logowanie może zająć wiecej czasu ze względu na rozruch serwera','info')
             }, 5000);
@@ -166,14 +168,14 @@ function LoginForm(props)
 
         <div className={styles.line}></div>
 
-        <button className={`${styles.submit} ${props.loading?styles.btnLoading:""}`} type='submit'>{props.loading?<Loading />:"Zaloguj się!"}</button>
+        <button className={`${styles.submit} ${props.loading?styles.btnLoading:""}`} disabled={props.loading} type='submit'>{props.loading?<Loading />:"Zaloguj się!"}</button>
 
-        <button type='button' className={styles.googleLogin} onClick={loginWithGoogle}>
+        <button type='button' disabled={props.loading} className={styles.googleLogin} onClick={loginWithGoogle}>
             <img src={googleLogo} className={styles.googleIcon}/>
             Kontynuj z Google
         </button>
 
-        <p className={styles.passwordForgotten} onClick={e=>props.setLoginAction('passwordForgotten')}>Zapominałeś hasła?</p>
+        <p className={styles.passwordForgotten} onClick={e=>!props.loading && props.setLoginAction('passwordForgotten')}>Zapominałeś hasła?</p>
 
         <p className={styles.haveNotAnAccount}>Nie masz jeszcze konta? <a href='' onClick={registerClicked} className={styles.registerLink}>Zarejestruj się!</a></p>
         </form>
