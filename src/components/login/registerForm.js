@@ -10,9 +10,11 @@ import ApiAddress from '../../ApiAddress'
 import LoginContext from '../context/loginContext'
 import loggedUser from '../context/loggedUserContext'
 import setDocumentTitle from '../helpers/useDocumentTitle'
+import messageContext from '../context/messageContext'
 
 function RegisterForm(props)
 {
+    const message = useContext(messageContext)
     const loggedUserContext = useContext(loggedUser)
     const loggedContext = useContext(LoginContext)
     const [showPassword,setShowPassword] = useState(false)
@@ -50,10 +52,14 @@ function RegisterForm(props)
             formData.append('email',values.email)
             formData.append('password',values.password)
             formData.append('username',values.username)
+            const timeout = setTimeout(() => {
+                message.setContent('Rejestracja może zająć wiecej czasu ze względu na rozruch serwera','info')
+            }, 5000);
             await axios.post(`${ApiAddress}/register`,formData,{
             headers:{
                 "Content-Type":"multipart/form-data"
             }})
+            clearTimeout(timeout)
             const response = await axios.post(`${ApiAddress}/login`,{email:values.email,password:values.password})
             sessionStorage.setItem("token",response.data.token)
             sessionStorage.setItem("refreshToken",response.data.refreshToken)

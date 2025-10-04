@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './login.module.css'
 import Loading2 from '../../assets/svg/loading2'
 import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
 import setDocumentTitle from '../helpers/useDocumentTitle'
+import messageContext from '../context/messageContext'
 
 function PasswordForgotten(props)
 {
@@ -11,10 +12,16 @@ function PasswordForgotten(props)
     const [error,setError] = useState('')
     const [done,setDone] = useState(false)
 
+    const message = useContext(messageContext)
+
     const resetPassword = async()=>{
         try
         {
+            const timeout = setTimeout(()=>{
+                message.setContent('Resetowanie hasła może zająć wiecej czasu ze względu na rozruch serwera','info')
+            },5000)
             const response = await axios.post(`${ApiAddress}/password-forgotten`,{email:inputValue})
+            clearTimeout(timeout)
             setDone(true)
             props.setLoading(false)
         }
@@ -46,11 +53,8 @@ function PasswordForgotten(props)
     }
 
     useEffect(()=>{
-        window.addEventListener("keydown",keyDown)
         setDocumentTitle("Resetowanie hasła")
-        return()=>{
-            window.removeEventListener("keydown",keyDown)
-        }
+
     },[])
 
     const redirectToRegister = (e) =>
@@ -65,7 +69,7 @@ function PasswordForgotten(props)
             <button className={styles.resetPassword} onClick={e=>props.setLoginAction('')}>Wróc do strony głównej</button>
         </div>:
         <div className={styles.passwordForgottenContainer}>
-            <input className={styles.passwordForgottenInput} placeholder='Podaj swój adres email' value={inputValue} onChange={e=>setInputValue(e.target.value)}></input>
+            <input onKeyDown={keyDown} className={styles.passwordForgottenInput} placeholder='Podaj swój adres email' value={inputValue} onChange={e=>setInputValue(e.target.value)}></input>
             <div className={styles.passwordForgottenError}>{error}</div>
             <button className={styles.resetPassword} onClick={validateData}>Resetuj hasło</button>
         </div>)

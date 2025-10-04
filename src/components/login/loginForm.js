@@ -30,7 +30,11 @@ function LoginForm(props)
     {
         try
         {
+            const timeout = setTimeout(() => {
+                message.setContent('Logowanie może zająć wiecej czasu ze względu na rozruch serwera','info')
+            }, 5000);
             const response = await axios.post(`${ApiAddress}/login`,{email:emailValue,password:passwordValue})
+            clearTimeout(timeout)
             sessionStorage.setItem("token",response.data.token)
             sessionStorage.setItem("refreshToken",response.data.refreshToken)
             loggedContext.setLogged(true)
@@ -104,7 +108,11 @@ function LoginForm(props)
     const googleLogin = async(res)=>{
         try
         {
+            const timeout = setTimeout(() => {
+                message.setContent('Logowanie może zająć wiecej czasu ze względu na rozruch serwera','info')
+            }, 5000);
             const response = await axios.post(`${ApiAddress}/google-login`,{token:res.access_token})
+            clearTimeout(timeout)
             sessionStorage.setItem("token",response.data.token)
             sessionStorage.setItem("refreshToken",response.data.refreshToken)
             loggedContext.setLogged(true)

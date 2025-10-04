@@ -30,7 +30,11 @@ function ResetPassword(props)
     {
         try
         {
+            const timeout = setTimeout(()=>{
+                message.setContent('Resetowanie hasła może zająć wiecej czasu ze względu na rozruch serwera','info')
+            },5000)
             const response = await axios.get(`${ApiAddress}/reset-password-token/${params.token}`)
+            clearTimeout(timeout)
             setLoading(false)
         }
         catch(ex)
