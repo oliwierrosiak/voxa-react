@@ -60,7 +60,6 @@ function ChatContent(props)
                     break
                 }
             }
-
             setChat(chat)
             setUser(response.data.user)
             setLoading(false)

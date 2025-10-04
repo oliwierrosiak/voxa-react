@@ -1,8 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import refreshToken from "../helpers/refreshToken"
-import axios from "axios"
-import ApiAddress from "../../ApiAddress"
-import Loading2 from "../../assets/svg/loading2"
 import styles from './chat.module.css'
 import ErrorIcon from "../../assets/svg/error"
 
@@ -10,8 +6,6 @@ let touchStart = 0
 
 function GalleryImg(props)
 {
-    const [loading,setLoading] = useState(true)
-    const [url,setUrl] = useState('')
     const [error,setError] = useState(false)
     const [video,setVideo] = useState(false)
     const [zoom,setZoom] = useState(1)
@@ -27,34 +21,19 @@ function GalleryImg(props)
 
     const imgRef = useRef()
 
-    const getPhoto = async() =>{
-        try
-        {
-            await refreshToken()
-            const response = await axios.get(`${ApiAddress}/get-chat-img/${props.img}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:"blob"})
-            const localUrl = URL.createObjectURL(response.data)
-            setUrl(localUrl)
-            setLoading(false)
-        }
-        catch(ex)
-        {
-            setError(true)
-            setLoading(false)
-        }
-    }
-
     const checkExtension = () =>{
         if(props.img)
         {
-        const extension = props.img.split('.')[1]
-        const extensions = ['mp4','webm','ogg','ogv','avi','mov','mkv','flv','wmv','mpeg','mpg','m4v','3gp','3g2']
-        if(extensions.includes(extension))
-        {
-            setVideo(true)
+            const extensions = ['mp4','webm','ogg','ogv','avi','mov','mkv','flv','wmv','mpeg','mpg','m4v','3gp','3g2']
+            for(const extension of extensions)
+            {
+                if(props.img.includes(extension))
+                {
+                    setVideo(true)
+                    break
+                }
+            }
         }
-        }
-        
-
     }
 
     const zoomImg = (e) =>
@@ -143,24 +122,22 @@ function GalleryImg(props)
     },[zoom])
 
     useEffect(()=>{
-        setLoading(true)
-        setError(false)
-        getPhoto()
+        setError(!props.img)
         setVideo(false)
         checkExtension()
-
-    setZoom(1)
-   setDragging(false)
-   setPositions({
-        x:0,
-        y:0,
-    })
-    setStart({
-        x:0,
-        y:0,
-    })
-
+        setZoom(1)
+        setDragging(false)
+        setPositions({
+            x:0,
+            y:0,
+        })
+        setStart({
+            x:0,
+            y:0,
+        })
     },[props])
+
+
 
     const touchStartFunc = (e) =>
     {
@@ -182,10 +159,11 @@ function GalleryImg(props)
     }
 
     return(
-        loading?<Loading2 class={styles.galleryLoading} />:error?<div className={styles.photoError}>
+        error?<div className={styles.photoError}>
             <ErrorIcon class={styles.errorIcon}/>
             <h2>Błąd pobierania</h2>
-        </div>:video?<video loading="lazy" controls src={url} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} className={styles.galleryVideo}/>:<div className={styles.galleryImgContainer} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} onWheel={zoomImg}><img loading="lazy" src={url} draggable={false} style={{
+        </div>:video?<video loading="lazy" controls src={props.img} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} className={styles.galleryVideo} onError={e=>setError(true)}/>:<div className={styles.galleryImgContainer} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} onWheel={zoomImg}>
+        <img loading="lazy" src={props.img} draggable={false} onError={e=>setError(true)} style={{
           transform: `translate(${positions.x}px, ${positions.y}px) scale(${zoom})`
         }} className={styles.galleryImg} ref={imgRef} onMouseMove={handleMouseMove} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}/></div>
     )

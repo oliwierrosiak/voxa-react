@@ -9,54 +9,35 @@ import PlayIcon from "../../assets/svg/play"
 function GetPhotos(props)
 {
     const imgs = useRef([])
-    const imgsOriginalName = useRef([])
 
     const [imgsState,setImgsState] = useState([])
     const [loading,setLoading] = useState(true)
-    const typeVideo = useRef([])
 
     const getImages = async(img) =>
     {
         try
         {
             await refreshToken()
-            const response = await axios.get(`${ApiAddress}/get-chat-img/${img}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`},responseType:"blob"})
-            const responseInfo = await axios.get(`${ApiAddress}/get-chat-img-info/${img}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
+            const responseInfo = await axios.get(`${ApiAddress}/get-chat-img-info/${img.split('/').at(-1)}`,{headers:{"Authorization":`Bearer ${sessionStorage.getItem('token')}`}})
 
+
+            const localImg = [...imgs.current]
             if(responseInfo?.data?.type === "video")
             {   
-                const localTypeVideo = [...typeVideo.current]
-                localTypeVideo.push(img)
-                typeVideo.current = localTypeVideo
-            }
-
-            if(response.data)
-            {
-                const localImg = [...imgs.current]
-                const localImgsOriginalName = [...imgsOriginalName.current]
-                const url = URL.createObjectURL(response.data)
-                localImg.push({type:response.data.type,url,originalName:img})
-                if(response.data.type.includes("image") || response.data.type.includes("application") || response.data.type.includes('video'))
-                {
-                    localImgsOriginalName.push(img)
-                }
-                imgs.current = [...localImg]
-                imgsOriginalName.current = [...localImgsOriginalName]
-                setLoading(false)
+                localImg.push({url:responseInfo.data.icon,type:"video"})
             }
             else
             {
-                throw new Error()
+                localImg.push({url:img})
             }
+            imgs.current = [...localImg]
         }
         catch(ex)
         {
-            const localImgsOriginalName = [...imgsOriginalName.current]
-            localImgsOriginalName.push("error")
             const localImg = [...imgs.current]
-            localImg.push("error")
+            localImg.push('error')
             imgs.current = [...localImg]
-            imgsOriginalName.current = [...localImgsOriginalName]
+            setLoading(false)
         }
 
         if(imgs.current.length === props.imgs.length)
@@ -74,7 +55,7 @@ function GetPhotos(props)
     }
 
     const getImgFor = async() =>{
-         for(let i = 0;i<props.imgs.length;i++)
+        for(let i = 0;i<props.imgs.length;i++)
         {
             await getImages(props.imgs[i])
         }
@@ -83,6 +64,15 @@ function GetPhotos(props)
     useEffect(()=>{
        getImgFor()
     },[])
+
+    const setImgError = (img) =>
+    {
+        const imgs = [...imgsState]
+        const imgMapped = imgs.map(x=>{
+            return x===img?'error':x
+        })
+        setImgsState([...imgMapped])
+    }
 
     return(
         loading?<div className={styles.photoLoadingContainer}>
@@ -95,13 +85,12 @@ function GetPhotos(props)
             }
             else
             {
-                return !typeVideo.current.includes(x.originalName)?<img key={Math.floor(Math.random()*1000)} className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>:
+                return x?.type !== "video"?<img key={Math.floor(Math.random()*1000)} className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(x)} onError={e=>setImgError(x)}/>:
                 <div className={styles.videoOverlay} key={Math.floor(Math.random()*10000)}>
-                    <img className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}/>
-                    <div className={styles.videoPlay} onClick={e=>props.galleryHandler(imgsOriginalName.current[idx])}><PlayIcon class={styles.videoPlaySVG}/></div>
+                    <img className={styles.chatImg} src={x.url} onClick={e=>props.galleryHandler(x)} onError={e=>setImgError(x)}/>
+                    <div className={styles.videoPlay} onClick={e=>props.galleryHandler(x)}><PlayIcon class={styles.videoPlaySVG}/></div>
                 </div>
             }
-            
         })
         )
     )

@@ -36,26 +36,23 @@ function Gallery(props)
     useEffect(()=>{
         if(imgs[0])
         {
-            if(!imgs.includes(props.clickedPhoto))
+            if(!imgs.includes(props.clickedPhoto.url))
             {
-                const searchingValue = props.clickedPhoto.split('.')[0]
-                const video = imgs.find((x)=>{
-                    const rawValue = x.split('.')[0]
-                    if(searchingValue === rawValue)
-                    {
-                        return x
-                    }
-                    else
-                    {
-                        return null
-                    }
-                })
-                setDisplayPhoto(video)
+                const name = props.clickedPhoto.url.split('/').at(-1)
+                const video = imgs.find(x=>x.includes(name.split('.')[0]))
+                if(video)
+                {
+                    setDisplayPhoto(video)
+                }
+                else
+                {
+                    setDisplayPhoto('')
+                }
                 setLoading(false)
             }
             else
             {
-                setDisplayPhoto(props.clickedPhoto)
+                setDisplayPhoto(props.clickedPhoto.url)
                 setLoading(false)
             }
         }
