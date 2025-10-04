@@ -95,7 +95,17 @@ function App() {
         setShowLoginState('')
   }
 
+  const wakeUpServer = () =>
+  {
+    try
+    {
+      axios.get(`${ApiAddress}/server-start`)
+    }
+    catch(ex){}
+  }
+
   useEffect(()=>{
+    wakeUpServer()
     checkLogin()
   },[])
 
