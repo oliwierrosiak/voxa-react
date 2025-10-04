@@ -182,7 +182,7 @@ function ChatContent(props)
     const touchEndFunc = (e) =>
     {
         touchEnd = e.changedTouches[0].clientX
-        if(touchStart - touchEnd < -(window.innerWidth * 0.3) && window.innerWidth <= 425)
+        if(touchStart - touchEnd < -(window.innerWidth * 0.3) && window.innerWidth <= 425 && e.target.id !== "gallery")
         {
             props.setDisplayAside(true)
         }

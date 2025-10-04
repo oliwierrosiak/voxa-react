@@ -93,7 +93,7 @@ function Gallery(props)
     },[])
 
     return(
-        <div className={styles.gallery} onClick={galleryClicked}>
+        <div className={styles.gallery} onClick={galleryClicked} id='gallery'>
             <div className={`${styles.leftArrowContainer} ${displayPhoto === imgs[0]?styles.arrowDisabled:''}`} onClick={e=>changePhoto('left')}>
                 <GalleryArrowIcon class={styles.leftArrow}/>
             </div>

@@ -816,7 +816,7 @@
 .voiceMessageError
 {
     font-size: .8rem;
-    color: red;
+    color: white;
     font-weight: 700;
 }
 .audio
@@ -1545,7 +1545,7 @@
     .voiceMessageError
     {
         width: 50vw;
-        font-size: 1.3rem;
+        font-size: 1.8rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1590,8 +1590,8 @@
     .imageError
     {
         width: max-content;
-        font-size: 2rem;
-        padding: 1rem .5rem;
+        font-size: 1.8rem;
+        padding: 0.2rem .5rem;
     }
     .photoLoadingContainer
     {

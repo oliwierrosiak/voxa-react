@@ -148,22 +148,22 @@ function GalleryImg(props)
     {
         let endX = e.changedTouches[0].clientX;
         let deltaX = endX - touchStart;
-        if(deltaX > 150)
+        if(deltaX > 120)
         {
             props.changePhoto("left")
         }
-        else if(deltaX < -150)
+        else if(deltaX < -120)
         {
             props.changePhoto("right")
         }
     }
 
     return(
-        error?<div className={styles.photoError}>
+        error?<div className={styles.photoError} id="gallery" onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc}>
             <ErrorIcon class={styles.errorIcon}/>
-            <h2>Błąd pobierania</h2>
-        </div>:video?<video loading="lazy" controls src={props.img} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} className={styles.galleryVideo} onError={e=>setError(true)}/>:<div className={styles.galleryImgContainer} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} onWheel={zoomImg}>
-        <img loading="lazy" src={props.img} draggable={false} onError={e=>setError(true)} style={{
+            <h2 id="gallery">Błąd pobierania</h2>
+        </div>:video?<video id="gallery" loading="lazy" controls src={props.img} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} className={styles.galleryVideo} onError={e=>setError(true)}/>:<div className={styles.galleryImgContainer} onTouchStart={touchStartFunc} onTouchEnd={touchEndFunc} onWheel={zoomImg}>
+        <img id="gallery" loading="lazy" src={props.img} draggable={false} onError={e=>setError(true)} style={{
           transform: `translate(${positions.x}px, ${positions.y}px) scale(${zoom})`
         }} className={styles.galleryImg} ref={imgRef} onMouseMove={handleMouseMove} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}/></div>
     )
